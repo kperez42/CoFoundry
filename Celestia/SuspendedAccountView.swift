@@ -1,6 +1,6 @@
 //
 //  SuspendedAccountView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Shows suspension feedback to users whose accounts have been suspended
 //

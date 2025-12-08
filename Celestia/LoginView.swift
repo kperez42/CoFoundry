@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Login view (wrapper for SignInView)
 //

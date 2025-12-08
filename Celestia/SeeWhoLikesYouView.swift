@@ -1,6 +1,6 @@
 //
 //  SeeWhoLikesYouView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Premium feature: See who has liked you
 //

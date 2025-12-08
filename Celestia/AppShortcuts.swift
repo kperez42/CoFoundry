@@ -1,6 +1,6 @@
 //
 //  AppShortcuts.swift
-//  Celestia
+//  CoFoundry
 //
 //  App Shortcuts and Siri integration for quick actions
 //  Requires iOS 16+ for App Intents framework
@@ -12,27 +12,27 @@ import AppIntents
 // MARK: - App Shortcuts Provider
 
 @available(iOS 16.0, *)
-struct CelestiaAppShortcuts: AppShortcutsProvider {
+struct CoFoundryAppShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
             intent: ViewMatchesIntent(),
             phrases: [
-                "View my \(.applicationName) matches",
-                "Show my matches in \(.applicationName)",
-                "Check matches on \(.applicationName)"
+                "View my \(.applicationName) connections",
+                "Show my connections in \(.applicationName)",
+                "Check connections on \(.applicationName)"
             ],
-            shortTitle: "View Matches",
-            systemImageName: "heart.circle.fill"
+            shortTitle: "View Connections",
+            systemImageName: "person.2.circle.fill"
         )
 
         AppShortcut(
             intent: StartSwipingIntent(),
             phrases: [
-                "Start swiping on \(.applicationName)",
-                "Discover people on \(.applicationName)",
-                "Show me profiles on \(.applicationName)"
+                "Start browsing on \(.applicationName)",
+                "Discover founders on \(.applicationName)",
+                "Show me founders on \(.applicationName)"
             ],
-            shortTitle: "Start Swiping",
+            shortTitle: "Browse Founders",
             systemImageName: "person.2.circle.fill"
         )
 
@@ -61,11 +61,11 @@ struct CelestiaAppShortcuts: AppShortcutsProvider {
         AppShortcut(
             intent: ShareDateDetailsIntent(),
             phrases: [
-                "Share my date on \(.applicationName)",
-                "Share date details in \(.applicationName)",
-                "Tell someone about my date on \(.applicationName)"
+                "Share my meeting on \(.applicationName)",
+                "Share meeting details in \(.applicationName)",
+                "Tell someone about my meeting on \(.applicationName)"
             ],
-            shortTitle: "Share Date",
+            shortTitle: "Share Meeting",
             systemImageName: "location.circle.fill"
         )
 
@@ -85,7 +85,7 @@ struct CelestiaAppShortcuts: AppShortcutsProvider {
             phrases: [
                 "Check in on \(.applicationName)",
                 "I'm safe on \(.applicationName)",
-                "Mark date as safe in \(.applicationName)"
+                "Mark meeting as safe in \(.applicationName)"
             ],
             shortTitle: "Safety Check-In",
             systemImageName: "checkmark.shield.fill"
@@ -97,8 +97,8 @@ struct CelestiaAppShortcuts: AppShortcutsProvider {
 
 @available(iOS 16.0, *)
 struct ViewMatchesIntent: AppIntent {
-    static var title: LocalizedStringResource = "View Matches"
-    static var description = IntentDescription("View your current matches in Celestia")
+    static var title: LocalizedStringResource = "View Connections"
+    static var description = IntentDescription("View your current co-founder connections in CoFoundry")
     static var openAppWhenRun: Bool = true
 
     @MainActor
@@ -118,8 +118,8 @@ struct ViewMatchesIntent: AppIntent {
 
 @available(iOS 16.0, *)
 struct StartSwipingIntent: AppIntent {
-    static var title: LocalizedStringResource = "Start Swiping"
-    static var description = IntentDescription("Start discovering new people on Celestia")
+    static var title: LocalizedStringResource = "Browse Founders"
+    static var description = IntentDescription("Start discovering potential co-founders on CoFoundry")
     static var openAppWhenRun: Bool = true
 
     @MainActor
@@ -138,7 +138,7 @@ struct StartSwipingIntent: AppIntent {
 @available(iOS 16.0, *)
 struct CheckMessagesIntent: AppIntent {
     static var title: LocalizedStringResource = "Check Messages"
-    static var description = IntentDescription("Check your messages on Celestia")
+    static var description = IntentDescription("Check your messages on CoFoundry")
     static var openAppWhenRun: Bool = true
 
     @MainActor
@@ -180,8 +180,8 @@ struct ViewPremiumIntent: AppIntent {
 
 @available(iOS 16.0, *)
 struct ShareDateDetailsIntent: AppIntent {
-    static var title: LocalizedStringResource = "Share Date Details"
-    static var description = IntentDescription("Share your date location and time with emergency contacts")
+    static var title: LocalizedStringResource = "Share Meeting Details"
+    static var description = IntentDescription("Share your meeting location and time with emergency contacts")
     static var openAppWhenRun: Bool = true
 
     @Parameter(title: "Match Name")
@@ -215,9 +215,9 @@ struct ShareDateDetailsIntent: AppIntent {
                 dialog: IntentDialog("Date details shared with your emergency contacts")
             )
         } else {
-            // Open app to share date screen
+            // Open app to share meeting screen
             return .result(
-                dialog: IntentDialog("Opening Celestia to share your date details")
+                dialog: IntentDialog("Opening CoFoundry to share your meeting details")
             )
         }
     }
@@ -262,7 +262,7 @@ struct AddEmergencyContactIntent: AppIntent {
             )
         } else {
             return .result(
-                dialog: IntentDialog("Opening Celestia to add emergency contact")
+                dialog: IntentDialog("Opening CoFoundry to add emergency contact")
             )
         }
     }
@@ -273,7 +273,7 @@ struct AddEmergencyContactIntent: AppIntent {
 @available(iOS 16.0, *)
 struct CheckInIntent: AppIntent {
     static var title: LocalizedStringResource = "Safety Check-In"
-    static var description = IntentDescription("Check in to confirm you're safe during a date")
+    static var description = IntentDescription("Check in to confirm you're safe during a meeting")
 
     @Parameter(title: "Status Message")
     var statusMessage: String?

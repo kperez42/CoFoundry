@@ -1,6 +1,6 @@
 //
 //  ShareDateView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Share date details with trusted contacts for safety
 //
@@ -528,7 +528,7 @@ class ShareDateViewModel: ObservableObject {
         // For development/testing, notification is logged and saved to database
 
         let message = """
-        Safety Alert from Celestia:
+        Safety Alert from CoFoundry:
         \(AuthService.shared.currentUser?.fullName ?? "A user") has shared their date details with you.
 
         Date: \(dateFormatter.string(from: dateTime))

@@ -1,6 +1,6 @@
 //
 //  ProfileCompletionView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Profile completion progress indicator
 //  Extracted from EditProfileView.swift

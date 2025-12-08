@@ -1,8 +1,8 @@
 //
-//  SafeDatingTipsView.swift
-//  Celestia
+//  NetworkingSafetyTipsView.swift
+//  CoFoundry
 //
-//  Safety tips and resources for dating
+//  Safety tips and resources for professional co-founder networking
 //
 
 import SwiftUI
@@ -25,7 +25,7 @@ struct SafeDatingTipsView: View {
                 .padding()
             }
         }
-        .navigationTitle("Safe Dating Tips")
+        .navigationTitle("Networking Safety")
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -158,7 +158,7 @@ struct SafetyTipCard: View {
 
 enum TipCategory: CaseIterable {
     case beforeMeeting
-    case firstDate
+    case firstMeeting
     case ongoingSafety
     case redFlags
     case resources
@@ -166,7 +166,7 @@ enum TipCategory: CaseIterable {
     var title: String {
         switch self {
         case .beforeMeeting: return "Before"
-        case .firstDate: return "First Date"
+        case .firstMeeting: return "First Meeting"
         case .ongoingSafety: return "Ongoing"
         case .redFlags: return "Red Flags"
         case .resources: return "Resources"
@@ -176,7 +176,7 @@ enum TipCategory: CaseIterable {
     var icon: String {
         switch self {
         case .beforeMeeting: return "calendar.badge.clock"
-        case .firstDate: return "hand.wave.fill"
+        case .firstMeeting: return "hand.wave.fill"
         case .ongoingSafety: return "shield.checkered"
         case .redFlags: return "exclamationmark.triangle.fill"
         case .resources: return "link"
@@ -211,106 +211,95 @@ struct SafetyTip: Identifiable {
         case .beforeMeeting:
             return [
                 SafetyTip(
-                    icon: "bubble.left.and.bubble.right.fill",
-                    title: "Get to Know Them First",
-                    description: "Message for at least a few days before meeting. Ask questions to verify they're genuine.",
-                    priority: .important,
+                    icon: "magnifyingglass",
+                    title: "Research Their Background",
+                    description: "Verify their professional background before meeting. Check LinkedIn, previous companies, and any public information.",
+                    priority: .critical,
                     actionItems: [
-                        "Have several conversations",
-                        "Video chat before meeting",
-                        "Verify their social media profiles"
+                        "Review their LinkedIn profile thoroughly",
+                        "Verify their work history and claims",
+                        "Search for any news articles or press mentions"
                     ]
                 ),
                 SafetyTip(
                     icon: "video.fill",
-                    title: "Video Chat First",
-                    description: "A video call helps verify they are who they say they are and builds comfort before meeting.",
+                    title: "Video Call First",
+                    description: "Always have at least one video call before meeting in person. This helps verify identity and assess chemistry.",
                     priority: .important,
                     actionItems: [
-                        "Suggest a quick video call",
-                        "Check they match their photos",
-                        "Gauge your comfort level"
+                        "Schedule a 30-minute intro call",
+                        "Discuss your goals and expectations",
+                        "Assess communication style"
                     ]
                 ),
                 SafetyTip(
                     icon: "person.2.fill",
-                    title: "Share Your Plans",
-                    description: "Always tell a friend or family member where you're going and who you're meeting.",
-                    priority: .critical,
+                    title: "Tell Someone Your Plans",
+                    description: "Let a friend, family member, or colleague know about your meeting plans.",
+                    priority: .important,
                     actionItems: [
-                        "Share date location and time",
-                        "Send match's profile info",
-                        "Set up check-in times"
+                        "Share meeting location and time",
+                        "Send the person's profile info",
+                        "Set up a check-in time"
                     ]
                 ),
                 SafetyTip(
-                    icon: "magnifyingglass",
-                    title: "Do Your Research",
-                    description: "Look them up online. A quick search can reveal important information.",
+                    icon: "doc.text.magnifyingglass",
+                    title: "Verify References",
+                    description: "Ask for and check professional references before committing to any partnership.",
                     priority: .helpful,
                     actionItems: [
-                        "Google their name",
-                        "Check social media profiles",
-                        "Verify their work/education"
+                        "Request 2-3 professional references",
+                        "Speak with former colleagues or partners",
+                        "Ask about their work style and reliability"
                     ]
                 )
             ]
 
-        case .firstDate:
+        case .firstMeeting:
             return [
                 SafetyTip(
                     icon: "building.2.fill",
                     title: "Meet in Public",
-                    description: "Always choose a busy, public place for first dates. Never go to their home or invite them to yours.",
+                    description: "For first meetings, choose a professional public space like a coffee shop, coworking space, or restaurant.",
                     priority: .critical,
                     actionItems: [
-                        "Choose a busy cafe or restaurant",
-                        "Avoid secluded areas",
-                        "Stay in well-lit places"
+                        "Choose a busy coffee shop or coworking space",
+                        "Avoid private offices or homes",
+                        "Meet during business hours"
                     ]
                 ),
                 SafetyTip(
                     icon: "car.fill",
                     title: "Arrange Your Own Transportation",
-                    description: "Drive yourself or use a rideshare. Never let them pick you up or know your address yet.",
-                    priority: .critical,
-                    actionItems: [
-                        "Drive yourself",
-                        "Use Uber/Lyft",
-                        "Have an exit strategy"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "creditcard.fill",
-                    title: "Keep Your Own Tab",
-                    description: "Be prepared to pay for yourself. This maintains independence and avoids obligation.",
+                    description: "Drive yourself or use rideshare. Don't share rides until you know them better.",
                     priority: .important,
                     actionItems: [
-                        "Bring your own money",
-                        "Offer to split the bill",
-                        "Never feel obligated"
+                        "Drive yourself or use Uber/Lyft",
+                        "Keep your home address private initially",
+                        "Have a backup plan to leave"
                     ]
                 ),
                 SafetyTip(
-                    icon: "iphone",
-                    title: "Keep Your Phone Charged",
-                    description: "Ensure your phone is fully charged and you have a way to call for help if needed.",
-                    priority: .important,
+                    icon: "clock.fill",
+                    title: "Keep Initial Meetings Short",
+                    description: "First meetings should be 30-60 minutes. This keeps things professional and gives you an out if needed.",
+                    priority: .helpful,
                     actionItems: [
-                        "Charge phone before leaving",
-                        "Bring a portable charger",
-                        "Keep emergency numbers handy"
+                        "Schedule a hard stop after 1 hour",
+                        "Have a follow-up meeting if it goes well",
+                        "Don't feel pressured to extend"
                     ]
                 ),
                 SafetyTip(
-                    icon: "wineglass.fill",
-                    title: "Watch Your Drink",
-                    description: "Never leave your drink unattended. If you do, order a new one.",
+                    icon: "doc.badge.ellipsis",
+                    title: "Don't Sign Anything Immediately",
+                    description: "Never sign legal documents, agreements, or contracts at a first meeting. Take time to review.",
                     priority: .critical,
                     actionItems: [
-                        "Order drinks yourself",
-                        "Keep drink in sight",
-                        "Watch bartender make it"
+                        "Request copies to review later",
+                        "Have a lawyer review any agreements",
+                        "Don't let anyone pressure you"
                     ]
                 )
             ]
@@ -318,47 +307,47 @@ struct SafetyTip: Identifiable {
         case .ongoingSafety:
             return [
                 SafetyTip(
-                    icon: "ear",
-                    title: "Trust Your Instincts",
-                    description: "If something feels off, it probably is. You can leave at any time.",
+                    icon: "lock.shield.fill",
+                    title: "Protect Sensitive Information",
+                    description: "Don't share proprietary ideas, trade secrets, or sensitive data until proper agreements are in place.",
                     priority: .critical,
                     actionItems: [
-                        "Listen to your gut",
+                        "Use NDAs before sharing confidential info",
+                        "Be vague about specifics initially",
+                        "Protect your intellectual property"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "dollarsign.circle.fill",
+                    title: "Never Send Money Upfront",
+                    description: "Legitimate co-founders don't ask for money to \"prove commitment\" or \"cover expenses.\"",
+                    priority: .critical,
+                    actionItems: [
+                        "Don't wire money to people you just met",
+                        "Be wary of \"investment opportunities\"",
+                        "All financial arrangements should be properly documented"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "doc.text.fill",
+                    title: "Get Everything in Writing",
+                    description: "Verbal agreements mean nothing. Document roles, equity splits, and expectations in writing.",
+                    priority: .important,
+                    actionItems: [
+                        "Use a founder agreement template",
+                        "Specify vesting schedules",
+                        "Define roles and responsibilities clearly"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "ear",
+                    title: "Trust Your Instincts",
+                    description: "If something feels off about a potential co-founder, it probably is. Trust your gut.",
+                    priority: .important,
+                    actionItems: [
+                        "Listen to your intuition",
                         "Don't ignore red flags",
-                        "Leave if uncomfortable"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "lock.shield.fill",
-                    title: "Protect Personal Information",
-                    description: "Don't share your address, workplace details, or financial information too quickly.",
-                    priority: .important,
-                    actionItems: [
-                        "Wait before sharing address",
-                        "Be vague about work location",
-                        "Never share financial details"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "clock.fill",
-                    title: "Take It Slow",
-                    description: "There's no rush. Take time to build trust before increasing intimacy or sharing more.",
-                    priority: .helpful,
-                    actionItems: [
-                        "Set your own pace",
-                        "Don't feel pressured",
-                        "Build trust gradually"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "checkmark.shield.fill",
-                    title: "Verify Their Identity",
-                    description: "Make sure they are who they claim to be through various verification methods.",
-                    priority: .important,
-                    actionItems: [
-                        "Check verified badge",
-                        "Video call before meeting",
-                        "Verify social profiles"
+                        "It's okay to walk away"
                     ]
                 )
             ]
@@ -367,57 +356,57 @@ struct SafetyTip: Identifiable {
             return [
                 SafetyTip(
                     icon: "exclamationmark.triangle.fill",
-                    title: "Pressure or Aggression",
-                    description: "Anyone who pressures you, gets angry when you set boundaries, or seems aggressive is a major red flag.",
+                    title: "Unrealistic Promises",
+                    description: "Be wary of anyone promising guaranteed success, massive returns, or \"can't fail\" opportunities.",
                     priority: .critical,
                     actionItems: [
-                        "End contact immediately",
-                        "Block and report them",
-                        "Tell someone you trust"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "eye.slash.fill",
-                    title: "Inconsistent Stories",
-                    description: "Pay attention if their stories don't add up or they contradict themselves frequently.",
-                    priority: .important,
-                    actionItems: [
-                        "Note inconsistencies",
-                        "Ask clarifying questions",
-                        "Trust your judgment"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "dollarsign.circle.fill",
-                    title: "Asks for Money",
-                    description: "Never send money to someone you haven't met, regardless of their story. This is almost always a scam.",
-                    priority: .critical,
-                    actionItems: [
-                        "Never send money",
-                        "Report immediately",
-                        "Block the user"
+                        "If it sounds too good to be true, it is",
+                        "Ask for specifics and evidence",
+                        "Be skeptical of hype"
                     ]
                 ),
                 SafetyTip(
                     icon: "hourglass",
-                    title: "Rushes Intimacy",
-                    description: "Be wary of anyone who rushes physical or emotional intimacy or tries to isolate you from friends.",
-                    priority: .important,
+                    title: "Pressure to Commit Quickly",
+                    description: "Good partners give you time to think. Anyone rushing you to decide is a red flag.",
+                    priority: .critical,
                     actionItems: [
-                        "Maintain your pace",
-                        "Keep friends involved",
-                        "Set clear boundaries"
+                        "Take your time on big decisions",
+                        "\"Act now or lose this opportunity\" is manipulative",
+                        "Trust takes time to build"
                     ]
                 ),
                 SafetyTip(
-                    icon: "photo.on.rectangle.angled",
-                    title: "Refuses to Video Chat",
-                    description: "If they consistently avoid video calls or meeting in person, they may be hiding something.",
+                    icon: "eye.slash.fill",
+                    title: "Vague or Inconsistent Background",
+                    description: "If their story doesn't add up or they're evasive about their past, proceed with caution.",
                     priority: .important,
                     actionItems: [
-                        "Insist on video chat",
-                        "Be suspicious of excuses",
-                        "Consider ending contact"
+                        "Note inconsistencies in their story",
+                        "Verify claims independently",
+                        "Ask direct questions"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "person.fill.xmark",
+                    title: "Bad References or No References",
+                    description: "If they can't provide references or their references give lukewarm feedback, be cautious.",
+                    priority: .important,
+                    actionItems: [
+                        "Always check references",
+                        "Ask probing questions",
+                        "Trust what references don't say too"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "hand.raised.fill",
+                    title: "Won't Put Agreements in Writing",
+                    description: "If someone refuses to document agreements properly, they're not serious about partnership.",
+                    priority: .critical,
+                    actionItems: [
+                        "Insist on written agreements",
+                        "Use standard legal documents",
+                        "Walk away if they refuse"
                     ]
                 )
             ]
@@ -425,58 +414,47 @@ struct SafetyTip: Identifiable {
         case .resources:
             return [
                 SafetyTip(
+                    icon: "doc.text.fill",
+                    title: "Legal Resources",
+                    description: "Use established legal templates and consult with a startup lawyer before signing agreements.",
+                    priority: .important,
+                    actionItems: [
+                        "Y Combinator SAFE agreements",
+                        "Clerky for legal documents",
+                        "Local startup lawyers"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "building.columns.fill",
+                    title: "Background Check Services",
+                    description: "Consider using professional background check services for potential co-founders.",
+                    priority: .helpful,
+                    actionItems: [
+                        "Checkr for background checks",
+                        "LinkedIn for professional verification",
+                        "AngelList for startup reputation"
+                    ]
+                ),
+                SafetyTip(
+                    icon: "person.3.fill",
+                    title: "Startup Communities",
+                    description: "Get involved in startup communities where you can get peer feedback on potential partners.",
+                    priority: .helpful,
+                    actionItems: [
+                        "Local startup meetups",
+                        "Y Combinator Startup School",
+                        "Founder Slack communities"
+                    ]
+                ),
+                SafetyTip(
                     icon: "phone.fill",
-                    title: "Emergency Services",
-                    description: "In immediate danger, always call 911 (or your local emergency number).",
+                    title: "Report Fraud",
+                    description: "If you encounter a scam or fraud, report it to protect other founders.",
                     priority: .critical,
                     actionItems: [
-                        "911 for emergencies",
-                        "Know local police non-emergency",
-                        "Save these in your phone"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "heart.text.square.fill",
-                    title: "RAINN Hotline",
-                    description: "National Sexual Assault Hotline: 1-800-656-HOPE (4673). Free, confidential 24/7 support.",
-                    priority: .important,
-                    actionItems: [
-                        "Call 1-800-656-4673",
-                        "Online chat available",
-                        "Completely confidential"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "house.fill",
-                    title: "Domestic Violence Hotline",
-                    description: "National Domestic Violence Hotline: 1-800-799-SAFE (7233). Help for abusive relationships.",
-                    priority: .important,
-                    actionItems: [
-                        "Call 1-800-799-7233",
-                        "Text START to 88788",
-                        "24/7 support available"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "bubble.left.and.bubble.right.fill",
-                    title: "Crisis Text Line",
-                    description: "Text HOME to 741741 for free, 24/7 crisis support via text message.",
-                    priority: .helpful,
-                    actionItems: [
-                        "Text HOME to 741741",
-                        "Available 24/7",
-                        "All issues welcome"
-                    ]
-                ),
-                SafetyTip(
-                    icon: "network",
-                    title: "Online Resources",
-                    description: "Visit these websites for more information on staying safe while dating online.",
-                    priority: .helpful,
-                    actionItems: [
-                        "love is respect.org",
-                        "cybercivilrights.org",
-                        "ncvc.org (National Center for Victims of Crime)"
+                        "FTC at reportfraud.ftc.gov",
+                        "Your local attorney general",
+                        "Report to CoFoundry support"
                     ]
                 )
             ]

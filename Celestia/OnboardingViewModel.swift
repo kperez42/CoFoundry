@@ -1,6 +1,6 @@
 //
 //  OnboardingViewModel.swift
-//  Celestia
+//  CoFoundry
 //
 //  Centralized onboarding state management with progressive disclosure
 //  Handles tutorial flow, profile quality, incentives, and A/B testing

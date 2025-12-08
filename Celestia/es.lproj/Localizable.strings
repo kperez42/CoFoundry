@@ -1,5 +1,5 @@
 /*
- * Celestia Localization - Spanish
+ * CoFoundry Localization - Spanish
  * Language: Español (es)
  */
 
@@ -122,7 +122,7 @@
 
 // MARK: - Onboarding
 
-"onboarding.welcome" = "Bienvenido a Celestia";
+"onboarding.welcome" = "Bienvenido a CoFoundry";
 "onboarding.find_your_match" = "Encuentra tu pareja perfecta";
 "onboarding.get_started" = "Comenzar";
 

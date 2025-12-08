@@ -1,6 +1,6 @@
 //
 //  SignUpView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Multi-step sign up flow
 //
@@ -581,7 +581,7 @@ struct SignUpView: View {
                             HStack(spacing: 6) {
                                 Image(systemName: "exclamationmark.circle.fill")
                                     .foregroundColor(.red)
-                                Text("You must be 18 or older to use Celestia")
+                                Text("You must be 18 or older to use CoFoundry")
                                     .font(.caption)
                                     .foregroundColor(.red)
                             }
@@ -668,7 +668,7 @@ struct SignUpView: View {
                 }
 
                 HStack {
-                    TextField("CEL-XXXXXXXX", text: $referralCode)
+                    TextField("CFY-XXXXXXXX", text: $referralCode)
                         .textInputAutocapitalization(.characters)
                         .onChange(of: referralCode) { oldValue, newValue in
                             validateReferralCode(newValue)

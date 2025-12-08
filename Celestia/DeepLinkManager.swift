@@ -1,6 +1,6 @@
 //
 //  DeepLinkManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages deep linking for referral codes
 //

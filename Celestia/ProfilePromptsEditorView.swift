@@ -1,6 +1,6 @@
 //
 //  ProfilePromptsEditorView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Editor for selecting and answering profile prompts
 //

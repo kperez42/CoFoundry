@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Created by Kevin Perez on 10/29/25.
 //
@@ -21,7 +21,7 @@ struct SettingsView: View {
     @State private var isDeleting = false
 
     // CODE QUALITY FIX: Define URL constants to avoid force unwrapping
-    private static let supportEmailURL = URL(string: "mailto:support@celestia.app")!
+    private static let supportEmailURL = URL(string: "mailto:support@cofoundry.app")!
 
     // Legal document states
     @State private var showPrivacyPolicy = false
@@ -399,7 +399,7 @@ struct SettingsView: View {
                         isDeleting = true
                         do {
                             try await authService.deleteAccount()
-                        } catch let error as CelestiaError {
+                        } catch let error as CoFoundryError {
                             isDeleting = false
                             switch error {
                             case .requiresRecentLogin:
@@ -483,7 +483,7 @@ struct SettingsView: View {
         // Fallback to email whitelist for bootstrapping new admin accounts
         // Once isAdmin is set in Firestore, this is just a secondary check
         guard let email = authService.currentUser?.email else { return false }
-        let adminEmails = ["perezkevin640@gmail.com", "admin@celestia.app"]
+        let adminEmails = ["perezkevin640@gmail.com", "admin@cofoundry.app"]
         return adminEmails.contains(email.lowercased())
     }
 

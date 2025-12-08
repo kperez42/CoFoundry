@@ -1,6 +1,6 @@
 //
 //  FirebaseManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Dating app for international connections
 //

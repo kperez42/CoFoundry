@@ -1,6 +1,6 @@
 //
 //  ProfileBoostButton.swift
-//  Celestia
+//  CoFoundry
 //
 //  UI component for activating profile boost
 //

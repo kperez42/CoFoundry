@@ -1,6 +1,6 @@
 //
 //  MatchService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for match-related operations
 //

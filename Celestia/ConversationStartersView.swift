@@ -1,6 +1,6 @@
 //
 //  ConversationStartersView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Beautiful UI for conversation starter suggestions
 //

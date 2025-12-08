@@ -1,6 +1,6 @@
 //
 //  FilterPresetManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages saved filter presets and search history
 //

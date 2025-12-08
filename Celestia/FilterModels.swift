@@ -1,8 +1,8 @@
 //
 //  FilterModels.swift
-//  Celestia
+//  CoFoundry
 //
-//  Data models for advanced search and filtering
+//  Data models for advanced search and filtering for co-founder matching
 //
 
 import Foundation
@@ -29,18 +29,23 @@ struct SearchFilter: Codable, Equatable {
     var religions: [Religion] = []
     var languages: [Language] = []
 
-    // MARK: - Lifestyle
-    var smoking: LifestyleFilter = .any
-    var drinking: LifestyleFilter = .any
-    var pets: PetPreference = .any
-    var hasChildren: LifestyleFilter = .any
-    var wantsChildren: LifestyleFilter = .any
-    var exercise: ExerciseFrequency = .any
-    var diet: DietPreference = .any
+    // MARK: - Professional Background
+    var yearsExperienceMin: Int? // Minimum years of experience
+    var yearsExperienceMax: Int? // Maximum years of experience
+    var previousStartupsMin: Int? // Minimum previous startup experience
 
-    // MARK: - Relationship
-    var relationshipGoals: [RelationshipGoal] = []
-    var lookingFor: [LookingFor] = []
+    // MARK: - Co-Founder Matching
+    var startupGoals: [StartupGoal] = []
+    var skillsOffered: [SkillSet] = []
+    var skillsSeeking: [SkillSet] = []
+    var industries: [Industry] = []
+    var startupStages: [StartupStage] = []
+    var commitmentLevels: [Commitment] = []
+    var equityExpectations: [EquityExpectation] = []
+
+    // MARK: - Location Preferences
+    var locationPreference: LocationPreference = .any
+    var hasRemoteExperience: LifestyleFilter = .any
 
     // MARK: - Preferences
     var verifiedOnly: Bool = false
@@ -48,10 +53,9 @@ struct SearchFilter: Codable, Equatable {
     var activeInLastDays: Int? // nil = any, or 1, 7, 30
     var newUsers: Bool = false // Joined in last 30 days
 
-    // MARK: - Advanced
-    var zodiacSigns: [ZodiacSign] = []
-    var politicalViews: [PoliticalView] = []
-    var occupations: [String] = []
+    // MARK: - Funding & Investment
+    var fundingExperience: [FundingExperience] = []
+    var currentlyFunded: LifestyleFilter = .any
 
     // MARK: - Metadata
     var id: String = UUID().uuidString
@@ -65,14 +69,14 @@ struct SearchFilter: Codable, Equatable {
         return distanceRadius == 50 &&
                ageRange.min == 18 &&
                ageRange.max == 99 &&
-               heightRange == nil &&
                educationLevels.isEmpty &&
-               ethnicities.isEmpty &&
-               religions.isEmpty &&
-               smoking == .any &&
-               drinking == .any &&
-               pets == .any &&
-               relationshipGoals.isEmpty &&
+               startupGoals.isEmpty &&
+               skillsOffered.isEmpty &&
+               skillsSeeking.isEmpty &&
+               industries.isEmpty &&
+               startupStages.isEmpty &&
+               commitmentLevels.isEmpty &&
+               locationPreference == .any &&
                !verifiedOnly
     }
 
@@ -82,16 +86,18 @@ struct SearchFilter: Codable, Equatable {
 
         if distanceRadius != 50 { count += 1 }
         if ageRange.min != 18 || ageRange.max != 99 { count += 1 }
-        if heightRange != nil { count += 1 }
         if !educationLevels.isEmpty { count += 1 }
-        if !ethnicities.isEmpty { count += 1 }
-        if !religions.isEmpty { count += 1 }
-        if smoking != .any { count += 1 }
-        if drinking != .any { count += 1 }
-        if pets != .any { count += 1 }
-        if hasChildren != .any { count += 1 }
-        if wantsChildren != .any { count += 1 }
-        if !relationshipGoals.isEmpty { count += 1 }
+        if yearsExperienceMin != nil || yearsExperienceMax != nil { count += 1 }
+        if previousStartupsMin != nil { count += 1 }
+        if !startupGoals.isEmpty { count += 1 }
+        if !skillsOffered.isEmpty { count += 1 }
+        if !skillsSeeking.isEmpty { count += 1 }
+        if !industries.isEmpty { count += 1 }
+        if !startupStages.isEmpty { count += 1 }
+        if !commitmentLevels.isEmpty { count += 1 }
+        if locationPreference != .any { count += 1 }
+        if !fundingExperience.isEmpty { count += 1 }
+        if currentlyFunded != .any { count += 1 }
         if verifiedOnly { count += 1 }
         if activeInLastDays != nil { count += 1 }
         if newUsers { count += 1 }
@@ -404,55 +410,336 @@ enum DietPreference: String, Codable, CaseIterable {
     }
 }
 
-// MARK: - Relationship Goal
+// MARK: - Startup Goal
 
-enum RelationshipGoal: String, Codable, CaseIterable {
-    case longTerm = "long_term"
-    case shortTerm = "short_term"
-    case marriage = "marriage"
-    case friendship = "friendship"
-    case casual = "casual"
-    case figureItOut = "figure_out"
+enum StartupGoal: String, Codable, CaseIterable {
+    case findTechnicalCofounder = "find_technical_cofounder"
+    case findBusinessCofounder = "find_business_cofounder"
+    case findDesignCofounder = "find_design_cofounder"
+    case findMarketingCofounder = "find_marketing_cofounder"
+    case findInvestors = "find_investors"
+    case findAdvisors = "find_advisors"
+    case joinStartup = "join_startup"
 
     var displayName: String {
         switch self {
-        case .longTerm: return "Long-term Relationship"
-        case .shortTerm: return "Short-term Relationship"
-        case .marriage: return "Marriage"
-        case .friendship: return "Friendship"
-        case .casual: return "Casual Dating"
-        case .figureItOut: return "Figure it Out"
+        case .findTechnicalCofounder: return "Find Technical Co-founder"
+        case .findBusinessCofounder: return "Find Business Co-founder"
+        case .findDesignCofounder: return "Find Design Co-founder"
+        case .findMarketingCofounder: return "Find Marketing Co-founder"
+        case .findInvestors: return "Find Investors"
+        case .findAdvisors: return "Find Advisors"
+        case .joinStartup: return "Join a Startup"
         }
     }
 
     var icon: String {
         switch self {
-        case .longTerm: return "heart.fill"
-        case .shortTerm: return "heart"
-        case .marriage: return "heart.circle.fill"
-        case .friendship: return "person.2.fill"
-        case .casual: return "figure.walk"
-        case .figureItOut: return "questionmark.circle"
+        case .findTechnicalCofounder: return "laptopcomputer"
+        case .findBusinessCofounder: return "briefcase.fill"
+        case .findDesignCofounder: return "paintbrush.fill"
+        case .findMarketingCofounder: return "megaphone.fill"
+        case .findInvestors: return "dollarsign.circle.fill"
+        case .findAdvisors: return "lightbulb.fill"
+        case .joinStartup: return "person.badge.plus"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .findTechnicalCofounder:
+            return "Looking for an engineer or developer to build the product"
+        case .findBusinessCofounder:
+            return "Looking for someone to handle business operations and strategy"
+        case .findDesignCofounder:
+            return "Looking for a designer to shape the product experience"
+        case .findMarketingCofounder:
+            return "Looking for someone to drive growth and marketing"
+        case .findInvestors:
+            return "Seeking investment for your startup"
+        case .findAdvisors:
+            return "Looking for experienced mentors and advisors"
+        case .joinStartup:
+            return "Want to join an existing startup as co-founder"
         }
     }
 }
 
-// MARK: - Looking For
+// MARK: - Skill Set
 
-enum LookingFor: String, Codable, CaseIterable {
-    case relationshipPartner = "partner"
-    case chatFriends = "chat_friends"
-    case activityPartner = "activity_partner"
-    case travelBuddy = "travel_buddy"
-    case workoutPartner = "workout_partner"
+enum SkillSet: String, Codable, CaseIterable {
+    case softwareEngineering = "software_engineering"
+    case productManagement = "product_management"
+    case design = "design"
+    case marketing = "marketing"
+    case sales = "sales"
+    case finance = "finance"
+    case operations = "operations"
+    case legal = "legal"
+    case dataScience = "data_science"
+    case aiMl = "ai_ml"
+    case hardware = "hardware"
+    case biotech = "biotech"
+    case blockchain = "blockchain"
+    case cybersecurity = "cybersecurity"
 
     var displayName: String {
         switch self {
-        case .relationshipPartner: return "Relationship Partner"
-        case .chatFriends: return "Chat & Friends"
-        case .activityPartner: return "Activity Partner"
-        case .travelBuddy: return "Travel Buddy"
-        case .workoutPartner: return "Workout Partner"
+        case .softwareEngineering: return "Software Engineering"
+        case .productManagement: return "Product Management"
+        case .design: return "Design (UI/UX)"
+        case .marketing: return "Marketing & Growth"
+        case .sales: return "Sales & BD"
+        case .finance: return "Finance & Accounting"
+        case .operations: return "Operations"
+        case .legal: return "Legal"
+        case .dataScience: return "Data Science"
+        case .aiMl: return "AI / Machine Learning"
+        case .hardware: return "Hardware Engineering"
+        case .biotech: return "Biotech / Life Sciences"
+        case .blockchain: return "Blockchain / Web3"
+        case .cybersecurity: return "Cybersecurity"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .softwareEngineering: return "chevron.left.forwardslash.chevron.right"
+        case .productManagement: return "rectangle.3.group"
+        case .design: return "paintpalette.fill"
+        case .marketing: return "megaphone.fill"
+        case .sales: return "chart.line.uptrend.xyaxis"
+        case .finance: return "dollarsign.circle.fill"
+        case .operations: return "gearshape.2.fill"
+        case .legal: return "scale.3d"
+        case .dataScience: return "chart.bar.xaxis"
+        case .aiMl: return "brain.head.profile"
+        case .hardware: return "cpu.fill"
+        case .biotech: return "flask.fill"
+        case .blockchain: return "link"
+        case .cybersecurity: return "lock.shield.fill"
+        }
+    }
+}
+
+// MARK: - Startup Stage
+
+enum StartupStage: String, Codable, CaseIterable {
+    case idea = "idea"
+    case validation = "validation"
+    case mvp = "mvp"
+    case preSeed = "pre_seed"
+    case seed = "seed"
+    case seriesA = "series_a"
+    case growth = "growth"
+
+    var displayName: String {
+        switch self {
+        case .idea: return "Idea Stage"
+        case .validation: return "Validation"
+        case .mvp: return "MVP / Building"
+        case .preSeed: return "Pre-Seed"
+        case .seed: return "Seed"
+        case .seriesA: return "Series A"
+        case .growth: return "Growth Stage"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .idea: return "lightbulb.fill"
+        case .validation: return "checkmark.seal.fill"
+        case .mvp: return "hammer.fill"
+        case .preSeed: return "leaf.fill"
+        case .seed: return "sprout"
+        case .seriesA: return "chart.line.uptrend.xyaxis"
+        case .growth: return "arrow.up.right"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .idea: return "Just an idea, looking to validate"
+        case .validation: return "Testing the market and concept"
+        case .mvp: return "Building the first version"
+        case .preSeed: return "Early funding, building team"
+        case .seed: return "Seed funded, scaling"
+        case .seriesA: return "Series A and beyond"
+        case .growth: return "Established, rapid growth"
+        }
+    }
+}
+
+// MARK: - Industry
+
+enum Industry: String, Codable, CaseIterable {
+    case fintech = "fintech"
+    case healthtech = "healthtech"
+    case edtech = "edtech"
+    case saas = "saas"
+    case ecommerce = "ecommerce"
+    case marketplace = "marketplace"
+    case socialMedia = "social_media"
+    case gaming = "gaming"
+    case climatetech = "climatetech"
+    case biotech = "biotech"
+    case hardware = "hardware"
+    case ai = "ai"
+
+    var displayName: String {
+        switch self {
+        case .fintech: return "Fintech"
+        case .healthtech: return "Healthtech"
+        case .edtech: return "Edtech"
+        case .saas: return "SaaS"
+        case .ecommerce: return "E-commerce"
+        case .marketplace: return "Marketplace"
+        case .socialMedia: return "Social Media"
+        case .gaming: return "Gaming"
+        case .climatetech: return "Climatetech"
+        case .biotech: return "Biotech"
+        case .hardware: return "Hardware"
+        case .ai: return "AI / ML"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .fintech: return "creditcard.fill"
+        case .healthtech: return "heart.text.square.fill"
+        case .edtech: return "graduationcap.fill"
+        case .saas: return "cloud.fill"
+        case .ecommerce: return "cart.fill"
+        case .marketplace: return "storefront.fill"
+        case .socialMedia: return "bubble.left.and.bubble.right.fill"
+        case .gaming: return "gamecontroller.fill"
+        case .climatetech: return "leaf.fill"
+        case .biotech: return "flask.fill"
+        case .hardware: return "cpu.fill"
+        case .ai: return "brain.head.profile"
+        }
+    }
+}
+
+// MARK: - Commitment Level
+
+enum Commitment: String, Codable, CaseIterable {
+    case fullTime = "full_time"
+    case partTime = "part_time"
+    case advisor = "advisor"
+    case weekendsOnly = "weekends_only"
+
+    var displayName: String {
+        switch self {
+        case .fullTime: return "Full-Time"
+        case .partTime: return "Part-Time"
+        case .advisor: return "Advisor Role"
+        case .weekendsOnly: return "Weekends Only"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .fullTime: return "clock.fill"
+        case .partTime: return "clock"
+        case .advisor: return "person.fill.questionmark"
+        case .weekendsOnly: return "calendar.badge.clock"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .fullTime: return "40+ hours/week, fully dedicated"
+        case .partTime: return "20-30 hours/week"
+        case .advisor: return "Strategic guidance, limited time"
+        case .weekendsOnly: return "10-15 hours on weekends"
+        }
+    }
+}
+
+// MARK: - Equity Expectation
+
+enum EquityExpectation: String, Codable, CaseIterable {
+    case negotiable = "negotiable"
+    case fiftyFifty = "fifty_fifty"
+    case majorityFounder = "majority_founder"
+    case minorityCofounder = "minority_cofounder"
+
+    var displayName: String {
+        switch self {
+        case .negotiable: return "Negotiable"
+        case .fiftyFifty: return "50/50 Split"
+        case .majorityFounder: return "Majority Founder (60%+)"
+        case .minorityCofounder: return "Minority Co-founder (<40%)"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .negotiable: return "arrow.triangle.2.circlepath"
+        case .fiftyFifty: return "equal.circle.fill"
+        case .majorityFounder: return "chart.pie.fill"
+        case .minorityCofounder: return "chart.pie"
+        }
+    }
+}
+
+// MARK: - Location Preference
+
+enum LocationPreference: String, Codable, CaseIterable {
+    case any = "any"
+    case remote = "remote"
+    case local = "local"
+    case hybrid = "hybrid"
+
+    var displayName: String {
+        switch self {
+        case .any: return "Any"
+        case .remote: return "Remote Only"
+        case .local: return "Local / In-Person"
+        case .hybrid: return "Hybrid"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .any: return "globe"
+        case .remote: return "laptopcomputer.and.arrow.down"
+        case .local: return "building.2.fill"
+        case .hybrid: return "arrow.triangle.branch"
+        }
+    }
+}
+
+// MARK: - Funding Experience
+
+enum FundingExperience: String, Codable, CaseIterable {
+    case none = "none"
+    case angel = "angel"
+    case seed = "seed"
+    case seriesAPlus = "series_a_plus"
+    case bootstrapped = "bootstrapped"
+    case exitExperience = "exit_experience"
+
+    var displayName: String {
+        switch self {
+        case .none: return "No Prior Funding"
+        case .angel: return "Angel Funded"
+        case .seed: return "Seed Funded"
+        case .seriesAPlus: return "Series A+"
+        case .bootstrapped: return "Bootstrapped"
+        case .exitExperience: return "Previous Exit"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .none: return "doc.text"
+        case .angel: return "person.fill"
+        case .seed: return "leaf.fill"
+        case .seriesAPlus: return "chart.line.uptrend.xyaxis"
+        case .bootstrapped: return "hammer.fill"
+        case .exitExperience: return "star.fill"
         }
     }
 }

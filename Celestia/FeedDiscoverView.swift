@@ -1,6 +1,6 @@
 //
 //  FeedDiscoverView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Feed-style discovery view with vertical scrolling and pagination
 //
@@ -621,7 +621,7 @@ struct FeedDiscoverView: View {
                         )
                     )
 
-                Text("Welcome to Celestia!")
+                Text("Welcome to CoFoundry!")
                     .font(.title2)
                     .fontWeight(.bold)
 
@@ -722,7 +722,7 @@ struct FeedDiscoverView: View {
                     )
 
                 VStack(spacing: 12) {
-                    Text("Welcome to Celestia!")
+                    Text("Welcome to CoFoundry!")
                         .font(.title2)
                         .fontWeight(.bold)
 

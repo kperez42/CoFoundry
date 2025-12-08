@@ -1,6 +1,6 @@
 //
 //  ShimmerEffect.swift
-//  Celestia
+//  CoFoundry
 //
 //  Beautiful shimmer loading effects for skeleton placeholders
 //

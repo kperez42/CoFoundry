@@ -1,6 +1,6 @@
 //
 //  DiscoverFiltersView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Professional filter settings for discovery
 //

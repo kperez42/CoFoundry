@@ -1,6 +1,6 @@
 //
 //  ListenerLifecycleManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages Firestore listener lifecycle across app state changes
 //  Handles reconnection on foreground/network recovery

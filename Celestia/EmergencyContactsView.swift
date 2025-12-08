@@ -1,6 +1,6 @@
 //
 //  EmergencyContactsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manage emergency contacts for date safety
 //

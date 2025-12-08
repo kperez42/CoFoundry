@@ -1,6 +1,6 @@
 //
 //  RateLimiter.swift
-//  Celestia
+//  CoFoundry
 //
 //  Client-side rate limiting to prevent abuse
 //

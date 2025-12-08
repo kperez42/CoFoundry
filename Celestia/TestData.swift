@@ -1,6 +1,6 @@
 //
 //  TestData.swift
-//  Celestia
+//  CoFoundry
 //
 //  Created by Claude
 //  Test data for previews and development

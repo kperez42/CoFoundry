@@ -1,21 +1,21 @@
 //
 //  PersonalizedOnboardingManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages personalized onboarding paths based on user goals and preferences
-//  Adapts the onboarding experience to match user intentions
+//  Adapts the onboarding experience to match co-founder matching intentions
 //
 
 import Foundation
 import SwiftUI
 
-/// Manages personalized onboarding experiences based on user goals
+/// Manages personalized onboarding experiences based on co-founder goals
 @MainActor
 class PersonalizedOnboardingManager: ObservableObject {
 
     static let shared = PersonalizedOnboardingManager()
 
-    @Published var selectedGoal: DatingGoal?
+    @Published var selectedGoal: CoFounderGoal?
     @Published var recommendedPath: OnboardingPath?
     @Published var customizations: [String: Any] = [:]
 
@@ -23,61 +23,61 @@ class PersonalizedOnboardingManager: ObservableObject {
 
     // MARK: - Models
 
-    enum DatingGoal: String, Codable, CaseIterable {
-        case seriousRelationship = "serious_relationship"
-        case casualDating = "casual_dating"
-        case newFriends = "new_friends"
-        case networking = "networking"
-        case figureItOut = "figure_it_out"
+    enum CoFounderGoal: String, Codable, CaseIterable {
+        case findTechnicalCofounder = "find_technical_cofounder"
+        case findBusinessCofounder = "find_business_cofounder"
+        case joinAsCofounder = "join_as_cofounder"
+        case findAdvisorMentor = "find_advisor_mentor"
+        case exploreOpportunities = "explore_opportunities"
 
         var displayName: String {
             switch self {
-            case .seriousRelationship: return "Long-term relationship"
-            case .casualDating: return "Casual dating"
-            case .newFriends: return "New friends"
-            case .networking: return "Professional networking"
-            case .figureItOut: return "Open to see what happens"
+            case .findTechnicalCofounder: return "Find a Technical Co-founder"
+            case .findBusinessCofounder: return "Find a Business Co-founder"
+            case .joinAsCofounder: return "Join a Startup as Co-founder"
+            case .findAdvisorMentor: return "Find Advisors & Mentors"
+            case .exploreOpportunities: return "Explore Opportunities"
             }
         }
 
         var icon: String {
             switch self {
-            case .seriousRelationship: return "heart.fill"
-            case .casualDating: return "sparkles"
-            case .newFriends: return "person.2.fill"
-            case .networking: return "briefcase.fill"
-            case .figureItOut: return "star.fill"
+            case .findTechnicalCofounder: return "laptopcomputer"
+            case .findBusinessCofounder: return "briefcase.fill"
+            case .joinAsCofounder: return "person.badge.plus"
+            case .findAdvisorMentor: return "lightbulb.fill"
+            case .exploreOpportunities: return "safari.fill"
             }
         }
 
         var description: String {
             switch self {
-            case .seriousRelationship:
-                return "Looking for something meaningful and long-lasting"
-            case .casualDating:
-                return "Enjoying the journey, keeping it light"
-            case .newFriends:
-                return "Expanding your social circle"
-            case .networking:
-                return "Building professional connections"
-            case .figureItOut:
-                return "Exploring options and seeing where things go"
+            case .findTechnicalCofounder:
+                return "Looking for an engineer to build your product"
+            case .findBusinessCofounder:
+                return "Looking for someone to handle business & operations"
+            case .joinAsCofounder:
+                return "Ready to join an existing startup team"
+            case .findAdvisorMentor:
+                return "Seeking experienced guidance for your journey"
+            case .exploreOpportunities:
+                return "Open to various co-founder opportunities"
             }
         }
 
         var color: Color {
             switch self {
-            case .seriousRelationship: return .red
-            case .casualDating: return .orange
-            case .newFriends: return .blue
-            case .networking: return .purple
-            case .figureItOut: return .green
+            case .findTechnicalCofounder: return .blue
+            case .findBusinessCofounder: return .purple
+            case .joinAsCofounder: return .green
+            case .findAdvisorMentor: return .orange
+            case .exploreOpportunities: return .teal
             }
         }
     }
 
     struct OnboardingPath {
-        let goal: DatingGoal
+        let goal: CoFounderGoal
         let steps: [OnboardingPathStep]
         let focusAreas: [FocusArea]
         let recommendedFeatures: [String]
@@ -115,7 +115,7 @@ class PersonalizedOnboardingManager: ObservableObject {
 
     // MARK: - Goal Selection
 
-    func selectGoal(_ goal: DatingGoal) {
+    func selectGoal(_ goal: CoFounderGoal) {
         selectedGoal = goal
         recommendedPath = generatePath(for: goal)
         saveGoal()
@@ -132,194 +132,216 @@ class PersonalizedOnboardingManager: ObservableObject {
 
     // MARK: - Path Generation
 
-    private func generatePath(for goal: DatingGoal) -> OnboardingPath {
+    private func generatePath(for goal: CoFounderGoal) -> OnboardingPath {
         switch goal {
-        case .seriousRelationship:
-            return createSeriousRelationshipPath()
-        case .casualDating:
-            return createCasualDatingPath()
-        case .newFriends:
-            return createNewFriendsPath()
-        case .networking:
-            return createNetworkingPath()
-        case .figureItOut:
-            return createOpenPath()
+        case .findTechnicalCofounder:
+            return createFindTechnicalCofounderPath()
+        case .findBusinessCofounder:
+            return createFindBusinessCofounderPath()
+        case .joinAsCofounder:
+            return createJoinAsCofounderPath()
+        case .findAdvisorMentor:
+            return createFindAdvisorPath()
+        case .exploreOpportunities:
+            return createExplorePath()
         }
     }
 
-    private func createSeriousRelationshipPath() -> OnboardingPath {
+    private func createFindTechnicalCofounderPath() -> OnboardingPath {
         OnboardingPath(
-            goal: .seriousRelationship,
+            goal: .findTechnicalCofounder,
             steps: [
                 OnboardingPathStep(
-                    id: "detailed_profile",
-                    title: "Create a Detailed Profile",
-                    description: "Share your values, interests, and what you're looking for",
+                    id: "founder_profile",
+                    title: "Create Your Founder Profile",
+                    description: "Share your startup idea, skills, and what you're building",
                     importance: .critical,
                     tips: [
-                        "Write a thoughtful bio about your personality and values",
-                        "Add 4-6 high-quality photos showing different aspects of your life",
-                        "Share your long-term goals and what matters to you"
+                        "Clearly describe your startup idea or vision",
+                        "Highlight your business/domain expertise",
+                        "Be specific about what technical skills you need"
                     ]
                 ),
                 OnboardingPathStep(
                     id: "verify_profile",
                     title: "Verify Your Profile",
-                    description: "Build trust with verified photos",
+                    description: "Build trust with verified credentials",
                     importance: .critical,
                     tips: [
-                        "Verified profiles get 2x more meaningful matches",
-                        "Shows you're serious and authentic",
-                        "Takes less than 2 minutes"
+                        "Verified profiles get 3x more co-founder interest",
+                        "Add your LinkedIn for professional credibility",
+                        "Verification shows you're serious about building"
                     ]
                 ),
                 OnboardingPathStep(
-                    id: "interests_values",
-                    title: "Share Your Interests & Values",
-                    description: "Help us find compatible matches",
+                    id: "equity_commitment",
+                    title: "Define Partnership Terms",
+                    description: "Set expectations for equity and commitment",
                     importance: .recommended,
                     tips: [
-                        "Select interests that truly represent you",
-                        "Be specific about what you're looking for",
-                        "Authenticity attracts the right people"
+                        "Be transparent about equity split expectations",
+                        "Specify required time commitment (full-time/part-time)",
+                        "Mention if you have funding or bootstrapping"
                     ]
                 )
             ],
             focusAreas: [.profileDepth, .verificationTrust, .bioOptimization, .interestMatching],
-            recommendedFeatures: ["Video Prompts", "Voice Messages", "Verified Matches"],
-            tutorialPriority: ["profile_quality", "matching", "messaging", "safety", "scrolling"]
+            recommendedFeatures: ["Skills Matching", "Industry Filters", "LinkedIn Integration"],
+            tutorialPriority: ["profile_quality", "matching", "messaging", "filters"]
         )
     }
 
-    private func createCasualDatingPath() -> OnboardingPath {
+    private func createFindBusinessCofounderPath() -> OnboardingPath {
         OnboardingPath(
-            goal: .casualDating,
+            goal: .findBusinessCofounder,
             steps: [
                 OnboardingPathStep(
-                    id: "fun_profile",
-                    title: "Create a Fun Profile",
-                    description: "Show your personality and what makes you interesting",
+                    id: "technical_profile",
+                    title: "Showcase Your Technical Skills",
+                    description: "Highlight what you can build and your experience",
                     importance: .critical,
                     tips: [
-                        "Add photos that show you having fun",
-                        "Keep your bio light and engaging",
-                        "Show different sides of your personality"
+                        "List your technical skills and expertise",
+                        "Share projects or products you've built",
+                        "Link your GitHub or portfolio"
                     ]
                 ),
                 OnboardingPathStep(
-                    id: "interests",
-                    title: "Share Your Interests",
-                    description: "Find people with shared hobbies",
+                    id: "idea_stage",
+                    title: "Share Your Startup Stage",
+                    description: "Let potential co-founders know where you are",
+                    importance: .critical,
+                    tips: [
+                        "Describe your idea or current product",
+                        "Share traction or validation if you have it",
+                        "Be clear about what stage you're at"
+                    ]
+                ),
+                OnboardingPathStep(
+                    id: "cofounder_needs",
+                    title: "Define What You're Looking For",
+                    description: "Specify the business skills you need",
                     importance: .recommended,
                     tips: [
-                        "Select activities you enjoy",
-                        "Be open to new experiences",
-                        "Show what makes you unique"
+                        "Operations, sales, marketing, or finance?",
+                        "Industry expertise requirements",
+                        "Time commitment expectations"
                     ]
                 )
             ],
-            focusAreas: [.photoQuality, .interestMatching, .locationAccuracy],
-            recommendedFeatures: ["Quick Match", "Nearby Matches", "Icebreakers"],
-            tutorialPriority: ["scrolling", "matching", "messaging", "profile_quality"]
+            focusAreas: [.profileDepth, .verificationTrust, .bioOptimization],
+            recommendedFeatures: ["Skills Matching", "Startup Stage Filter", "Experience Verification"],
+            tutorialPriority: ["profile_quality", "matching", "messaging", "filters"]
         )
     }
 
-    private func createNewFriendsPath() -> OnboardingPath {
+    private func createJoinAsCofounderPath() -> OnboardingPath {
         OnboardingPath(
-            goal: .newFriends,
+            goal: .joinAsCofounder,
             steps: [
                 OnboardingPathStep(
-                    id: "friendly_profile",
-                    title: "Create a Friendly Profile",
-                    description: "Show what kind of friend you'd be",
+                    id: "skills_profile",
+                    title: "Highlight Your Skills & Experience",
+                    description: "Show what you bring to a founding team",
                     importance: .critical,
                     tips: [
-                        "Highlight your hobbies and interests",
-                        "Share what activities you enjoy",
-                        "Be genuine and approachable"
+                        "List all relevant skills and expertise",
+                        "Share your professional background",
+                        "Highlight any startup experience"
                     ]
                 ),
                 OnboardingPathStep(
-                    id: "location_interests",
-                    title: "Share Location & Interests",
-                    description: "Find friends with shared activities nearby",
+                    id: "preferences",
+                    title: "Set Your Preferences",
+                    description: "Filter opportunities that match your interests",
                     importance: .critical,
                     tips: [
-                        "Add your city for local connections",
-                        "Select group activities you enjoy",
-                        "Be specific about your interests"
-                    ]
-                )
-            ],
-            focusAreas: [.interestMatching, .locationAccuracy, .bioOptimization],
-            recommendedFeatures: ["Group Activities", "Interest Groups", "Events"],
-            tutorialPriority: ["scrolling", "matching", "messaging", "profile_quality"]
-        )
-    }
-
-    private func createNetworkingPath() -> OnboardingPath {
-        OnboardingPath(
-            goal: .networking,
-            steps: [
-                OnboardingPathStep(
-                    id: "professional_profile",
-                    title: "Create a Professional Profile",
-                    description: "Highlight your professional interests and goals",
-                    importance: .critical,
-                    tips: [
-                        "Share your professional background",
-                        "Mention industries or fields of interest",
-                        "Keep photos professional yet approachable"
+                        "Choose industries you're passionate about",
+                        "Set your preferred startup stage",
+                        "Define your time commitment availability"
                     ]
                 ),
                 OnboardingPathStep(
                     id: "verify_credentials",
-                    title: "Verify Your Profile",
-                    description: "Build professional credibility",
+                    title: "Verify Your Credentials",
+                    description: "Stand out with verified experience",
                     importance: .recommended,
                     tips: [
-                        "Verification builds trust in professional contexts",
-                        "Shows you're a serious networker",
-                        "Increases connection rate"
+                        "Connect LinkedIn for instant verification",
+                        "Verified candidates get 2x more interest",
+                        "Shows founders you're serious"
                     ]
                 )
             ],
             focusAreas: [.profileDepth, .verificationTrust, .locationAccuracy],
-            recommendedFeatures: ["Professional Mode", "Industry Tags", "LinkedIn Integration"],
+            recommendedFeatures: ["Industry Filters", "Stage Preferences", "Commitment Settings"],
+            tutorialPriority: ["profile_quality", "filters", "matching", "messaging"]
+        )
+    }
+
+    private func createFindAdvisorPath() -> OnboardingPath {
+        OnboardingPath(
+            goal: .findAdvisorMentor,
+            steps: [
+                OnboardingPathStep(
+                    id: "founder_journey",
+                    title: "Share Your Founder Journey",
+                    description: "Help advisors understand where you need guidance",
+                    importance: .critical,
+                    tips: [
+                        "Describe your startup and current challenges",
+                        "Be specific about areas where you need help",
+                        "Share your background and what you've tried"
+                    ]
+                ),
+                OnboardingPathStep(
+                    id: "advisor_needs",
+                    title: "Define Advisor Criteria",
+                    description: "Find mentors with relevant experience",
+                    importance: .recommended,
+                    tips: [
+                        "Industry experience requirements",
+                        "Specific skill areas (fundraising, product, etc.)",
+                        "Time commitment expectations"
+                    ]
+                )
+            ],
+            focusAreas: [.profileDepth, .bioOptimization, .interestMatching],
+            recommendedFeatures: ["Experience Filter", "Industry Matching", "Advisor Mode"],
             tutorialPriority: ["profile_quality", "matching", "messaging"]
         )
     }
 
-    private func createOpenPath() -> OnboardingPath {
+    private func createExplorePath() -> OnboardingPath {
         OnboardingPath(
-            goal: .figureItOut,
+            goal: .exploreOpportunities,
             steps: [
                 OnboardingPathStep(
                     id: "basic_profile",
-                    title: "Create Your Profile",
+                    title: "Create Your Founder Profile",
                     description: "Start with the basics and explore from there",
                     importance: .critical,
                     tips: [
-                        "Add a few good photos",
-                        "Write a brief bio about yourself",
-                        "Select some interests you enjoy"
+                        "Add a professional photo",
+                        "Write a brief bio about your background",
+                        "Select your skills and interests"
                     ]
                 ),
                 OnboardingPathStep(
                     id: "explore",
                     title: "Start Exploring",
-                    description: "See who's out there and what feels right",
+                    description: "Discover co-founders and opportunities",
                     importance: .recommended,
                     tips: [
-                        "Try swiping to see different people",
-                        "You can always update your preferences",
-                        "Take your time finding what you're looking for"
+                        "Browse different founder profiles",
+                        "You can always update your preferences later",
+                        "Connect with founders who share your vision"
                     ]
                 )
             ],
-            focusAreas: [.photoQuality, .bioOptimization, .interestMatching],
+            focusAreas: [.profileDepth, .bioOptimization, .interestMatching],
             recommendedFeatures: ["Discovery", "Filters", "Profile Insights"],
-            tutorialPriority: ["welcome", "scrolling", "matching", "messaging", "profile_quality"]
+            tutorialPriority: ["welcome", "discovery", "matching", "messaging", "profile_quality"]
         )
     }
 
@@ -357,7 +379,7 @@ class PersonalizedOnboardingManager: ObservableObject {
 
     private func loadSavedGoal() {
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let goal = try? JSONDecoder().decode(DatingGoal.self, from: data) {
+           let goal = try? JSONDecoder().decode(CoFounderGoal.self, from: data) {
             selectedGoal = goal
             recommendedPath = generatePath(for: goal)
         }
@@ -370,17 +392,17 @@ struct OnboardingGoalSelectionView: View {
     @ObservedObject var manager = PersonalizedOnboardingManager.shared
     @Environment(\.dismiss) var dismiss
 
-    let onGoalSelected: (PersonalizedOnboardingManager.DatingGoal) -> Void
+    let onGoalSelected: (PersonalizedOnboardingManager.CoFounderGoal) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
             // Header
             VStack(spacing: 12) {
-                Text("What brings you here?")
+                Text("What's your goal?")
                     .font(.title)
                     .fontWeight(.bold)
 
-                Text("This helps us personalize your experience")
+                Text("Help us match you with the right co-founders")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -391,7 +413,7 @@ struct OnboardingGoalSelectionView: View {
             // Goal Options
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 16) {
-                    ForEach(PersonalizedOnboardingManager.DatingGoal.allCases, id: \.self) { goal in
+                    ForEach(PersonalizedOnboardingManager.CoFounderGoal.allCases, id: \.self) { goal in
                         GoalCard(goal: goal, isSelected: manager.selectedGoal == goal) {
                             withAnimation(.spring(response: 0.3)) {
                                 manager.selectGoal(goal)
@@ -422,13 +444,13 @@ struct OnboardingGoalSelectionView: View {
                     .padding(.vertical, 16)
                     .background(
                         LinearGradient(
-                            colors: [.purple, .pink],
+                            colors: [.blue, .purple],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                     )
                     .cornerRadius(16)
-                    .shadow(color: .purple.opacity(0.3), radius: 10, y: 5)
+                    .shadow(color: .blue.opacity(0.3), radius: 10, y: 5)
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
@@ -437,7 +459,7 @@ struct OnboardingGoalSelectionView: View {
         }
         .background(
             LinearGradient(
-                colors: [Color.purple.opacity(0.05), Color.pink.opacity(0.03)],
+                colors: [Color.blue.opacity(0.05), Color.purple.opacity(0.03)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -447,7 +469,7 @@ struct OnboardingGoalSelectionView: View {
 }
 
 struct GoalCard: View {
-    let goal: PersonalizedOnboardingManager.DatingGoal
+    let goal: PersonalizedOnboardingManager.CoFounderGoal
     let isSelected: Bool
     let onTap: () -> Void
 

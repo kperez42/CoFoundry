@@ -1,6 +1,6 @@
 //
 //  CrashlyticsManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages Firebase Crashlytics and Performance Monitoring
 //  Provides crash reporting, custom logging, and performance tracking
@@ -22,7 +22,7 @@ class CrashlyticsManager {
 
     private let crashlytics = Crashlytics.crashlytics()
     private var activeTraces: [String: Trace] = [:]
-    private let traceQueue = DispatchQueue(label: "com.celestia.crashlytics.traces")
+    private let traceQueue = DispatchQueue(label: "com.cofoundry.crashlytics.traces")
 
     // MARK: - Initialization
 
@@ -107,8 +107,8 @@ class CrashlyticsManager {
         Logger.shared.error("Custom error recorded: \(message)", category: .analytics)
     }
 
-    /// Record Celestia-specific errors
-    func recordCelestiaError(_ error: CelestiaError, context: [String: Any] = [:]) {
+    /// Record CoFoundry-specific errors
+    func recordCoFoundryError(_ error: CoFoundryError, context: [String: Any] = [:]) {
         var userInfo = context
         userInfo["errorType"] = String(describing: error)
         userInfo["errorDescription"] = error.errorDescription ?? "Unknown"
@@ -124,7 +124,7 @@ class CrashlyticsManager {
         )
 
         crashlytics.record(error: nsError)
-        Logger.shared.error("Celestia error recorded: \(error)", category: .analytics)
+        Logger.shared.error("CoFoundry error recorded: \(error)", category: .analytics)
     }
 
     // MARK: - Breadcrumbs

@@ -1,6 +1,6 @@
 //
 //  HapticManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Created by Claude
 //  Centralized haptic feedback management

@@ -1,6 +1,6 @@
 //
 //  SubscriptionManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages subscription status and premium features
 //  Types defined in StoreModels.swift: SubscriptionTier, BillingPeriod, SubscriptionStatus

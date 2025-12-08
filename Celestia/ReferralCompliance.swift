@@ -1,6 +1,6 @@
 //
 //  ReferralCompliance.swift
-//  Celestia
+//  CoFoundry
 //
 //  Privacy compliance for referral system (GDPR, CCPA, etc.)
 //  Features: Consent management, data export, data deletion, audit logging

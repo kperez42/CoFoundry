@@ -1,6 +1,6 @@
 //
 //  ScreenshotDetectionService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for detecting screenshots and notifying users
 //

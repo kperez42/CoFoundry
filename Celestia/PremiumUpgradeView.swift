@@ -1,6 +1,6 @@
 //
 //  PremiumUpgradeView.swift
-//  Celestia
+//  CoFoundry
 //
 //  PREMIUM UPGRADE - Immersive Conversion Experience
 //

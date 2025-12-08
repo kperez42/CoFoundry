@@ -1,6 +1,6 @@
 //
 //  RepositoryProtocols.swift
-//  Celestia
+//  CoFoundry
 //
 //  Repository pattern interfaces for data access layer
 //  Separates business logic from data access concerns

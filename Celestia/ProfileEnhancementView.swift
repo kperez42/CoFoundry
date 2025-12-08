@@ -1,6 +1,6 @@
 //
 //  ProfileEnhancementView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Additional profile information collection view
 //  Shown after sign-up to help users get better matches

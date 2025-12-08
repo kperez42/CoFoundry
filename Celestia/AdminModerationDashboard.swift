@@ -1,6 +1,6 @@
 //
 //  AdminModerationDashboard.swift
-//  Celestia
+//  CoFoundry
 //
 //  Admin dashboard for viewing and moderating user reports
 //

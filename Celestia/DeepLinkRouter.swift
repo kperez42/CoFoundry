@@ -1,6 +1,6 @@
 //
 //  DeepLinkRouter.swift
-//  Celestia
+//  CoFoundry
 //
 //  Deep link routing system for Universal Links and URL schemes
 //  Handles navigation from external sources (emails, web, referrals)
@@ -131,8 +131,8 @@ class DeepLinkRouter: ObservableObject {
     // MARK: - URL Parsing
 
     private func parseURL(_ url: URL) -> DeepLink? {
-        // Handle Universal Links (https://celestia.app/...)
-        if url.scheme == "https" && (url.host == "celestia.app" || url.host == "www.celestia.app") {
+        // Handle Universal Links (https://cofoundry.app/...)
+        if url.scheme == "https" && (url.host == "cofoundry.app" || url.host == "www.cofoundry.app") {
             return parseUniversalLink(url)
         }
 
@@ -154,49 +154,49 @@ class DeepLinkRouter: ObservableObject {
 
         switch components[0] {
         case "join":
-            // celestia.app/join/REFERRAL_CODE
+            // cofoundry.app/join/REFERRAL_CODE
             guard components.count > 1 else { return .home }
             return .referral(code: components[1])
 
         case "profile":
-            // celestia.app/profile/USER_ID
+            // cofoundry.app/profile/USER_ID
             guard components.count > 1 else { return .home }
             return .profile(userId: components[1])
 
         case "match":
-            // celestia.app/match/MATCH_ID
+            // cofoundry.app/match/MATCH_ID
             guard components.count > 1 else { return .home }
             return .match(matchId: components[1])
 
         case "message":
-            // celestia.app/message/MATCH_ID
+            // cofoundry.app/message/MATCH_ID
             guard components.count > 1 else { return .home }
             return .message(matchId: components[1])
 
         case "verify-email":
-            // celestia.app/verify-email?token=TOKEN
+            // cofoundry.app/verify-email?token=TOKEN
             if let token = extractQueryParameter(from: url, parameter: "token") {
                 return .emailVerification(token: token)
             }
             return .home
 
         case "reset-password":
-            // celestia.app/reset-password?token=TOKEN
+            // cofoundry.app/reset-password?token=TOKEN
             if let token = extractQueryParameter(from: url, parameter: "token") {
                 return .resetPassword(token: token)
             }
             return .home
 
         case "upgrade":
-            // celestia.app/upgrade
+            // cofoundry.app/upgrade
             return .upgrade
 
         case "settings":
-            // celestia.app/settings
+            // cofoundry.app/settings
             return .settings
 
         case "notifications":
-            // celestia.app/notifications
+            // cofoundry.app/notifications
             return .notifications
 
         default:
@@ -371,7 +371,7 @@ class DeepLinkRouter: ObservableObject {
     func generateReferralLink(code: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "celestia.app"
+        components.host = "cofoundry.app"
         components.path = "/join/\(code)"
 
         return components.url
@@ -381,7 +381,7 @@ class DeepLinkRouter: ObservableObject {
     func generateProfileLink(userId: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "celestia.app"
+        components.host = "cofoundry.app"
         components.path = "/profile/\(userId)"
 
         return components.url
@@ -391,7 +391,7 @@ class DeepLinkRouter: ObservableObject {
     func generateEmailVerificationLink(token: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "celestia.app"
+        components.host = "cofoundry.app"
         components.path = "/verify-email"
         components.queryItems = [URLQueryItem(name: "token", value: token)]
 
@@ -402,7 +402,7 @@ class DeepLinkRouter: ObservableObject {
     func generatePasswordResetLink(token: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "celestia.app"
+        components.host = "cofoundry.app"
         components.path = "/reset-password"
         components.queryItems = [URLQueryItem(name: "token", value: token)]
 

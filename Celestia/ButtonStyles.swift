@@ -1,6 +1,6 @@
 //
 //  ButtonStyles.swift
-//  Celestia
+//  CoFoundry
 //
 //  Unified button styles for consistent interactive feedback
 //

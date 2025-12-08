@@ -1,6 +1,6 @@
 //
 //  FirestoreMessageRepository.swift
-//  Celestia
+//  CoFoundry
 //
 //  Concrete implementation of MessageRepository using Firestore
 //  Separates data access logic from business logic

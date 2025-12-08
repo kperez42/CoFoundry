@@ -1,6 +1,6 @@
 //
 //  ProfileQualityScorer.swift
-//  Celestia
+//  CoFoundry
 //
 //  Real-time profile quality scoring with actionable tips
 //  Helps users create high-quality profiles that get more matches

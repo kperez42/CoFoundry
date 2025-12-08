@@ -1,6 +1,6 @@
 //
 //  MessageBubbleView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Shared message bubble component for chat views
 //

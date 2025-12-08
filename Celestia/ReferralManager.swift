@@ -1,6 +1,6 @@
 //
 //  ReferralManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manages referral system logic
 //  Optimized for 10k+ users with caching, rate limiting, and efficient queries
@@ -114,7 +114,7 @@ class ReferralManager: ObservableObject {
                 Logger.shared.error("Failed to generate 8-character code", category: .referral)
                 continue
             }
-            let fullCode = "CEL-\(code)"
+            let fullCode = "CFY-\(code)"
 
             // Check if code exists in dedicated referralCodes collection (faster lookup at scale)
             // This collection is indexed by code for O(1) lookups
@@ -136,7 +136,7 @@ class ReferralManager: ObservableObject {
         // If we still can't generate a unique code after 5 attempts, use userId hash + timestamp
         let timestamp = Int(Date().timeIntervalSince1970)
         let hashSuffix = String(userId.hashValue).suffix(4)
-        let fallbackCode = "CEL-\(hashSuffix)\(String(timestamp).suffix(4))"
+        let fallbackCode = "CFY-\(hashSuffix)\(String(timestamp).suffix(4))"
 
         // Reserve the fallback code
         try await db.collection("referralCodes").document(fallbackCode).setData([
@@ -1054,11 +1054,11 @@ class ReferralManager: ObservableObject {
 
     func getReferralShareMessage(code: String, userName: String) -> String {
         return """
-        Hey! Join me on Celestia, the best dating app for meaningful connections! 💜
+        Hey! Join me on CoFoundry, the best platform to find your startup co-founder!
 
         Use my code \(code) when you sign up and we'll both get 3 days of Premium free!
 
-        Download now: https://celestia.app/join/\(code)
+        Download now: https://cofoundry.app/join/\(code)
         """
     }
 
@@ -1089,7 +1089,7 @@ class ReferralManager: ObservableObject {
     }
 
     func getReferralURL(code: String) -> URL? {
-        return URL(string: "https://celestia.app/join/\(code)")
+        return URL(string: "https://cofoundry.app/join/\(code)")
     }
 
     // MARK: - Analytics (Enhanced)

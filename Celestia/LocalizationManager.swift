@@ -1,6 +1,6 @@
 //
 //  LocalizationManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Centralized localization management
 //  Provides type-safe string access and language switching

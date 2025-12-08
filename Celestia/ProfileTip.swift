@@ -1,6 +1,6 @@
 //
 //  ProfileTip.swift
-//  Celestia
+//  CoFoundry
 //
 //  Model for profile completion tips
 //

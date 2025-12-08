@@ -1,6 +1,6 @@
 //
 //  SharedUIComponents.swift
-//  Celestia
+//  CoFoundry
 //
 //  Shared UI components used across the app
 //

@@ -1,6 +1,6 @@
 //
 //  MessageQueueManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Handles message queueing for offline support
 //  Automatically sends messages when connection is restored

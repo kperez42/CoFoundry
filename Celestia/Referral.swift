@@ -1,6 +1,6 @@
 //
 //  Referral.swift
-//  Celestia
+//  CoFoundry
 //
 //  Referral system models
 //

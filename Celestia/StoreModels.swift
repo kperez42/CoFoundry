@@ -1,6 +1,6 @@
 //
 //  StoreModels.swift
-//  Celestia
+//  CoFoundry
 //
 //  Product models and types for In-App Purchases
 //

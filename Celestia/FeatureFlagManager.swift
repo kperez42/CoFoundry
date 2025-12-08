@@ -1,6 +1,6 @@
 //
 //  FeatureFlagManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Feature flags system for A/B testing and gradual rollouts
 //  Supports remote configuration via Firebase Remote Config

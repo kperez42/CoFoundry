@@ -1,6 +1,6 @@
 //
 //  SafetyCenter.swift
-//  Celestia
+//  CoFoundry
 //
 //  Safety features: reporting and blocking
 //

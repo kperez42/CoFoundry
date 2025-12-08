@@ -1,6 +1,6 @@
 //
 //  MessagesView.swift
-//  Celestia
+//  CoFoundry
 //
 //  ELITE MESSAGES VIEW - Premium Chat Experience
 //

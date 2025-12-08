@@ -1,6 +1,6 @@
 //
 //  NetworkManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  Centralized networking layer with retry logic, interceptors, and monitoring
 //  Provides robust network communication with automatic error handling
@@ -117,7 +117,7 @@ class NetworkManager: NSObject {
     //
     // How to get certificate hash:
     // 1. Get your server's public key hash:
-    //    openssl s_client -connect api.celestia.app:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+    //    openssl s_client -connect api.cofoundry.app:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
     //
     // 2. Add the hash string to the array below
     //

@@ -1,6 +1,6 @@
 //
 //  PhoneVerificationService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Phone number verification using Firebase Auth
 //

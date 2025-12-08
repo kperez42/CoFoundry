@@ -1,6 +1,6 @@
 //
 //  UserDetailView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Detailed view of a user's profile
 //

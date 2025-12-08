@@ -1,6 +1,6 @@
 //
 //  SearchResultsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Search results display with profile cards
 //

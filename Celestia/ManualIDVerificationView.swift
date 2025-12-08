@@ -1,6 +1,6 @@
 //
 //  ManualIDVerificationView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manual ID verification - user submits photos for admin review
 //  Clean, smooth step-by-step flow

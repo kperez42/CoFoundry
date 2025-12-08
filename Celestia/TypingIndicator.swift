@@ -1,6 +1,6 @@
 //
 //  TypingIndicator.swift
-//  Celestia
+//  CoFoundry
 //
 //  Typing indicator animation for chat
 //
