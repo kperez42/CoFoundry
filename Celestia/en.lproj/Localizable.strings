@@ -1,0 +1,185 @@
+/*
+ * CoFoundry Localization - English
+ * Language: English (en)
+ * Co-Founder Matching App
+ */
+
+// MARK: - Common
+
+"common.ok" = "OK";
+"common.cancel" = "Cancel";
+"common.save" = "Save";
+"common.delete" = "Delete";
+"common.edit" = "Edit";
+"common.done" = "Done";
+"common.next" = "Next";
+"common.back" = "Back";
+"common.yes" = "Yes";
+"common.no" = "No";
+"common.loading" = "Loading...";
+"common.error" = "Error";
+"common.success" = "Success";
+
+// MARK: - Authentication
+
+"auth.sign_in" = "Sign In";
+"auth.sign_up" = "Sign Up";
+"auth.sign_out" = "Sign Out";
+"auth.email" = "Email";
+"auth.password" = "Password";
+"auth.full_name" = "Full Name";
+"auth.age" = "Age";
+"auth.forgot_password" = "Forgot Password?";
+"auth.reset_password" = "Reset Password";
+"auth.create_account" = "Create Account";
+"auth.already_have_account" = "Already have an account? Sign In";
+"auth.dont_have_account" = "Don't have an account? Sign Up";
+"auth.verify_email" = "Please verify your email";
+"auth.email_verified" = "Email verified successfully!";
+"auth.resend_verification" = "Resend Verification Email";
+
+// MARK: - Profile
+
+"profile.profile" = "Profile";
+"profile.edit_profile" = "Edit Profile";
+"profile.bio" = "Professional Bio";
+"profile.photos" = "Photos";
+"profile.add_photo" = "Add Photo";
+"profile.settings" = "Settings";
+"profile.age" = "Age";
+"profile.location" = "Location";
+"profile.professional_title" = "Professional Title";
+"profile.looking_for" = "Looking For";
+"profile.skills" = "Skills";
+"profile.industries" = "Industries";
+"profile.startup_stage" = "Startup Stage";
+"profile.time_commitment" = "Time Commitment";
+"profile.equity_expectation" = "Equity Expectation";
+"profile.linkedin" = "LinkedIn";
+"profile.portfolio" = "Portfolio";
+"profile.years_experience" = "Years of Experience";
+"profile.previous_startups" = "Previous Startups";
+
+// MARK: - Discovery
+
+"discover.discover" = "Discover";
+"discover.connect" = "Connect";
+"discover.pass" = "Pass";
+"discover.super_connect" = "Priority Connect";
+"discover.its_a_match" = "You're Connected!";
+"discover.send_message" = "Send Message";
+"discover.keep_browsing" = "Keep Browsing";
+"discover.no_more_profiles" = "No more founders available";
+"discover.expand_filters" = "Expand your filters to see more";
+
+// MARK: - Connections (Matches)
+
+"connections.connections" = "Connections";
+"connections.new_connection" = "New Connection!";
+"connections.no_connections" = "No connections yet";
+"connections.disconnect" = "Remove Connection";
+"connections.disconnect_confirm" = "Are you sure you want to remove this connection?";
+"connections.connected_with" = "Connected with %@";
+"connections.pending" = "Pending Connections";
+"connections.mutual" = "Mutual Connection";
+
+// MARK: - Messages
+
+"messages.messages" = "Messages";
+"messages.type_message" = "Type a message...";
+"messages.send" = "Send";
+"messages.no_messages" = "No messages yet";
+"messages.delivered" = "Delivered";
+"messages.read" = "Read";
+"messages.typing" = "typing...";
+"messages.start_conversation" = "Start the conversation";
+"messages.schedule_call" = "Schedule a Call";
+
+// MARK: - Premium
+
+"premium.premium" = "Premium";
+"premium.upgrade_to_premium" = "Upgrade to Premium";
+"premium.monthly_plan" = "Monthly Plan";
+"premium.yearly_plan" = "Yearly Plan";
+"premium.subscribe" = "Subscribe";
+"premium.restore_purchases" = "Restore Purchases";
+"premium.features" = "Premium Features";
+"premium.unlimited_connections" = "Unlimited Connections";
+"premium.see_who_connected" = "See Who Wants to Connect";
+"premium.rewind" = "Undo Last Action";
+"premium.boost_profile" = "Boost Your Profile";
+"premium.advanced_filters" = "Advanced Filters";
+"premium.priority_support" = "Priority Support";
+
+// MARK: - Settings
+
+"settings.settings" = "Settings";
+"settings.account" = "Account";
+"settings.notifications" = "Notifications";
+"settings.privacy" = "Privacy";
+"settings.language" = "Language";
+"settings.help" = "Help & Support";
+"settings.about" = "About";
+"settings.terms_of_service" = "Terms of Service";
+"settings.privacy_policy" = "Privacy Policy";
+
+// MARK: - Errors
+
+"error.generic" = "Something went wrong. Please try again.";
+"error.network" = "Network error. Please check your connection.";
+"error.invalid_email" = "Please enter a valid email address.";
+"error.invalid_password" = "Password must be at least 6 characters.";
+"error.email_already_in_use" = "This email is already registered.";
+"error.weak_password" = "Password is too weak. Please use a stronger password.";
+"error.user_not_found" = "No account found with this email.";
+"error.wrong_password" = "Incorrect password. Please try again.";
+
+// MARK: - Onboarding
+
+"onboarding.welcome" = "Welcome to CoFoundry";
+"onboarding.find_your_cofounder" = "Find your perfect co-founder";
+"onboarding.get_started" = "Get Started";
+"onboarding.professional_info" = "Professional Info";
+"onboarding.skills_industries" = "Skills & Industries";
+"onboarding.startup_details" = "Startup Details";
+"onboarding.experience" = "Experience";
+
+// MARK: - Referrals
+
+"referral.invite_founders" = "Invite Founders";
+"referral.share_code" = "Share your referral code";
+"referral.your_code" = "Your Code";
+"referral.enter_code" = "Enter Referral Code (Optional)";
+
+// MARK: - Professional Fields
+
+"professional.technical_cofounder" = "Technical Co-Founder";
+"professional.business_cofounder" = "Business Co-Founder";
+"professional.product_cofounder" = "Product Co-Founder";
+"professional.design_cofounder" = "Design Co-Founder";
+"professional.marketing_cofounder" = "Marketing Co-Founder";
+"professional.operations_cofounder" = "Operations Co-Founder";
+
+"professional.idea_stage" = "Idea Stage";
+"professional.mvp_building" = "MVP Building";
+"professional.mvp_complete" = "MVP Complete";
+"professional.early_traction" = "Early Traction";
+"professional.pre_seed" = "Pre-Seed";
+"professional.seed_funded" = "Seed Funded";
+"professional.series_a" = "Series A+";
+"professional.scaling" = "Scaling";
+
+"professional.full_time" = "Full-time";
+"professional.part_time" = "Part-time";
+"professional.nights_weekends" = "Nights & Weekends";
+"professional.flexible" = "Flexible";
+
+"professional.equal_split" = "Equal Split (50/50)";
+"professional.negotiable" = "Negotiable";
+"professional.based_on_contribution" = "Based on Contribution";
+"professional.vesting_schedule" = "Vesting Schedule";
+
+"professional.remote" = "Remote";
+"professional.local_only" = "Local Only";
+"professional.hybrid" = "Hybrid";
+"professional.open_to_relocation" = "Open to Relocation";
