@@ -1,6 +1,6 @@
 //
 //  DailyLikeLimitCache.swift
-//  Celestia
+//  CoFoundry
 //
 //  Persistent cache for daily like limits to prevent double reads from Firestore
 //  Automatically resets at midnight and persists across app restarts

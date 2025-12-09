@@ -1,6 +1,6 @@
 //
 //  DiscoverViewModel.swift
-//  Celestia
+//  CoFoundry
 //
 //  Handles user discovery and browsing
 //

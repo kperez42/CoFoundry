@@ -1,6 +1,6 @@
 //
 //  SearchFilterView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Comprehensive search filter interface
 //

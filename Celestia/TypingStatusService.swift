@@ -1,6 +1,6 @@
 //
 //  TypingStatusService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for managing real-time typing indicators synced to Firestore
 //

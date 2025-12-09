@@ -1,6 +1,6 @@
 //
 //  ChatDetailView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Chat conversation view
 //

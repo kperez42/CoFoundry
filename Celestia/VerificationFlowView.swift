@@ -1,6 +1,6 @@
 //
 //  VerificationFlowView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Complete verification flow UI (Photo, ID, Background Check)
 //

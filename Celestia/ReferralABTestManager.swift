@@ -1,6 +1,6 @@
 //
 //  ReferralABTestManager.swift
-//  Celestia
+//  CoFoundry
 //
 //  A/B Testing system for referral program optimization
 //  Features: Experiment management, variant assignment, statistical analysis
@@ -731,11 +731,11 @@ class ReferralABTestManager: ObservableObject {
 
         // Return default message
         return """
-        Hey! Join me on Celestia, the best dating app for meaningful connections! 💜
+        Hey! Join me on CoFoundry, the best dating app for meaningful connections! 💜
 
         Use my code \(code) when you sign up and we'll both get 3 days of Premium free!
 
-        Download now: https://celestia.app/join/\(code)
+        Download now: https://cofoundry.app/join/\(code)
         """
     }
 

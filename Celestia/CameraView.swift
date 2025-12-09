@@ -1,6 +1,6 @@
 //
 //  CameraView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Camera view for selfie capture with verification
 //

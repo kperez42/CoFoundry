@@ -1,6 +1,6 @@
 //
 //  ImagePicker.swift
-//  Celestia
+//  CoFoundry
 //
 //  Photo picker component for profile pictures
 //

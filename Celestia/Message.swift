@@ -1,6 +1,6 @@
 //
 //  Message.swift
-//  Celestia
+//  CoFoundry
 //
 //  Message model for chat functionality
 //

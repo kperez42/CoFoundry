@@ -1,6 +1,6 @@
 //
 //  OnlineStatusIndicator.swift
-//  Celestia
+//  CoFoundry
 //
 //  Reusable online status indicator component
 //  Shows real-time online status with elegant animations

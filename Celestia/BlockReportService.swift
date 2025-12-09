@@ -1,6 +1,6 @@
 //
 //  BlockReportService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for managing blocked and reported users
 //

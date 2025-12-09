@@ -1,6 +1,6 @@
 //
 //  ProfileInsightsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Comprehensive profile analytics and insights dashboard
 //

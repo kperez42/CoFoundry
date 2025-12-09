@@ -1,6 +1,6 @@
 //
 //  AdminUserInvestigationView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Admin tool for investigating user profiles
 //

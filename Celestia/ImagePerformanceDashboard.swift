@@ -1,6 +1,6 @@
 //
 //  ImagePerformanceDashboard.swift
-//  Celestia
+//  CoFoundry
 //
 //  Admin dashboard for monitoring image optimization performance
 //

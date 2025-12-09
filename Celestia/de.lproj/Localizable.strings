@@ -1,5 +1,5 @@
 /*
- * Celestia Localization - German
+ * CoFoundry Localization - German
  * Language: Deutsch (de)
  */
 
@@ -122,7 +122,7 @@
 
 // MARK: - Onboarding
 
-"onboarding.welcome" = "Willkommen bei Celestia";
+"onboarding.welcome" = "Willkommen bei CoFoundry";
 "onboarding.find_your_match" = "Finden Sie Ihr perfektes Match";
 "onboarding.get_started" = "Loslegen";
 

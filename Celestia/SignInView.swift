@@ -1,6 +1,6 @@
 //
 //  SignInView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Sign in screen
 //

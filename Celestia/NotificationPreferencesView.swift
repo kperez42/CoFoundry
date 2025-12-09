@@ -1,6 +1,6 @@
 //
 //  NotificationPreferencesView.swift
-//  Celestia
+//  CoFoundry
 //
 //  SwiftUI view for managing notification preferences
 //

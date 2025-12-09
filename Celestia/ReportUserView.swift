@@ -1,6 +1,6 @@
 //
 //  ReportUserView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Created by Claude
 //  UI for reporting and blocking users
@@ -151,7 +151,7 @@ struct ReportUserView: View {
                     dismiss()
                 }
             } message: {
-                Text("Thank you for helping keep Celestia safe. We'll review this report and take appropriate action.")
+                Text("Thank you for helping keep CoFoundry safe. We'll review this report and take appropriate action.")
             }
             .alert("Error", isPresented: $showError) {
                 Button("OK", role: .cancel) {}

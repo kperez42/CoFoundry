@@ -1,6 +1,6 @@
 //
 //  NetworkInterceptors.swift
-//  Celestia
+//  CoFoundry
 //
 //  Consolidated network interceptor protocols and implementations
 //  Shared between BackendAPIService and NetworkManager

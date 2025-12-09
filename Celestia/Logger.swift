@@ -1,6 +1,6 @@
 //
 //  Logger.swift
-//  Celestia
+//  CoFoundry
 //
 //  Comprehensive logging system to replace print statements
 //  Provides structured logging with levels, categories, and persistence
@@ -77,7 +77,7 @@ enum LogCategory: String {
     case general = "General"
 
     var subsystem: String {
-        "com.celestia.app"
+        "com.cofoundry.app"
     }
 }
 

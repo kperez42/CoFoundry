@@ -1,6 +1,6 @@
 //
 //  ImprovedComponents.swift
-//  Celestia
+//  CoFoundry
 //
 //  Reusable improved UI components
 //

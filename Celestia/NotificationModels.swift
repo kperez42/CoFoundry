@@ -1,6 +1,6 @@
 //
 //  NotificationModels.swift
-//  Celestia
+//  CoFoundry
 //
 //  Models and types for notification system
 //  NotificationData is defined in NotificationSettingsView.swift
@@ -451,148 +451,148 @@ enum NotificationPayload {
         }
     }
 
-    // MARK: - Engaging Notification Templates
+    // MARK: - Professional Notification Templates
 
     private static func randomMatchTitle(name: String) -> String {
         let titles = [
-            "It's a match with \(name)!",
-            "You matched with \(name)!",
-            "\(name) likes you too!",
-            "New match: \(name)",
-            "Sparks flying with \(name)!"
+            "New co-founder match with \(name)!",
+            "You connected with \(name)!",
+            "\(name) is interested in partnering!",
+            "New connection: \(name)",
+            "Potential co-founder: \(name)!"
         ]
-        return titles.randomElement() ?? "New Match with \(name)!"
+        return titles.randomElement() ?? "New Connection with \(name)!"
     }
 
     private static func randomMatchBody(name: String) -> String {
         let bodies = [
-            "Say hi before someone else does!",
-            "Start chatting now - don't keep \(name) waiting!",
-            "Your next conversation could change everything.",
-            "The first message matters - make it count!",
-            "Break the ice and say hello!"
+            "Start the conversation about your startup!",
+            "Reach out to discuss collaboration opportunities",
+            "This could be the co-founder you've been looking for",
+            "Share your vision and explore synergies",
+            "Great connections start with great conversations!"
         ]
         return bodies.randomElement() ?? "Start a conversation now!"
     }
 
     private static func randomProfileViewTitle(name: String) -> String {
         let titles = [
-            "\(name) checked you out",
-            "Someone's interested...",
             "\(name) viewed your profile",
-            "You caught \(name)'s eye",
-            "\(name) is curious about you"
+            "A founder is checking you out",
+            "\(name) is interested in your background",
+            "You caught \(name)'s attention",
+            "\(name) is exploring your profile"
         ]
         return titles.randomElement() ?? "\(name) viewed your profile"
     }
 
     private static func randomProfileViewBody(name: String) -> String {
         let bodies = [
-            "Like them back before they move on!",
-            "See if you're a match - tap to view",
-            "Could this be the one? Check out their profile",
-            "They made the first move. Your turn!",
-            "Don't miss your chance - see their profile now"
+            "Check if your skills complement theirs",
+            "See if you're a co-founder match - tap to view",
+            "Could this be your future co-founder?",
+            "They're interested. See their profile!",
+            "Don't miss this potential connection"
         ]
         return bodies.randomElement() ?? "Tap to view their profile"
     }
 
     private static func randomSuperLikeTitle(name: String) -> String {
         let titles = [
-            "\(name) SUPER Liked you!",
-            "Someone really likes you!",
-            "\(name) thinks you're special",
-            "You got a Super Like from \(name)!",
-            "\(name) went all in on you!"
+            "\(name) is very interested!",
+            "High-priority interest from \(name)!",
+            "\(name) thinks you'd be a great fit",
+            "Priority connection request from \(name)!",
+            "\(name) is eager to connect!"
         ]
-        return titles.randomElement() ?? "\(name) Super Liked you!"
+        return titles.randomElement() ?? "\(name) wants to connect!"
     }
 
     private static func randomSuperLikeBody(name: String) -> String {
         let bodies = [
-            "They really wanted you to notice. Will you?",
-            "This is rare - \(name) saved their Super Like for you!",
-            "You stood out from everyone else!",
-            "Super Likes mean they're serious about you",
-            "Out of everyone, they picked YOU!"
+            "They see real potential in working together",
+            "\(name) prioritized connecting with you!",
+            "Your profile stood out to them",
+            "This is a high-intent connection request",
+            "Out of all founders, they chose YOU!"
         ]
-        return bodies.randomElement() ?? "They really like you!"
+        return bodies.randomElement() ?? "They're very interested in connecting!"
     }
 
     private static func randomMatchReminderTitle(name: String) -> String {
         let titles = [
-            "Don't forget about \(name)!",
-            "\(name) is still waiting...",
-            "Say something to \(name)!",
-            "Your match with \(name) needs attention",
-            "Time to break the ice with \(name)!"
+            "Follow up with \(name)!",
+            "\(name) is waiting to hear from you",
+            "Continue your conversation with \(name)",
+            "Your connection with \(name) needs attention",
+            "Time to reconnect with \(name)!"
         ]
-        return titles.randomElement() ?? "Say hi to \(name)!"
+        return titles.randomElement() ?? "Reach out to \(name)!"
     }
 
     private static func randomMatchReminderBody(name: String) -> String {
         let bodies = [
-            "Matches fade fast - send a message now!",
-            "The longer you wait, the harder it gets",
-            "A simple 'hey' could lead to something great",
-            "Don't let this connection slip away",
-            "They swiped right on you for a reason!"
+            "Great partnerships start with follow-through",
+            "The best co-founder relationships need nurturing",
+            "A quick message keeps opportunities alive",
+            "Don't let this connection go cold",
+            "They showed interest for a reason!"
         ]
-        return bodies.randomElement() ?? "Don't let this match expire"
+        return bodies.randomElement() ?? "Don't let this connection expire"
     }
 
     private static func randomMessageReminderTitle(name: String) -> String {
         let titles = [
-            "\(name) is waiting for you",
-            "You left \(name) hanging!",
-            "Don't ghost \(name)!",
+            "\(name) is waiting for your response",
+            "Continue your conversation with \(name)",
             "Reply to \(name)?",
-            "\(name) wants to hear from you"
+            "\(name) wants to continue the discussion",
+            "Don't leave \(name) waiting"
         ]
         return titles.randomElement() ?? "Reply to \(name)"
     }
 
     private static func randomMessageReminderBody(name: String) -> String {
         let bodies = [
-            "Keep the conversation going!",
-            "They're probably checking their phone right now...",
-            "A quick reply keeps the spark alive",
-            "Don't leave them on read!",
-            "Good things happen when you show up"
+            "Keep the momentum going!",
+            "Timely responses build strong partnerships",
+            "A quick reply shows you're serious",
+            "Don't let the conversation stall!",
+            "Great collaborations need great communication"
         ]
         return bodies.randomElement() ?? "They're waiting for your response"
     }
 
     private static func randomNewLikeTitle(name: String?, count: Int) -> String {
         if let name = name {
-            // Premium users see who liked them
+            // Premium users see who expressed interest
             let titles = [
-                "\(name) likes you!",
-                "\(name) is interested in you",
-                "You caught \(name)'s attention!",
-                "\(name) wants to meet you",
-                "Someone special likes you: \(name)"
+                "\(name) is interested in connecting!",
+                "\(name) wants to explore partnership",
+                "\(name) is interested in your profile!",
+                "\(name) wants to connect",
+                "New interest from \(name)"
             ]
-            return titles.randomElement() ?? "\(name) likes you!"
+            return titles.randomElement() ?? "\(name) is interested!"
         } else {
             // Free users see mystery notification
             if count > 1 {
                 let titles = [
-                    "You have \(count) new likes!",
-                    "\(count) people like you!",
-                    "\(count) new admirers are waiting",
-                    "You're getting noticed! \(count) new likes"
+                    "\(count) founders are interested!",
+                    "\(count) new connection requests!",
+                    "\(count) founders want to connect",
+                    "You're in demand! \(count) new interests"
                 ]
-                return titles.randomElement() ?? "You have \(count) new likes!"
+                return titles.randomElement() ?? "You have \(count) new interests!"
             } else {
                 let titles = [
-                    "Someone likes you!",
-                    "You have a secret admirer",
-                    "Someone swiped right on you!",
-                    "You're being noticed!",
-                    "A new admirer is waiting"
+                    "Someone wants to connect!",
+                    "A founder is interested in you",
+                    "New connection request!",
+                    "You caught someone's attention!",
+                    "A potential co-founder awaits"
                 ]
-                return titles.randomElement() ?? "Someone likes you!"
+                return titles.randomElement() ?? "Someone wants to connect!"
             }
         }
     }
@@ -600,40 +600,40 @@ enum NotificationPayload {
     private static func randomNewLikeBody(name: String?, count: Int) -> String {
         if name != nil {
             let bodies = [
-                "Like them back to start chatting!",
-                "Will you match with them?",
-                "Open the app to see their profile",
+                "Connect back to start a conversation!",
+                "See if your goals align",
+                "Open the app to view their profile",
                 "Tap to see if you're a match!",
-                "Don't keep them waiting!"
+                "Don't keep a potential co-founder waiting!"
             ]
-            return bodies.randomElement() ?? "Like them back to start chatting!"
+            return bodies.randomElement() ?? "Connect back to start chatting!"
         } else {
             let bodies = [
-                "Upgrade to see who likes you!",
-                "Go Premium to reveal your admirers",
-                "Find out who's interested in you",
-                "Your next match could be waiting!",
-                "See who's crushing on you"
+                "Upgrade to see who's interested!",
+                "Go Premium to reveal interested founders",
+                "Find out who wants to connect",
+                "Your next co-founder could be waiting!",
+                "See who's interested in partnering"
             ]
-            return bodies.randomElement() ?? "Upgrade to see who likes you!"
+            return bodies.randomElement() ?? "Upgrade to see who's interested!"
         }
     }
 
     private static func dailyDigestTitle(likes: Int, matches: Int, messages: Int) -> String {
         if matches > 0 {
-            return matches == 1 ? "You got a new match!" : "You got \(matches) new matches!"
+            return matches == 1 ? "New co-founder connection!" : "\(matches) new connections!"
         } else if likes > 0 {
-            return likes == 1 ? "Someone new likes you!" : "\(likes) people like you!"
+            return likes == 1 ? "A founder is interested!" : "\(likes) founders interested!"
         } else if messages > 0 {
             return messages == 1 ? "You have an unread message" : "You have \(messages) unread messages"
         } else {
             let titles = [
-                "Your dating life awaits!",
-                "New people are nearby",
-                "Time to find your match!",
-                "Ready to meet someone new?"
+                "Discover your co-founder today!",
+                "New founders are active",
+                "Find your next partner!",
+                "Ready to meet potential co-founders?"
             ]
-            return titles.randomElement() ?? "Your dating life awaits!"
+            return titles.randomElement() ?? "Find your co-founder!"
         }
     }
 
@@ -641,10 +641,10 @@ enum NotificationPayload {
         var parts: [String] = []
 
         if likes > 0 {
-            parts.append("\(likes) new like\(likes == 1 ? "" : "s")")
+            parts.append("\(likes) new interest\(likes == 1 ? "" : "s")")
         }
         if matches > 0 {
-            parts.append("\(matches) new match\(matches == 1 ? "" : "es")")
+            parts.append("\(matches) new connection\(matches == 1 ? "" : "s")")
         }
         if messages > 0 {
             parts.append("\(messages) unread message\(messages == 1 ? "" : "s")")
@@ -652,10 +652,10 @@ enum NotificationPayload {
 
         if parts.isEmpty {
             let bodies = [
-                "New profiles are waiting to be discovered!",
-                "Swipe now - your perfect match could be next!",
-                "Don't miss out on today's connections",
-                "The more you swipe, the more you match!"
+                "New founders are waiting to be discovered!",
+                "Browse now - your ideal co-founder could be next!",
+                "Don't miss today's opportunities",
+                "The more you connect, the closer you are to finding your partner!"
             ]
             return bodies.randomElement() ?? "Open the app to see what's new!"
         }

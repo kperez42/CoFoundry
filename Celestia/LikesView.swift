@@ -1,6 +1,6 @@
 //
 //  LikesView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Likes view with three tabs: Liked Me, My Likes, Mutual Likes
 //
@@ -1420,7 +1420,7 @@ class LikesViewModel: ObservableObject {
                 }
                 return .liked
             }
-        } catch let error as CelestiaError {
+        } catch let error as CoFoundryError {
             Logger.shared.error("Error liking back user", category: .matching, error: error)
             HapticManager.shared.notification(.error)
             return .error(error.localizedDescription)

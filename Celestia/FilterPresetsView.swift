@@ -1,6 +1,6 @@
 //
 //  FilterPresetsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Manage and load saved filter presets
 //

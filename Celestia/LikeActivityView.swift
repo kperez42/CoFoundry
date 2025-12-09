@@ -1,6 +1,6 @@
 //
 //  LikeActivityView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Timeline of like activity (received and sent)
 //

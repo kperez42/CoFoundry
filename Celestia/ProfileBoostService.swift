@@ -1,6 +1,6 @@
 //
 //  ProfileBoostService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Profile Boost functionality - temporarily increases profile visibility
 //

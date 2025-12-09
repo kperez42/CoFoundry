@@ -1,6 +1,6 @@
 //
 //  TutorialView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Interactive tutorials for core features
 //  Guides new users through swiping, matching, and messaging
@@ -299,7 +299,7 @@ class TutorialManager: ObservableObject {
         return [
             Tutorial(
                 id: "welcome",
-                title: "Welcome to Celestia! 🌟",
+                title: "Welcome to CoFoundry! 🌟",
                 description: "Your journey to meaningful connections starts here. Let's show you around!",
                 icon: "star.fill",
                 accentColor: .purple,

@@ -1,6 +1,6 @@
 //
 //  LazyUserCardStack.swift
-//  Celestia
+//  CoFoundry
 //
 //  Lazy loading card stack with windowed rendering and image preloading
 //  Significantly improves performance by only rendering visible cards

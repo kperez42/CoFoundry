@@ -1,6 +1,6 @@
 //
 //  UserService.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for user-related operations
 //

@@ -1,6 +1,6 @@
 //
 //  InterestsView.swift
-//  Celestia
+//  CoFoundry
 //
 
 import SwiftUI

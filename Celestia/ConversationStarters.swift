@@ -1,6 +1,6 @@
 //
 //  ConversationStarters.swift
-//  Celestia
+//  CoFoundry
 //
 //  Service for generating smart conversation starters
 //

@@ -1,6 +1,6 @@
 //
 //  PaywallView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Subscription paywall with tiered pricing
 //

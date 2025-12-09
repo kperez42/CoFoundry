@@ -1,6 +1,6 @@
 //
 //  AnimationHelpers.swift
-//  Celestia
+//  CoFoundry
 //
 //  Created by Claude
 //  Reusable animations and transitions for smooth UX

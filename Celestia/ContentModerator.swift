@@ -1,6 +1,6 @@
 //
 //  ContentModerator.swift
-//  Celestia
+//  CoFoundry
 //
 //  Content moderation service to filter inappropriate content
 //

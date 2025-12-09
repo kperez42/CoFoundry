@@ -1,6 +1,6 @@
 //
 //  ReferralDashboardView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Referral program dashboard with stats and sharing
 //
@@ -204,7 +204,7 @@ struct ReferralDashboardView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
                 } else {
-                    Text("CEL-XXXXXX")
+                    Text("CFY-XXXXXX")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(.gray.opacity(0.3))
                         .lineLimit(1)

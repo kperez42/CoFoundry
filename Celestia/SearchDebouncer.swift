@@ -1,6 +1,6 @@
 //
 //  SearchDebouncer.swift
-//  Celestia
+//  CoFoundry
 //
 //  Debounces search input to reduce unnecessary database queries
 //  Waits 300ms after user stops typing before triggering search

@@ -1,6 +1,6 @@
 //
 //  ProfileInsights.swift
-//  Celestia
+//  CoFoundry
 //
 //  Profile analytics and insights data model
 //

@@ -1,6 +1,6 @@
 //
 //  DiscoverView.swift
-//  Celestia
+//  CoFoundry
 //
 //  ACCESSIBILITY: Full VoiceOver support, Dynamic Type, Reduce Motion, and WCAG 2.1 AA compliant
 //

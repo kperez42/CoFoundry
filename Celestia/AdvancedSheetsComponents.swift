@@ -1,6 +1,6 @@
 //
 //  AdvancedFiltersSheet.swift
-//  Celestia
+//  CoFoundry
 //
 //  Advanced filtering options for user discovery
 //

@@ -1,6 +1,6 @@
 //
 //  PrivacySettingsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  Privacy controls for user safety
 //

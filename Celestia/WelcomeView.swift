@@ -1,6 +1,6 @@
 //
 //  WelcomeView.swift - IMPROVED VERSION
-//  Celestia
+//  CoFoundry
 //
 //  ✨ Enhanced with:
 //  - Animated gradient background
@@ -175,7 +175,7 @@ struct WelcomeView: View {
             }
             
             VStack(spacing: 8) {
-                Text("Celestia")
+                Text("CoFoundry")
                     .font(.system(size: 52, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.2), radius: 5)
@@ -261,7 +261,7 @@ struct WelcomeView: View {
                 .shadow(color: .white.opacity(0.5), radius: 15, y: 5)
             }
             .accessibilityLabel("Create Account")
-            .accessibilityHint("Start creating your Celestia account")
+            .accessibilityHint("Start creating your CoFoundry account")
             .accessibilityIdentifier(AccessibilityIdentifier.signUpButton)
             .scaleButton()
 
@@ -442,7 +442,7 @@ struct WelcomeAwarenessSlidesView: View {
     let slides: [AwarenessSlide] = [
         AwarenessSlide(
             icon: "star.circle.fill",
-            title: "Welcome to Celestia!",
+            title: "Welcome to CoFoundry!",
             description: "Your journey to meaningful connections starts here. Let us show you how it works!",
             color: .purple,
             tips: [
@@ -498,7 +498,7 @@ struct WelcomeAwarenessSlidesView: View {
         AwarenessSlide(
             icon: "checklist",
             title: "What We Review",
-            description: "All profiles are reviewed before going live. Here's what our team checks to keep Celestia safe and authentic:",
+            description: "All profiles are reviewed before going live. Here's what our team checks to keep CoFoundry safe and authentic:",
             color: .blue,
             tips: [
                 "Profile Photos - Clear, appropriate photos that show you",

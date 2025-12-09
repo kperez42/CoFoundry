@@ -1,6 +1,6 @@
 //
 //  SecuritySettingsView.swift
-//  Celestia
+//  CoFoundry
 //
 //  User interface for security settings and preferences
 //  Provides centralized control for all security features
