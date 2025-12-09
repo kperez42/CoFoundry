@@ -2,7 +2,7 @@
 //  MutualLikesView.swift
 //  CoFoundry
 //
-//  Shows people you both liked (mutual likes that haven't matched yet)
+//  Shows people with mutual interest (both expressed interest that haven't connected yet)
 //
 
 import SwiftUI
@@ -27,7 +27,7 @@ struct MutualLikesView: View {
                     mutualLikesGrid
                 }
             }
-            .navigationTitle("Mutual Likes")
+            .navigationTitle("Mutual Interests")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -71,7 +71,7 @@ struct MutualLikesView: View {
 
     private var headerCard: some View {
         VStack(spacing: 8) {
-            Image(systemName: "heart.circle.fill")
+            Image(systemName: "person.2.circle.fill")
                 .font(.system(size: 50))
                 .foregroundStyle(
                     LinearGradient(
@@ -81,10 +81,10 @@ struct MutualLikesView: View {
                     )
                 )
 
-            Text("\(viewModel.mutualLikes.count) Mutual Likes")
+            Text("\(viewModel.mutualLikes.count) Mutual Interests")
                 .font(.title2.bold())
 
-            Text("You both liked each other!")
+            Text("You're both interested in connecting!")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -101,7 +101,7 @@ struct MutualLikesView: View {
     private var loadingView: some View {
         VStack(spacing: 16) {
             ProgressView()
-            Text("Loading mutual likes...")
+            Text("Loading mutual interests...")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -111,16 +111,16 @@ struct MutualLikesView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 24) {
-            Image(systemName: "heart.slash.circle")
+            Image(systemName: "person.2.slash")
                 .font(.system(size: 80))
                 .foregroundColor(.gray.opacity(0.5))
 
             VStack(spacing: 8) {
-                Text("No Mutual Likes Yet")
+                Text("No Mutual Interests Yet")
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text("Keep swiping to find people who like you back!")
+                Text("Keep browsing to find co-founders who are also interested in you!")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -176,12 +176,12 @@ struct MutualLikeCard: View {
 
                     // Mutual indicator
                     HStack(spacing: 4) {
-                        Image(systemName: "heart.fill")
+                        Image(systemName: "person.2.fill")
                             .font(.caption2)
-                        Text("You both liked!")
+                        Text("Mutual interest!")
                             .font(.caption)
                     }
-                    .foregroundColor(.pink)
+                    .foregroundColor(.purple)
                 }
                 .padding(12)
             }

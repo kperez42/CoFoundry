@@ -70,7 +70,7 @@ struct DiscoverView: View {
             .accessibilityIdentifier(AccessibilityIdentifier.discoverView)
             .task {
                 await viewModel.loadUsers()
-                VoiceOverAnnouncement.screenChanged(to: "Discover view. \(viewModel.users.count) potential matches available.")
+                VoiceOverAnnouncement.screenChanged(to: "Discover view. \(viewModel.users.count) potential co-founders available.")
             }
             .refreshable {
                 HapticManager.shared.impact(.light)
@@ -183,7 +183,7 @@ struct DiscoverView: View {
             }
             .accessibilityElement(
                 label: "Shuffle users",
-                hint: "Randomly reorder the list of potential matches",
+                hint: "Randomly reorder the list of potential co-founders",
                 traits: .isButton,
                 identifier: AccessibilityIdentifier.shuffleButton
             )
@@ -211,7 +211,7 @@ struct DiscoverView: View {
             }
             .accessibilityElement(
                 label: viewModel.hasActiveFilters ? "Filters active" : "Filters",
-                hint: "Show discovery filters to refine your matches",
+                hint: "Show discovery filters to refine your search",
                 traits: .isButton,
                 identifier: AccessibilityIdentifier.filterButton,
                 value: viewModel.hasActiveFilters ? "Active" : "Inactive"
@@ -268,7 +268,7 @@ struct DiscoverView: View {
                     )
                     .disabled(viewModel.isProcessingAction)
 
-                    // Super Like button
+                    // Super Interest button
                     SwipeActionButton(
                         icon: "star.fill",
                         iconSize: .title2,
@@ -280,20 +280,20 @@ struct DiscoverView: View {
                     ) {
                         Task {
                             await viewModel.handleSuperLike()
-                            VoiceOverAnnouncement.announce("Super like sent!")
+                            VoiceOverAnnouncement.announce("Priority interest sent!")
                         }
                     }
                     .accessibilityElement(
-                        label: "Super Like",
-                        hint: "Send a super like to stand out and increase your chances of matching",
+                        label: "Priority Interest",
+                        hint: "Send a priority interest to stand out and increase your chances of connecting",
                         traits: .isButton,
                         identifier: AccessibilityIdentifier.superLikeButton
                     )
                     .disabled(viewModel.isProcessingAction)
 
-                    // Like button
+                    // Connect button
                     SwipeActionButton(
-                        icon: "heart.fill",
+                        icon: "hand.thumbsup.fill",
                         iconSize: .title,
                         iconWeight: .bold,
                         size: 68,
@@ -303,12 +303,12 @@ struct DiscoverView: View {
                     ) {
                         Task {
                             await viewModel.handleLike()
-                            VoiceOverAnnouncement.announce("Liked! Next profile.")
+                            VoiceOverAnnouncement.announce("Interested! Next profile.")
                         }
                     }
                     .accessibilityElement(
-                        label: "Like",
-                        hint: "Like this profile to potentially match",
+                        label: "Interested",
+                        hint: "Express interest in this profile to potentially connect",
                         traits: .isButton,
                         identifier: AccessibilityIdentifier.likeButton
                     )
@@ -404,15 +404,15 @@ struct DiscoverView: View {
                 )
 
             VStack(spacing: 12) {
-                Text(viewModel.hasActiveFilters ? "No Matches Found" : "No More Profiles")
+                Text(viewModel.hasActiveFilters ? "No Co-Founders Found" : "No More Profiles")
                     .font(.title2)
                     .fontWeight(.bold)
                     .dynamicTypeSize(min: .large, max: .accessibility2)
                     .accessibilityAddTraits(.isHeader)
 
                 Text(viewModel.hasActiveFilters ?
-                     "Try adjusting your filters to see more people" :
-                     "Check back later for new people nearby")
+                     "Try adjusting your filters to see more founders" :
+                     "Check back later for new co-founders in your area")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -490,7 +490,7 @@ struct DiscoverView: View {
                     .font(.system(size: 80))
                     .foregroundColor(.yellow)
 
-                Text("It's a Match! 🎉")
+                Text("You're Connected! 🎉")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -498,7 +498,7 @@ struct DiscoverView: View {
                     .accessibilityAddTraits(.isHeader)
 
                 if let user = viewModel.matchedUser {
-                    Text("You and \(user.fullName) liked each other!")
+                    Text("You and \(user.fullName) are both interested!")
                         .font(.title3)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
@@ -520,14 +520,14 @@ struct DiscoverView: View {
                 .tint(.purple)
                 .controlSize(.large)
 
-                Button("Keep Swiping") {
+                Button("Keep Browsing") {
                     viewModel.dismissMatchAnimation()
                 }
                 .foregroundColor(.white)
             }
             .task {
                 if let user = viewModel.matchedUser {
-                    VoiceOverAnnouncement.announce("It's a match! You and \(user.fullName) liked each other!")
+                    VoiceOverAnnouncement.announce("You're connected! You and \(user.fullName) are both interested!")
                 }
             }
             .padding(40)
@@ -547,9 +547,9 @@ struct DiscoverView: View {
                 }
             }
             .overlay(alignment: .topTrailing) {
-                // Like indicator
+                // Interest indicator
                 if cardIndex == 0 && viewModel.dragOffset.width > 50 {
-                    swipeIndicator(icon: "heart.fill", color: .green, text: "LIKE")
+                    swipeIndicator(icon: "hand.thumbsup.fill", color: .green, text: "INTERESTED")
                         .opacity(min(1.0, Double(viewModel.dragOffset.width) / 100.0))
                 }
             }
@@ -572,13 +572,13 @@ struct DiscoverView: View {
                 isHidden: cardIndex != 0
             )
             .accessibilityActions(cardIndex == 0 ? [
-                AccessibilityCustomAction(name: "Like") {
+                AccessibilityCustomAction(name: "Interested") {
                     Task { await viewModel.handleLike() }
                 },
                 AccessibilityCustomAction(name: "Pass") {
                     Task { await viewModel.handlePass() }
                 },
-                AccessibilityCustomAction(name: "Super Like") {
+                AccessibilityCustomAction(name: "Priority Interest") {
                     Task { await viewModel.handleSuperLike() }
                 },
                 AccessibilityCustomAction(name: "View Profile") {

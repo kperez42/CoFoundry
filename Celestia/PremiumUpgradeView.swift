@@ -270,7 +270,7 @@ struct PremiumUpgradeView: View {
                         .opacity(animateHero ? 1 : 0)
                         .offset(y: animateHero ? 0 : 20)
 
-                    Text("Discover more people who match your vibe")
+                    Text("Discover more co-founders who match your vision")
                         .font(.body.weight(.medium))
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
@@ -350,7 +350,7 @@ struct PremiumUpgradeView: View {
     private func previewCardLabel(for index: Int) -> String {
         switch index {
         case 0: return "Unlimited"
-        case 1: return "See Likes"
+        case 1: return "See Interest"
         case 2: return "Message"
         default: return "Premium"
         }
@@ -516,7 +516,7 @@ struct PremiumUpgradeView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 8) {
-                        Text("People Who Like You")
+                        Text("People Interested In You")
                             .font(.title3.weight(.bold))
                             .foregroundColor(.primary)
 
@@ -597,7 +597,7 @@ struct PremiumUpgradeView: View {
                 HStack {
                     Image(systemName: "eye.fill")
                         .font(.subheadline)
-                    Text("See Who Likes You")
+                    Text("See Who's Interested")
                         .font(.subheadline.weight(.semibold))
                 }
                 .foregroundColor(.white)
@@ -670,7 +670,7 @@ struct PremiumUpgradeView: View {
                     .font(.subheadline.weight(.bold))
                     .foregroundColor(.primary)
 
-                Text("Stand out with a verified premium badge on your profile. Members with badges get 2.5x more matches!")
+                Text("Stand out with a verified premium badge on your profile. Members with badges get 2.5x more connections!")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(3)
@@ -746,10 +746,10 @@ struct PremiumUpgradeView: View {
 
     private var showcaseCard: some View {
         let showcases = [
-            ("23 people liked you today", "heart.circle.fill", Color.pink, "See who they are with Premium"),
+            ("23 people are interested in you", "person.2.circle.fill", Color.pink, "See who they are with Premium"),
             ("You're missing 15+ profiles", "eye.slash.fill", Color.purple, "Get unlimited browsing"),
-            ("Unlimited likes available", "heart.fill", Color.red, "Like as many profiles as you want"),
-            ("Send unlimited messages", "message.circle.fill", Color.blue, "Connect with anyone you like")
+            ("Unlimited interests available", "hand.thumbsup.fill", Color.green, "Express interest in as many profiles as you want"),
+            ("Send unlimited messages", "message.circle.fill", Color.blue, "Connect with any co-founder you want")
         ]
 
         let current = showcases[currentShowcaseIndex]
@@ -796,7 +796,7 @@ struct PremiumUpgradeView: View {
 
     private var impactStats: some View {
         HStack(spacing: 0) {
-            impactStat(value: "3x", label: "More Matches", icon: "heart.fill", color: .pink)
+            impactStat(value: "3x", label: "More Connections", icon: "person.2.fill", color: .pink)
 
             Rectangle()
                 .fill(Color.gray.opacity(0.15))
@@ -865,8 +865,8 @@ struct PremiumUpgradeView: View {
 
                 VStack(spacing: 0) {
                     comparisonRow(feature: "Send Messages", free: "10/day", premium: "Unlimited", icon: "message.fill")
-                    comparisonRow(feature: "Daily Likes", free: "10/day", premium: "Unlimited", icon: "heart.fill")
-                    comparisonRow(feature: "See Who Likes You", free: "Hidden", premium: "Full Access", icon: "eye.fill")
+                    comparisonRow(feature: "Daily Interests", free: "10/day", premium: "Unlimited", icon: "hand.thumbsup.fill")
+                    comparisonRow(feature: "See Who's Interested", free: "Hidden", premium: "Full Access", icon: "eye.fill")
                     comparisonRow(feature: "Advanced Filters", free: "Basic", premium: "All Filters", icon: "slider.horizontal.3")
                     comparisonRow(feature: "Read Receipts", free: "No", premium: "Yes", icon: "checkmark.message.fill")
                     comparisonRow(feature: "Priority in Feed", free: "Standard", premium: "Top Priority", icon: "arrow.up.circle.fill")
@@ -956,21 +956,21 @@ struct PremiumUpgradeView: View {
                 successStoryCard(
                     initials: "JM",
                     name: "Jake M.",
-                    story: "Found my match within 2 weeks! The 'See Who Likes You' feature was a game changer.",
+                    story: "Found my co-founder within 2 weeks! The 'See Who's Interested' feature was a game changer.",
                     color: .purple
                 )
 
                 successStoryCard(
                     initials: "SE",
                     name: "Sarah E.",
-                    story: "So many more quality matches since upgrading. Unlimited likes means I never miss someone.",
+                    story: "So many more quality connections since upgrading. Unlimited interests means I never miss a potential co-founder.",
                     color: .pink
                 )
 
                 successStoryCard(
                     initials: "AT",
                     name: "Alex T.",
-                    story: "Profile boost got me 3x the views. Met amazing people I would have missed.",
+                    story: "Profile boost got me 3x the views. Met amazing co-founders I would have missed.",
                     color: .orange
                 )
             }
@@ -1085,8 +1085,8 @@ struct PremiumUpgradeView: View {
                 )
 
                 FAQItem(
-                    question: "Do I keep my matches if I cancel?",
-                    answer: "Absolutely! All your matches and conversations are yours to keep. You just won't have access to premium features."
+                    question: "Do I keep my connections if I cancel?",
+                    answer: "Absolutely! All your connections and conversations are yours to keep. You just won't have access to premium features."
                 )
 
                 FAQItem(

@@ -2,7 +2,7 @@
 //  LikesView.swift
 //  CoFoundry
 //
-//  Likes view with three tabs: Liked Me, My Likes, Mutual Likes
+//  Interests view with three tabs: Interested In Me, My Interests, Mutual Interests
 //
 
 import SwiftUI
@@ -72,7 +72,7 @@ struct LikesView: View {
         case nameAZ = "Name A-Z"
     }
 
-    private let tabs = ["Liked Me", "My Likes", "Mutual Likes"]
+    private let tabs = ["Interested In Me", "My Interests", "Mutual Interests"]
 
     // Check if user has premium access
     private var isPremium: Bool {
@@ -376,14 +376,14 @@ struct LikesView: View {
             VStack(spacing: 12) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Likes")
+                        Text("Interests")
                             .font(.largeTitle.weight(.bold))
                             .foregroundColor(.white)
                             .dynamicTypeSize(min: .large, max: .accessibility2)
 
                         HStack(spacing: 8) {
                             HStack(spacing: 4) {
-                                Image(systemName: "heart.fill")
+                                Image(systemName: "hand.thumbsup.fill")
                                     .font(.caption)
                                 Text("\(viewModel.totalLikesReceived)")
                                     .fontWeight(.semibold)
@@ -394,7 +394,7 @@ struct LikesView: View {
                                 .frame(width: 4, height: 4)
 
                             HStack(spacing: 4) {
-                                Image(systemName: "heart")
+                                Image(systemName: "hand.thumbsup")
                                     .font(.caption)
                                 Text("\(viewModel.totalLikesSent) sent")
                                     .fontWeight(.semibold)
@@ -406,7 +406,7 @@ struct LikesView: View {
                                     .frame(width: 4, height: 4)
 
                                 HStack(spacing: 4) {
-                                    Image(systemName: "heart.circle.fill")
+                                    Image(systemName: "person.2.fill")
                                         .font(.caption)
                                     Text("\(viewModel.mutualLikes.count) mutual")
                                         .fontWeight(.semibold)
@@ -542,9 +542,9 @@ struct LikesView: View {
         Group {
             if viewModel.usersWhoLikedMe.isEmpty {
                 emptyStateView(
-                    icon: "heart.fill",
-                    title: "No Likes Yet",
-                    message: "When someone likes you, they'll appear here. Keep swiping!"
+                    icon: "hand.thumbsup.fill",
+                    title: "No Interest Yet",
+                    message: "When someone is interested in you, they'll appear here. Keep browsing!"
                 )
             } else if isPremium {
                 // Premium users see full profiles with filters applied
@@ -644,7 +644,7 @@ struct LikesView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "plus.circle.fill")
                         .foregroundColor(.pink)
-                    Text("And \(viewModel.usersWhoLikedMe.count - 4) more people liked you!")
+                    Text("And \(viewModel.usersWhoLikedMe.count - 4) more people are interested in you!")
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundColor(.secondary)
@@ -681,11 +681,11 @@ struct LikesView: View {
             }
 
             VStack(spacing: 8) {
-                Text("\(viewModel.usersWhoLikedMe.count) people liked you!")
+                Text("\(viewModel.usersWhoLikedMe.count) people are interested in you!")
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text("Upgrade to Premium to see who they are and match instantly")
+                Text("Upgrade to Premium to see who they are and connect instantly")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -701,7 +701,7 @@ struct LikesView: View {
                     Image(systemName: "crown.fill")
                         .font(.body)
 
-                    Text("Unlock Who Likes You")
+                    Text("Unlock Who's Interested")
                         .fontWeight(.semibold)
                 }
                 .foregroundColor(.white)
@@ -733,8 +733,8 @@ struct LikesView: View {
                 .foregroundColor(.primary)
 
             VStack(spacing: 12) {
-                premiumFeatureRow(icon: "eye.fill", title: "See Who Likes You", description: "Match instantly with people interested in you", color: .pink)
-                premiumFeatureRow(icon: "infinity", title: "Unlimited Likes", description: "No daily limits, like as many as you want", color: .purple)
+                premiumFeatureRow(icon: "eye.fill", title: "See Who's Interested", description: "Connect instantly with people interested in you", color: .pink)
+                premiumFeatureRow(icon: "infinity", title: "Unlimited Interests", description: "No daily limits, express interest as much as you want", color: .purple)
                 premiumFeatureRow(icon: "bolt.fill", title: "Profile Boost", description: "Get 10x more views with monthly boosts", color: .orange)
             }
         }
@@ -777,9 +777,9 @@ struct LikesView: View {
         Group {
             if viewModel.usersILiked.isEmpty {
                 emptyStateView(
-                    icon: "heart",
-                    title: "No Likes Sent",
-                    message: "Start swiping on the Discover page to like profiles!"
+                    icon: "hand.thumbsup",
+                    title: "No Interests Sent",
+                    message: "Start browsing on the Discover page to express interest in profiles!"
                 )
             } else {
                 likesGrid(users: filteredUsersILiked, showLikeBack: false)
@@ -793,9 +793,9 @@ struct LikesView: View {
         Group {
             if viewModel.mutualLikes.isEmpty {
                 emptyStateView(
-                    icon: "heart.circle.fill",
-                    title: "No Mutual Likes",
-                    message: "When you and someone else both like each other, you'll see them here!"
+                    icon: "person.2.fill",
+                    title: "No Mutual Interests",
+                    message: "When you and someone else both express interest, you'll see them here!"
                 )
             } else {
                 likesGrid(users: filteredMutualLikes, showMessage: true)

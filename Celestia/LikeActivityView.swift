@@ -2,7 +2,7 @@
 //  LikeActivityView.swift
 //  CoFoundry
 //
-//  Timeline of like activity (received and sent)
+//  Timeline of interest activity (received and sent)
 //
 
 import SwiftUI
@@ -27,7 +27,7 @@ struct LikeActivityView: View {
                     activityList
                 }
             }
-            .navigationTitle("Like Activity")
+            .navigationTitle("Interest Activity")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -94,7 +94,7 @@ struct LikeActivityView: View {
 
     private var emptyStateView: some View {
         VStack(spacing: 24) {
-            Image(systemName: "heart.text.square")
+            Image(systemName: "person.2.badge.clock")
                 .font(.system(size: 80))
                 .foregroundColor(.gray.opacity(0.5))
 
@@ -103,7 +103,7 @@ struct LikeActivityView: View {
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text("Your like activity will appear here")
+                Text("Your interest activity will appear here")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -191,9 +191,9 @@ struct LikeActivity: Identifiable {
 
         var icon: String {
             switch self {
-            case .received: return "heart.fill"
+            case .received: return "hand.thumbsup.fill"
             case .sent: return "paperplane.fill"
-            case .mutual: return "heart.circle.fill"
+            case .mutual: return "person.2.circle.fill"
             case .matched: return "sparkles"
             }
         }
@@ -210,13 +210,13 @@ struct LikeActivity: Identifiable {
         var description: String {
             switch self {
             case .received(let isSuperLike):
-                return isSuperLike ? "Super liked you" : "Liked you"
+                return isSuperLike ? "Priority interest in you" : "Interested in you"
             case .sent(let isSuperLike):
-                return isSuperLike ? "You super liked" : "You liked"
+                return isSuperLike ? "Your priority interest" : "You expressed interest"
             case .mutual:
-                return "Mutual like!"
+                return "Mutual interest!"
             case .matched:
-                return "It's a match!"
+                return "You're connected!"
             }
         }
     }
@@ -331,7 +331,7 @@ class LikeActivityViewModel: ObservableObject {
             // New approach: Batch fetch all unique users = ~13 queries (10 users per batch)
             await fetchUsersForActivities(allActivity)
 
-            Logger.shared.info("Loaded like activity - today: \(todayActivity.count), week: \(weekActivity.count)", category: .matching)
+            Logger.shared.info("Loaded interest activity - today: \(todayActivity.count), week: \(weekActivity.count)", category: .matching)
         } catch {
             Logger.shared.error("Error loading like activity", category: .matching, error: error)
         }
