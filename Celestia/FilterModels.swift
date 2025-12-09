@@ -17,9 +17,9 @@ struct SearchFilter: Codable, Equatable {
     var location: CLLocationCoordinate2D?
     var useCurrentLocation: Bool = true
 
-    // MARK: - Demographics
+    // MARK: - Basic Demographics
     var ageRange: AgeRange = AgeRange(min: 18, max: 99)
-    var heightRange: HeightRange? // Optional, nil = any height
+    var experienceRange: ExperienceRange? // Optional years of professional experience
     var gender: GenderFilter = .all
     var showMe: ShowMeFilter = .everyone
 
@@ -127,28 +127,24 @@ struct AgeRange: Codable, Equatable {
     }
 }
 
-// MARK: - Height Range
+// MARK: - Experience Range (Years)
 
-struct HeightRange: Codable, Equatable {
-    var minInches: Int // 48-96 inches (4'0" - 8'0")
-    var maxInches: Int
+struct ExperienceRange: Codable, Equatable {
+    var min: Int // 0-50 years
+    var max: Int
 
-    init(minInches: Int = 48, maxInches: Int = 96) {
-        self.minInches = Swift.max(48, Swift.min(96, minInches))
-        self.maxInches = Swift.max(48, Swift.min(96, maxInches))
+    init(min: Int = 0, max: Int = 50) {
+        self.min = Swift.max(0, Swift.min(50, min))
+        self.max = Swift.max(0, Swift.min(50, max))
     }
 
-    func contains(_ heightInches: Int) -> Bool {
-        return heightInches >= minInches && heightInches <= maxInches
-    }
-
-    // Helper: Convert inches to feet/inches display
-    static func formatHeight(_ inches: Int) -> String {
-        let feet = inches / 12
-        let remainingInches = inches % 12
-        return "\(feet)'\(remainingInches)\""
+    func contains(_ years: Int) -> Bool {
+        return years >= min && years <= max
     }
 }
+
+// Legacy typealias for backward compatibility
+typealias HeightRange = ExperienceRange
 
 // MARK: - Gender Filter
 
@@ -325,87 +321,6 @@ enum LifestyleFilter: String, Codable, CaseIterable {
         case .yes: return "Yes"
         case .no: return "No"
         case .sometimes: return "Sometimes"
-        }
-    }
-}
-
-// MARK: - Pet Preference
-
-enum PetPreference: String, Codable, CaseIterable {
-    case any = "any"
-    case hasDogs = "has_dogs"
-    case hasCats = "has_cats"
-    case hasPets = "has_pets"
-    case noPets = "no_pets"
-    case allergicToPets = "allergic"
-
-    var displayName: String {
-        switch self {
-        case .any: return "Any"
-        case .hasDogs: return "Has Dog(s)"
-        case .hasCats: return "Has Cat(s)"
-        case .hasPets: return "Has Pets"
-        case .noPets: return "No Pets"
-        case .allergicToPets: return "Allergic to Pets"
-        }
-    }
-
-    var icon: String {
-        switch self {
-        case .any: return "pawprint"
-        case .hasDogs: return "dog"
-        case .hasCats: return "cat"
-        case .hasPets: return "pawprint.fill"
-        case .noPets: return "nosign"
-        case .allergicToPets: return "bandage"
-        }
-    }
-}
-
-// MARK: - Exercise Frequency
-
-enum ExerciseFrequency: String, Codable, CaseIterable {
-    case any = "any"
-    case daily = "daily"
-    case often = "often"
-    case sometimes = "sometimes"
-    case rarely = "rarely"
-    case never = "never"
-
-    var displayName: String {
-        switch self {
-        case .any: return "Any"
-        case .daily: return "Daily"
-        case .often: return "Often (3-5x/week)"
-        case .sometimes: return "Sometimes (1-2x/week)"
-        case .rarely: return "Rarely"
-        case .never: return "Never"
-        }
-    }
-}
-
-// MARK: - Diet Preference
-
-enum DietPreference: String, Codable, CaseIterable {
-    case any = "any"
-    case vegan = "vegan"
-    case vegetarian = "vegetarian"
-    case pescatarian = "pescatarian"
-    case kosher = "kosher"
-    case halal = "halal"
-    case glutenFree = "gluten_free"
-    case omnivore = "omnivore"
-
-    var displayName: String {
-        switch self {
-        case .any: return "Any"
-        case .vegan: return "Vegan"
-        case .vegetarian: return "Vegetarian"
-        case .pescatarian: return "Pescatarian"
-        case .kosher: return "Kosher"
-        case .halal: return "Halal"
-        case .glutenFree: return "Gluten-Free"
-        case .omnivore: return "Omnivore"
         }
     }
 }
@@ -740,54 +655,6 @@ enum FundingExperience: String, Codable, CaseIterable {
         case .seriesAPlus: return "chart.line.uptrend.xyaxis"
         case .bootstrapped: return "hammer.fill"
         case .exitExperience: return "star.fill"
-        }
-    }
-}
-
-// MARK: - Zodiac Sign
-
-enum ZodiacSign: String, Codable, CaseIterable {
-    case aries, taurus, gemini, cancer, leo, virgo
-    case libra, scorpio, sagittarius, capricorn, aquarius, pisces
-
-    var displayName: String {
-        return rawValue.capitalized
-    }
-
-    var symbol: String {
-        switch self {
-        case .aries: return "♈︎"
-        case .taurus: return "♉︎"
-        case .gemini: return "♊︎"
-        case .cancer: return "♋︎"
-        case .leo: return "♌︎"
-        case .virgo: return "♍︎"
-        case .libra: return "♎︎"
-        case .scorpio: return "♏︎"
-        case .sagittarius: return "♐︎"
-        case .capricorn: return "♑︎"
-        case .aquarius: return "♒︎"
-        case .pisces: return "♓︎"
-        }
-    }
-}
-
-// MARK: - Political View
-
-enum PoliticalView: String, Codable, CaseIterable {
-    case liberal = "liberal"
-    case moderate = "moderate"
-    case conservative = "conservative"
-    case notPolitical = "not_political"
-    case other = "other"
-
-    var displayName: String {
-        switch self {
-        case .liberal: return "Liberal"
-        case .moderate: return "Moderate"
-        case .conservative: return "Conservative"
-        case .notPolitical: return "Not Political"
-        case .other: return "Other"
         }
     }
 }

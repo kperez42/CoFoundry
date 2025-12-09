@@ -2,7 +2,7 @@
 //  SearchFilterView.swift
 //  CoFoundry
 //
-//  Comprehensive search filter interface
+//  Comprehensive search filter interface for co-founder matching
 //
 
 import SwiftUI
@@ -33,27 +33,27 @@ struct SearchFilterView: View {
                     // Location & Distance
                     locationSection
 
-                    // Demographics
-                    demographicsSection
+                    // Professional Background
+                    professionalSection
 
-                    // Background
-                    backgroundSection
+                    // Co-Founder Goals
+                    cofounderGoalsSection
 
-                    // Lifestyle
-                    lifestyleSection
+                    // Skills & Industries
+                    skillsSection
 
-                    // Relationship
-                    relationshipSection
+                    // Startup Stage & Commitment
+                    startupSection
+
+                    // Funding & Equity
+                    fundingSection
 
                     // Preferences
                     preferencesSection
-
-                    // Advanced
-                    advancedSection
                 }
                 .padding()
             }
-            .navigationTitle("Filters")
+            .navigationTitle("Filter Founders")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -120,21 +120,31 @@ struct SearchFilterView: View {
     private var locationSection: some View {
         FilterSection(title: "Location", icon: "location.fill") {
             VStack(spacing: 16) {
-                // Distance slider
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Distance")
-                            .font(.subheadline)
-                        Spacer()
-                        Text("\(filter.distanceRadius) miles")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
+                // Location Preference
+                Picker("Work Preference", selection: $filter.locationPreference) {
+                    ForEach(LocationPreference.allCases, id: \.self) { option in
+                        Text(option.displayName).tag(option)
                     }
+                }
+                .pickerStyle(.menu)
 
-                    Slider(value: Binding(
-                        get: { Double(filter.distanceRadius) },
-                        set: { filter.distanceRadius = Int($0) }
-                    ), in: 1...100, step: 1)
+                // Distance slider (for local preference)
+                if filter.locationPreference == .local || filter.locationPreference == .hybrid {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Max Distance")
+                                .font(.subheadline)
+                            Spacer()
+                            Text("\(filter.distanceRadius) miles")
+                                .font(.subheadline)
+                                .foregroundColor(.blue)
+                        }
+
+                        Slider(value: Binding(
+                            get: { Double(filter.distanceRadius) },
+                            set: { filter.distanceRadius = Int($0) }
+                        ), in: 1...100, step: 1)
+                    }
                 }
 
                 // Use current location toggle
@@ -144,95 +154,69 @@ struct SearchFilterView: View {
         }
     }
 
-    // MARK: - Demographics Section
+    // MARK: - Professional Section
 
-    private var demographicsSection: some View {
-        FilterSection(title: "Demographics", icon: "person.fill") {
+    private var professionalSection: some View {
+        FilterSection(title: "Professional Background", icon: "person.fill") {
             VStack(spacing: 16) {
-                // Age range
+                // Years of experience
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("Age")
+                        Text("Years of Experience")
                             .font(.subheadline)
                         Spacer()
-                        Text("\(filter.ageRange.min) - \(filter.ageRange.max)")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
+                        if let min = filter.yearsExperienceMin, let max = filter.yearsExperienceMax {
+                            Text("\(min) - \(max) years")
+                                .font(.subheadline)
+                                .foregroundColor(.blue)
+                        }
                     }
 
                     HStack {
-                        Slider(value: Binding(
-                            get: { Double(filter.ageRange.min) },
-                            set: { filter.ageRange.min = Int($0) }
-                        ), in: 18...99, step: 1)
+                        Picker("Min", selection: Binding(
+                            get: { filter.yearsExperienceMin ?? 0 },
+                            set: { filter.yearsExperienceMin = $0 > 0 ? $0 : nil }
+                        )) {
+                            Text("Any").tag(0)
+                            ForEach([1, 2, 3, 5, 7, 10, 15, 20], id: \.self) { years in
+                                Text("\(years)+").tag(years)
+                            }
+                        }
+                        .pickerStyle(.menu)
 
                         Text("to")
                             .font(.caption)
 
-                        Slider(value: Binding(
-                            get: { Double(filter.ageRange.max) },
-                            set: { filter.ageRange.max = Int($0) }
-                        ), in: 18...99, step: 1)
+                        Picker("Max", selection: Binding(
+                            get: { filter.yearsExperienceMax ?? 50 },
+                            set: { filter.yearsExperienceMax = $0 < 50 ? $0 : nil }
+                        )) {
+                            ForEach([5, 10, 15, 20, 30, 40], id: \.self) { years in
+                                Text("\(years)").tag(years)
+                            }
+                            Text("Any").tag(50)
+                        }
+                        .pickerStyle(.menu)
                     }
                 }
 
                 Divider()
 
-                // Height range
-                VStack(alignment: .leading, spacing: 8) {
-                    Toggle("Filter by height", isOn: Binding(
-                        get: { filter.heightRange != nil },
-                        set: { enabled in
-                            filter.heightRange = enabled ? HeightRange() : nil
-                        }
-                    ))
-                    .font(.subheadline)
-
-                    if let heightRange = filter.heightRange {
-                        HStack {
-                            Text("Height")
-                                .font(.caption)
-                            Spacer()
-                            Text("\(HeightRange.formatHeight(heightRange.minInches)) - \(HeightRange.formatHeight(heightRange.maxInches))")
-                                .font(.caption)
-                                .foregroundColor(.blue)
-                        }
-
-                        HStack {
-                            Slider(value: Binding(
-                                get: { Double(heightRange.minInches) },
-                                set: { filter.heightRange?.minInches = Int($0) }
-                            ), in: 48...96, step: 1)
-
-                            Text("to")
-                                .font(.caption)
-
-                            Slider(value: Binding(
-                                get: { Double(heightRange.maxInches) },
-                                set: { filter.heightRange?.maxInches = Int($0) }
-                            ), in: 48...96, step: 1)
-                        }
-                    }
-                }
-
-                Divider()
-
-                // Gender
-                Picker("Show me", selection: $filter.showMe) {
-                    ForEach(ShowMeFilter.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
+                // Previous startups
+                Picker("Previous Startups", selection: Binding(
+                    get: { filter.previousStartupsMin ?? 0 },
+                    set: { filter.previousStartupsMin = $0 > 0 ? $0 : nil }
+                )) {
+                    Text("Any").tag(0)
+                    Text("1+ startup").tag(1)
+                    Text("2+ startups").tag(2)
+                    Text("3+ startups").tag(3)
+                    Text("5+ startups").tag(5)
                 }
                 .pickerStyle(.menu)
-            }
-        }
-    }
 
-    // MARK: - Background Section
+                Divider()
 
-    private var backgroundSection: some View {
-        FilterSection(title: "Background", icon: "building.columns.fill") {
-            VStack(spacing: 16) {
                 // Education
                 MultiSelectMenu(
                     title: "Education",
@@ -240,112 +224,117 @@ struct SearchFilterView: View {
                     selections: $filter.educationLevels,
                     displayName: { $0.displayName }
                 )
-
-                Divider()
-
-                // Ethnicity
-                MultiSelectMenu(
-                    title: "Ethnicity",
-                    options: Ethnicity.allCases,
-                    selections: $filter.ethnicities,
-                    displayName: { $0.displayName }
-                )
-
-                Divider()
-
-                // Religion
-                MultiSelectMenu(
-                    title: "Religion",
-                    options: Religion.allCases,
-                    selections: $filter.religions,
-                    displayName: { $0.displayName }
-                )
             }
         }
     }
 
-    // MARK: - Lifestyle Section
+    // MARK: - Co-Founder Goals Section
 
-    private var lifestyleSection: some View {
-        FilterSection(title: "Lifestyle", icon: "heart.fill") {
-            VStack(spacing: 16) {
-                // Smoking
-                Picker("Smoking", selection: $filter.smoking) {
-                    ForEach(LifestyleFilter.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                // Drinking
-                Picker("Drinking", selection: $filter.drinking) {
-                    ForEach(LifestyleFilter.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                // Pets
-                Picker("Pets", selection: $filter.pets) {
-                    ForEach(PetPreference.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                Divider()
-
-                // Children
-                Picker("Has children", selection: $filter.hasChildren) {
-                    ForEach(LifestyleFilter.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                Picker("Wants children", selection: $filter.wantsChildren) {
-                    ForEach(LifestyleFilter.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                Divider()
-
-                // Exercise
-                Picker("Exercise frequency", selection: Binding(
-                    get: { filter.exercise ?? .any },
-                    set: { filter.exercise = $0 }
-                )) {
-                    ForEach(ExerciseFrequency.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-
-                // Diet
-                Picker("Diet", selection: Binding(
-                    get: { filter.diet ?? .any },
-                    set: { filter.diet = $0 }
-                )) {
-                    ForEach(DietPreference.allCases, id: \.self) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.menu)
-            }
-        }
-    }
-
-    // MARK: - Relationship Section
-
-    private var relationshipSection: some View {
-        FilterSection(title: "Relationship Goals", icon: "heart.circle.fill") {
+    private var cofounderGoalsSection: some View {
+        FilterSection(title: "Co-Founder Goals", icon: "person.2.fill") {
             VStack(spacing: 16) {
                 MultiSelectMenu(
                     title: "Looking for",
-                    options: RelationshipGoal.allCases,
-                    selections: $filter.relationshipGoals,
+                    options: StartupGoal.allCases,
+                    selections: $filter.startupGoals,
+                    displayName: { $0.displayName }
+                )
+            }
+        }
+    }
+
+    // MARK: - Skills Section
+
+    private var skillsSection: some View {
+        FilterSection(title: "Skills & Industries", icon: "star.fill") {
+            VStack(spacing: 16) {
+                // Skills they're offering
+                MultiSelectMenu(
+                    title: "Skills Offered",
+                    options: SkillSet.allCases,
+                    selections: $filter.skillsOffered,
+                    displayName: { $0.displayName }
+                )
+
+                Divider()
+
+                // Skills they're seeking
+                MultiSelectMenu(
+                    title: "Skills Seeking",
+                    options: SkillSet.allCases,
+                    selections: $filter.skillsSeeking,
+                    displayName: { $0.displayName }
+                )
+
+                Divider()
+
+                // Industries
+                MultiSelectMenu(
+                    title: "Industries",
+                    options: Industry.allCases,
+                    selections: $filter.industries,
+                    displayName: { $0.displayName }
+                )
+            }
+        }
+    }
+
+    // MARK: - Startup Section
+
+    private var startupSection: some View {
+        FilterSection(title: "Startup Stage & Commitment", icon: "rocket.fill") {
+            VStack(spacing: 16) {
+                // Startup stage
+                MultiSelectMenu(
+                    title: "Startup Stage",
+                    options: StartupStage.allCases,
+                    selections: $filter.startupStages,
+                    displayName: { $0.displayName }
+                )
+
+                Divider()
+
+                // Commitment level
+                MultiSelectMenu(
+                    title: "Time Commitment",
+                    options: Commitment.allCases,
+                    selections: $filter.commitmentLevels,
+                    displayName: { $0.displayName }
+                )
+            }
+        }
+    }
+
+    // MARK: - Funding Section
+
+    private var fundingSection: some View {
+        FilterSection(title: "Funding & Equity", icon: "dollarsign.circle.fill") {
+            VStack(spacing: 16) {
+                // Funding experience
+                MultiSelectMenu(
+                    title: "Funding Experience",
+                    options: FundingExperience.allCases,
+                    selections: $filter.fundingExperience,
+                    displayName: { $0.displayName }
+                )
+
+                Divider()
+
+                // Currently funded
+                Picker("Currently Funded", selection: $filter.currentlyFunded) {
+                    ForEach(LifestyleFilter.allCases, id: \.self) { option in
+                        Text(option.displayName).tag(option)
+                    }
+                }
+                .pickerStyle(.menu)
+
+                Divider()
+
+                // Equity expectations
+                MultiSelectMenu(
+                    title: "Equity Expectations",
+                    options: EquityExpectation.allCases,
+                    selections: $filter.equityExpectations,
                     displayName: { $0.displayName }
                 )
             }
@@ -383,32 +372,6 @@ struct SearchFilterView: View {
         }
     }
 
-    // MARK: - Advanced Section
-
-    private var advancedSection: some View {
-        FilterSection(title: "Advanced", icon: "gear") {
-            VStack(spacing: 16) {
-                // Zodiac signs
-                MultiSelectMenu(
-                    title: "Zodiac Signs",
-                    options: ZodiacSign.allCases,
-                    selections: $filter.zodiacSigns,
-                    displayName: { "\($0.symbol) \($0.displayName)" }
-                )
-
-                Divider()
-
-                // Political views
-                MultiSelectMenu(
-                    title: "Political Views",
-                    options: PoliticalView.allCases,
-                    selections: $filter.politicalViews,
-                    displayName: { $0.displayName }
-                )
-            }
-        }
-    }
-
     // MARK: - Search Button
 
     private var searchButton: some View {
@@ -421,7 +384,7 @@ struct SearchFilterView: View {
         }) {
             HStack {
                 Image(systemName: "magnifyingglass")
-                Text("Search")
+                Text("Find Co-Founders")
                     .fontWeight(.semibold)
             }
             .foregroundColor(.white)
@@ -559,7 +522,7 @@ struct SavePresetSheet: View {
         NavigationView {
             Form {
                 Section("Preset Name") {
-                    TextField("e.g., Nearby & Active", text: $presetName)
+                    TextField("e.g., Technical Co-founders", text: $presetName)
                 }
 
                 Section("Filter Summary") {

@@ -98,13 +98,13 @@ struct DiscoverFiltersView: View {
                             icon: "briefcase.circle.fill",
                             content: {
                                 VStack(spacing: 20) {
-                                    workPreferencesChipsSection("Commitment Level", icon: "clock.fill", options: commitmentOptions, selected: $filters.smokingPreferences)
+                                    workPreferencesChipsSection("Commitment Level", icon: "clock.fill", options: commitmentOptions, selected: $filters.timeCommitments)
                                     Divider().padding(.horizontal)
-                                    workPreferencesChipsSection("Funding Stage", icon: "dollarsign.circle.fill", options: fundingStageOptions, selected: $filters.drinkingPreferences)
+                                    workPreferencesChipsSection("Funding Stage", icon: "dollarsign.circle.fill", options: fundingStageOptions, selected: $filters.fundingExperiences)
                                     Divider().padding(.horizontal)
-                                    workPreferencesChipsSection("Work Style", icon: "building.2.fill", options: workStyleOptions, selected: $filters.petPreferences)
+                                    workPreferencesChipsSection("Work Style", icon: "building.2.fill", options: workStyleOptions, selected: $filters.locationPreferences)
                                     Divider().padding(.horizontal)
-                                    workPreferencesChipsSection("Skills Sought", icon: "star.fill", options: skillsetOptions, selected: $filters.exercisePreferences)
+                                    workPreferencesChipsSection("Skills Sought", icon: "star.fill", options: skillsetOptions, selected: $filters.selectedSkills)
                                 }
                             }
                         )
@@ -354,10 +354,10 @@ struct DiscoverFiltersView: View {
 
                 Spacer()
 
-                if !filters.selectedInterests.isEmpty {
+                if !filters.selectedIndustries.isEmpty {
                     Button("Clear") {
                         HapticManager.shared.impact(.light)
-                        filters.selectedInterests.removeAll()
+                        filters.selectedIndustries.removeAll()
                     }
                     .font(.caption)
                     .foregroundColor(.purple)
@@ -368,7 +368,7 @@ struct DiscoverFiltersView: View {
                 ForEach(commonInterests, id: \.self) { interest in
                     SelectableFilterChip(
                         title: interest,
-                        isSelected: filters.selectedInterests.contains(interest)
+                        isSelected: filters.selectedIndustries.contains(interest)
                     ) {
                         toggleInterest(interest)
                     }
@@ -411,21 +411,21 @@ struct DiscoverFiltersView: View {
         }
     }
 
-    // MARK: - Partnership Goals Section
+    // MARK: - Partnership Goals Section (Role Types)
 
     private var partnershipGoalsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Partnership Type")
+                Text("Role Seeking")
                     .font(.subheadline)
                     .fontWeight(.medium)
 
                 Spacer()
 
-                if !filters.relationshipGoals.isEmpty {
+                if !filters.roleTypes.isEmpty {
                     Button("Clear") {
                         HapticManager.shared.impact(.light)
-                        filters.relationshipGoals.removeAll()
+                        filters.roleTypes.removeAll()
                     }
                     .font(.caption)
                     .foregroundColor(.purple)
@@ -436,30 +436,30 @@ struct DiscoverFiltersView: View {
                 ForEach(partnershipGoalOptions, id: \.self) { option in
                     SelectableFilterChip(
                         title: option,
-                        isSelected: filters.relationshipGoals.contains(option)
+                        isSelected: filters.roleTypes.contains(option)
                     ) {
-                        togglePartnershipGoal(option)
+                        toggleRoleType(option)
                     }
                 }
             }
         }
     }
 
-    // MARK: - Experience Level Section
+    // MARK: - Startup Stage Section
 
     private var experienceLevelSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Experience Level")
+                Text("Startup Stage")
                     .font(.subheadline)
                     .fontWeight(.medium)
 
                 Spacer()
 
-                if !filters.religions.isEmpty {
+                if !filters.startupStages.isEmpty {
                     Button("Clear") {
                         HapticManager.shared.impact(.light)
-                        filters.religions.removeAll()
+                        filters.startupStages.removeAll()
                     }
                     .font(.caption)
                     .foregroundColor(.purple)
@@ -470,9 +470,9 @@ struct DiscoverFiltersView: View {
                 ForEach(experienceLevelOptions, id: \.self) { option in
                     SelectableFilterChip(
                         title: option,
-                        isSelected: filters.religions.contains(option)
+                        isSelected: filters.startupStages.contains(option)
                     ) {
-                        toggleExperienceLevel(option)
+                        toggleStartupStage(option)
                     }
                 }
             }
@@ -553,21 +553,17 @@ struct DiscoverFiltersView: View {
 
     private func countActiveFilters() -> Int {
         var count = 0
-        // Removed distance filter - not needed for city-specific advertising
-        if filters.minAge > 18 { count += 1 }
-        if filters.maxAge < 65 { count += 1 }
         if filters.showVerifiedOnly { count += 1 }
-        count += filters.selectedInterests.count
+        if filters.showFundedOnly { count += 1 }
+        count += filters.selectedIndustries.count
+        count += filters.selectedSkills.count
         count += filters.educationLevels.count
-        if filters.minHeight != nil { count += 1 }
-        if filters.maxHeight != nil { count += 1 }
-        count += filters.religions.count
-        count += filters.relationshipGoals.count
-        count += filters.smokingPreferences.count
-        count += filters.drinkingPreferences.count
-        count += filters.petPreferences.count
-        count += filters.exercisePreferences.count
-        count += filters.dietPreferences.count
+        count += filters.startupStages.count
+        count += filters.roleTypes.count
+        count += filters.timeCommitments.count
+        count += filters.fundingExperiences.count
+        count += filters.locationPreferences.count
+        count += filters.equityExpectations.count
         return count
     }
 
@@ -575,32 +571,32 @@ struct DiscoverFiltersView: View {
         switch section {
         case .basics:
             var count = 0
-            if filters.minAge > 18 || filters.maxAge < 65 { count += 1 }
             if filters.showVerifiedOnly { count += 1 }
+            if filters.showFundedOnly { count += 1 }
             return count > 0 ? count : nil
         case .interests:
-            return filters.selectedInterests.isEmpty ? nil : filters.selectedInterests.count
+            return filters.selectedIndustries.isEmpty ? nil : filters.selectedIndustries.count
         case .background:
             var count = 0
             count += filters.educationLevels.count
-            count += filters.religions.count  // Used for experience level
-            count += filters.relationshipGoals.count  // Used for partnership goals
+            count += filters.startupStages.count
+            count += filters.roleTypes.count
             return count > 0 ? count : nil
         case .lifestyle:  // Work Preferences
-            let count = filters.smokingPreferences.count +    // Commitment level
-                       filters.drinkingPreferences.count +    // Funding stage
-                       filters.petPreferences.count +         // Work style
-                       filters.exercisePreferences.count      // Skills sought
+            let count = filters.timeCommitments.count +
+                       filters.fundingExperiences.count +
+                       filters.locationPreferences.count +
+                       filters.selectedSkills.count
             return count > 0 ? count : nil
         }
     }
 
     private func toggleInterest(_ interest: String) {
         HapticManager.shared.impact(.light)
-        if filters.selectedInterests.contains(interest) {
-            filters.selectedInterests.remove(interest)
+        if filters.selectedIndustries.contains(interest) {
+            filters.selectedIndustries.remove(interest)
         } else {
-            filters.selectedInterests.insert(interest)
+            filters.selectedIndustries.insert(interest)
         }
     }
 
@@ -613,21 +609,21 @@ struct DiscoverFiltersView: View {
         }
     }
 
-    private func togglePartnershipGoal(_ option: String) {
+    private func toggleRoleType(_ option: String) {
         HapticManager.shared.impact(.light)
-        if filters.relationshipGoals.contains(option) {
-            filters.relationshipGoals.remove(option)
+        if filters.roleTypes.contains(option) {
+            filters.roleTypes.remove(option)
         } else {
-            filters.relationshipGoals.insert(option)
+            filters.roleTypes.insert(option)
         }
     }
 
-    private func toggleExperienceLevel(_ option: String) {
+    private func toggleStartupStage(_ option: String) {
         HapticManager.shared.impact(.light)
-        if filters.religions.contains(option) {
-            filters.religions.remove(option)
+        if filters.startupStages.contains(option) {
+            filters.startupStages.remove(option)
         } else {
-            filters.religions.insert(option)
+            filters.startupStages.insert(option)
         }
     }
 }
