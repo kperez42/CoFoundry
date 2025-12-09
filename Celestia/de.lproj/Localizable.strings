@@ -53,25 +53,28 @@
 "profile.female" = "Weiblich";
 "profile.non_binary" = "Nicht-binär";
 
-// MARK: - Swipe
+// MARK: - Discovery
 
-"swipe.discover" = "Entdecken";
-"swipe.like" = "Gefällt mir";
-"swipe.dislike" = "Überspringen";
-"swipe.super_like" = "Super Like";
-"swipe.its_a_match" = "Es ist ein Match!";
-"swipe.send_message" = "Nachricht senden";
-"swipe.keep_swiping" = "Weiter swipen";
-"swipe.no_more_profiles" = "Keine weiteren Profile verfügbar";
+"discover.discover" = "Entdecken";
+"discover.connect" = "Verbinden";
+"discover.pass" = "Überspringen";
+"discover.super_connect" = "Priorität Verbinden";
+"discover.its_a_match" = "Ihr seid verbunden!";
+"discover.send_message" = "Nachricht senden";
+"discover.keep_browsing" = "Weiter stöbern";
+"discover.no_more_profiles" = "Keine weiteren Gründer verfügbar";
+"discover.expand_filters" = "Erweitern Sie Ihre Filter, um mehr zu sehen";
 
-// MARK: - Matches
+// MARK: - Connections
 
-"matches.matches" = "Matches";
-"matches.new_match" = "Neues Match!";
-"matches.no_matches" = "Noch keine Matches";
-"matches.unmatch" = "Match aufheben";
-"matches.unmatch_confirm" = "Möchten Sie dieses Match wirklich aufheben?";
-"matches.matched_with" = "Match mit %@";
+"connections.connections" = "Verbindungen";
+"connections.new_connection" = "Neue Verbindung!";
+"connections.no_connections" = "Noch keine Verbindungen";
+"connections.disconnect" = "Verbindung entfernen";
+"connections.disconnect_confirm" = "Möchten Sie diese Verbindung wirklich entfernen?";
+"connections.connected_with" = "Verbunden mit %@";
+"connections.pending" = "Ausstehende Verbindungen";
+"connections.mutual" = "Gemeinsame Verbindung";
 
 // MARK: - Messages
 
@@ -92,10 +95,12 @@
 "premium.subscribe" = "Abonnieren";
 "premium.restore_purchases" = "Käufe wiederherstellen";
 "premium.features" = "Premium-Funktionen";
-"premium.unlimited_likes" = "Unbegrenzte Likes";
-"premium.see_who_likes_you" = "Sehen Sie, wer Sie mag";
-"premium.rewind" = "Letzten Swipe rückgängig machen";
+"premium.unlimited_connections" = "Unbegrenzte Verbindungen";
+"premium.see_who_connected" = "Sehen Sie, wer sich verbinden möchte";
+"premium.rewind" = "Letzte Aktion rückgängig";
 "premium.boost_profile" = "Profil boosten";
+"premium.advanced_filters" = "Erweiterte Filter";
+"premium.priority_support" = "Prioritäts-Support";
 
 // MARK: - Settings
 
@@ -123,12 +128,16 @@
 // MARK: - Onboarding
 
 "onboarding.welcome" = "Willkommen bei CoFoundry";
-"onboarding.find_your_match" = "Finden Sie Ihr perfektes Match";
+"onboarding.find_your_cofounder" = "Finden Sie Ihren perfekten Co-Founder";
 "onboarding.get_started" = "Loslegen";
+"onboarding.professional_info" = "Berufliche Informationen";
+"onboarding.skills_industries" = "Fähigkeiten & Branchen";
+"onboarding.startup_details" = "Startup-Details";
+"onboarding.experience" = "Erfahrung";
 
 // MARK: - Referrals
 
-"referral.invite_friends" = "Freunde einladen";
+"referral.invite_founders" = "Gründer einladen";
 "referral.share_code" = "Teilen Sie Ihren Empfehlungscode";
 "referral.your_code" = "Ihr Code";
 "referral.enter_code" = "Empfehlungscode eingeben (Optional)";

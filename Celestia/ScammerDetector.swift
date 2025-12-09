@@ -3,7 +3,7 @@
 //  CoFoundry
 //
 //  Automated scammer detection analyzing chat messages for scam patterns
-//  Detects romance scams, financial scams, catfishing, and malicious behavior
+//  Detects financial scams, impersonation scams, catfishing, and malicious behavior
 //
 
 import Foundation

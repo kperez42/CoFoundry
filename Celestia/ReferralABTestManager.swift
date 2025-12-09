@@ -731,7 +731,7 @@ class ReferralABTestManager: ObservableObject {
 
         // Return default message
         return """
-        Hey! Join me on CoFoundry, the best dating app for meaningful connections! 💜
+        Hey! Join me on CoFoundry, the best platform to find your co-founder! 🚀
 
         Use my code \(code) when you sign up and we'll both get 3 days of Premium free!
 

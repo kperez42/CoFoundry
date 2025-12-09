@@ -1,7 +1,7 @@
 /**
- * Celestia Cloud Functions
+ * CoFoundry Cloud Functions
  *
- * Admin moderation functions for the Celestia dating app
+ * Admin moderation functions for the CoFoundry co-founder matching platform
  */
 
 import * as functions from "firebase-functions";

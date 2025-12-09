@@ -1,6 +1,6 @@
 {
-  "name": "celestia-functions",
-  "description": "Cloud Functions for Celestia dating app",
+  "name": "cofoundry-functions",
+  "description": "Cloud Functions for CoFoundry co-founder matching platform",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",

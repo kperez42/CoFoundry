@@ -2,7 +2,7 @@
 //  MatchesView.swift
 //  CoFoundry
 //
-//  ELITE MATCHES VIEW - Premium Dating Experience
+//  ELITE MATCHES VIEW - Premium Co-Founder Matching Experience
 //  ACCESSIBILITY: Full VoiceOver support, Dynamic Type, Reduce Motion, and WCAG 2.1 AA compliant
 //
 
@@ -526,7 +526,7 @@ struct MatchesView: View {
                     .dynamicTypeSize(min: .large, max: .accessibility2)
                     .accessibilityAddTraits(.isHeader)
 
-                Text("Head to the Discover tab to start swiping and finding your perfect match!")
+                Text("Head to the Discover tab to find your ideal co-founder!")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -556,7 +556,7 @@ struct MatchesView: View {
                 .cornerRadius(16)
                 .contentShape(RoundedRectangle(cornerRadius: 16))
 
-                Text("Tap the first tab to start swiping")
+                Text("Tap the Discover tab to start browsing")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -566,7 +566,7 @@ struct MatchesView: View {
             VStack(spacing: 12) {
                 tipRow(icon: "photo.fill", text: "Add more photos to your profile")
                 tipRow(icon: "text.alignleft", text: "Write an interesting bio")
-                tipRow(icon: "heart.fill", text: "Be active and swipe regularly")
+                tipRow(icon: "person.2.fill", text: "Be active and browse regularly")
             }
             .padding(20)
             .background(Color.white)

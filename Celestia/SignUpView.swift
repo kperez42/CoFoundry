@@ -81,7 +81,7 @@ struct SignUpView: View {
     @State private var ageRangeMin: Int = 18
     @State private var ageRangeMax: Int = 35
 
-    let relationshipGoalOptions = ["Long-term relationship", "Casual dating", "New friends", "Not sure yet"]
+    let relationshipGoalOptions = ["Full-time Co-Founder", "Part-time Collaborator", "Advisor/Mentor", "Not sure yet"]
     let educationLevelOptions = ["High school", "Some college", "Bachelor's degree", "Master's degree", "Doctorate", "Trade school", "Prefer not to say"]
     let smokingOptions = ["Never", "Sometimes", "Regularly", "Prefer not to say"]
     let drinkingOptions = ["Never", "Socially", "Regularly", "Prefer not to say"]
@@ -1780,7 +1780,7 @@ struct SignUpView: View {
     var stepSubtitle: String {
         switch currentStep {
         case 0: return "Let's get started with your account"
-        case 1: return "This helps us find your perfect match"
+        case 1: return "This helps us find your ideal co-founder"
         case 2: return "Connect with people near and far"
         case 3: return "Photos help you make meaningful connections"
         case 4: return "Let others know what makes you unique"

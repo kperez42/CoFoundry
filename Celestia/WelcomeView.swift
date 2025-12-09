@@ -26,9 +26,9 @@ struct WelcomeView: View {
     @State private var showPrivacyPolicy = false
 
     let features = [
-        Feature(icon: "heart.circle.fill", title: "Find Your Match", description: "Meet amazing people near you"),
-        Feature(icon: "heart.text.square.fill", title: "Smart Matching", description: "AI-powered compatibility algorithm"),
-        Feature(icon: "message.fill", title: "Real-Time Chat", description: "Instant messaging with your matches")
+        Feature(icon: "person.2.circle.fill", title: "Find Co-Founders", description: "Connect with entrepreneurs worldwide"),
+        Feature(icon: "brain.head.profile", title: "Smart Matching", description: "AI-powered compatibility algorithm"),
+        Feature(icon: "message.fill", title: "Real-Time Chat", description: "Instant messaging with your connections")
     ]
     
     var body: some View {
@@ -180,7 +180,7 @@ struct WelcomeView: View {
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.2), radius: 5)
                 
-                Text("Find friends, dates, and meaningful connections")
+                Text("Find your perfect co-founder and build together")
                     .font(.headline)
                     .foregroundColor(.white.opacity(0.95))
                     .multilineTextAlignment(.center)

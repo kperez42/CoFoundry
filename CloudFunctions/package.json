@@ -1,7 +1,7 @@
 {
-  "name": "celestia-cloud-functions",
+  "name": "cofoundry-cloud-functions",
   "version": "1.0.0",
-  "description": "Backend API for Celestia dating app",
+  "description": "Backend API for CoFoundry co-founder matching platform",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",

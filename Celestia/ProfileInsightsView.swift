@@ -149,7 +149,7 @@ struct ProfileInsightsView: View {
         case 40...59:
             return "Fair - Check suggestions below to improve your profile 💡"
         default:
-            return "Let's improve your profile to get more matches! 🚀"
+            return "Let's improve your profile to get more connections! 🚀"
         }
     }
 
@@ -272,16 +272,16 @@ struct ProfileInsightsView: View {
                 )
 
                 achievementBadge(
-                    icon: "heart.fill",
-                    title: "Heartthrob",
-                    subtitle: "50+ likes",
+                    icon: "person.2.fill",
+                    title: "Connector",
+                    subtitle: "50+ interests",
                     isUnlocked: insights.likesReceived >= 50,
                     color: .pink
                 )
 
                 achievementBadge(
                     icon: "message.fill",
-                    title: "Socialite",
+                    title: "Collaborator",
                     subtitle: "10+ chats",
                     isUnlocked: insights.matchCount >= 10,
                     color: .blue
@@ -533,16 +533,16 @@ struct ProfileInsightsView: View {
                             endPoint: .bottomTrailing
                         )
                     )
-                Text("Swipe Statistics")
+                Text("Interaction Statistics")
                     .font(.headline)
             }
 
             HStack(spacing: 20) {
                 statBox(
-                    title: "Likes",
+                    title: "Interests",
                     value: "\(insights.likesReceived)",
                     color: .pink,
-                    icon: "heart.fill"
+                    icon: "person.2.fill"
                 )
 
                 statBox(
@@ -553,10 +553,10 @@ struct ProfileInsightsView: View {
                 )
             }
 
-            // Like rate progress bar
+            // Interest rate progress bar
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("Like Rate")
+                    Text("Interest Rate")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     Spacer()
