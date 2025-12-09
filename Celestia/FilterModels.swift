@@ -20,6 +20,7 @@ struct SearchFilter: Codable, Equatable {
     // MARK: - Basic Demographics
     var ageRange: AgeRange = AgeRange(min: 18, max: 99)
     var experienceRange: ExperienceRange? // Optional years of professional experience
+    var heightRange: HeightRange? // Optional height filter
     var gender: GenderFilter = .all
     var showMe: ShowMeFilter = .everyone
 
@@ -42,6 +43,7 @@ struct SearchFilter: Codable, Equatable {
     var startupStages: [StartupStage] = []
     var commitmentLevels: [Commitment] = []
     var equityExpectations: [EquityExpectation] = []
+    var relationshipGoals: [RelationshipGoal] = [] // Dating-style relationship preferences
 
     // MARK: - Location Preferences
     var locationPreference: LocationPreference = .any
@@ -86,6 +88,7 @@ struct SearchFilter: Codable, Equatable {
 
         if distanceRadius != 50 { count += 1 }
         if ageRange.min != 18 || ageRange.max != 99 { count += 1 }
+        if heightRange != nil { count += 1 }
         if !educationLevels.isEmpty { count += 1 }
         if yearsExperienceMin != nil || yearsExperienceMax != nil { count += 1 }
         if previousStartupsMin != nil { count += 1 }
@@ -95,6 +98,7 @@ struct SearchFilter: Codable, Equatable {
         if !industries.isEmpty { count += 1 }
         if !startupStages.isEmpty { count += 1 }
         if !commitmentLevels.isEmpty { count += 1 }
+        if !relationshipGoals.isEmpty { count += 1 }
         if locationPreference != .any { count += 1 }
         if !fundingExperience.isEmpty { count += 1 }
         if currentlyFunded != .any { count += 1 }
@@ -143,8 +147,38 @@ struct ExperienceRange: Codable, Equatable {
     }
 }
 
-// Legacy typealias for backward compatibility
-typealias HeightRange = ExperienceRange
+// MARK: - Height Range (for filtering by height)
+
+struct HeightRange: Codable, Equatable {
+    var minInches: Int // 48-96 inches (4'0" to 8'0")
+    var maxInches: Int
+
+    init(minInches: Int = 48, maxInches: Int = 96) {
+        self.minInches = Swift.max(48, Swift.min(96, minInches))
+        self.maxInches = Swift.max(48, Swift.min(96, maxInches))
+    }
+
+    func contains(_ heightInInches: Int) -> Bool {
+        return heightInInches >= minInches && heightInInches <= maxInches
+    }
+
+    /// Format height in inches to feet/inches display string
+    static func formatHeight(_ heightInInches: Int) -> String {
+        let feet = heightInInches / 12
+        let inches = heightInInches % 12
+        return "\(feet)'\(inches)\""
+    }
+
+    /// Convert centimeters to inches
+    static func cmToInches(_ cm: Int) -> Int {
+        return Int(Double(cm) / 2.54)
+    }
+
+    /// Convert inches to centimeters
+    static func inchesToCm(_ inches: Int) -> Int {
+        return Int(Double(inches) * 2.54)
+    }
+}
 
 // MARK: - Gender Filter
 
@@ -655,6 +689,107 @@ enum FundingExperience: String, Codable, CaseIterable {
         case .seriesAPlus: return "chart.line.uptrend.xyaxis"
         case .bootstrapped: return "hammer.fill"
         case .exitExperience: return "star.fill"
+        }
+    }
+}
+
+// MARK: - Zodiac Sign
+
+enum ZodiacSign: String, Codable, CaseIterable {
+    case aries = "aries"
+    case taurus = "taurus"
+    case gemini = "gemini"
+    case cancer = "cancer"
+    case leo = "leo"
+    case virgo = "virgo"
+    case libra = "libra"
+    case scorpio = "scorpio"
+    case sagittarius = "sagittarius"
+    case capricorn = "capricorn"
+    case aquarius = "aquarius"
+    case pisces = "pisces"
+
+    var displayName: String {
+        switch self {
+        case .aries: return "Aries"
+        case .taurus: return "Taurus"
+        case .gemini: return "Gemini"
+        case .cancer: return "Cancer"
+        case .leo: return "Leo"
+        case .virgo: return "Virgo"
+        case .libra: return "Libra"
+        case .scorpio: return "Scorpio"
+        case .sagittarius: return "Sagittarius"
+        case .capricorn: return "Capricorn"
+        case .aquarius: return "Aquarius"
+        case .pisces: return "Pisces"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .aries: return "flame"
+        case .taurus: return "leaf.fill"
+        case .gemini: return "person.2.fill"
+        case .cancer: return "moon.fill"
+        case .leo: return "sun.max.fill"
+        case .virgo: return "leaf"
+        case .libra: return "scale.3d"
+        case .scorpio: return "bolt.fill"
+        case .sagittarius: return "arrow.up.right"
+        case .capricorn: return "mountain.2.fill"
+        case .aquarius: return "drop.fill"
+        case .pisces: return "fish.fill"
+        }
+    }
+
+    var dateRange: String {
+        switch self {
+        case .aries: return "Mar 21 - Apr 19"
+        case .taurus: return "Apr 20 - May 20"
+        case .gemini: return "May 21 - Jun 20"
+        case .cancer: return "Jun 21 - Jul 22"
+        case .leo: return "Jul 23 - Aug 22"
+        case .virgo: return "Aug 23 - Sep 22"
+        case .libra: return "Sep 23 - Oct 22"
+        case .scorpio: return "Oct 23 - Nov 21"
+        case .sagittarius: return "Nov 22 - Dec 21"
+        case .capricorn: return "Dec 22 - Jan 19"
+        case .aquarius: return "Jan 20 - Feb 18"
+        case .pisces: return "Feb 19 - Mar 20"
+        }
+    }
+}
+
+// MARK: - Relationship Goal
+
+enum RelationshipGoal: String, Codable, CaseIterable {
+    case longTerm = "long_term"
+    case casual = "casual"
+    case newFriends = "new_friends"
+    case notSure = "not_sure"
+    case marriage = "marriage"
+    case shortTerm = "short_term"
+
+    var displayName: String {
+        switch self {
+        case .longTerm: return "Long-term relationship"
+        case .casual: return "Casual dating"
+        case .newFriends: return "New friends"
+        case .notSure: return "Not sure yet"
+        case .marriage: return "Marriage"
+        case .shortTerm: return "Short-term relationship"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .longTerm: return "heart.fill"
+        case .casual: return "heart"
+        case .newFriends: return "person.2.fill"
+        case .notSure: return "questionmark.circle.fill"
+        case .marriage: return "ring"
+        case .shortTerm: return "heart.circle"
         }
     }
 }

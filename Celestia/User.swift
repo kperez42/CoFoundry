@@ -62,7 +62,9 @@ struct User: Identifiable, Codable, Equatable {
     var email: String
     var fullName: String
     var age: Int
+    var gender: String = "Other"
     var bio: String
+    var interests: [String] = []
 
     // Professional Info
     var professionalTitle: String  // e.g., "Full-Stack Engineer", "Product Manager"
@@ -179,6 +181,16 @@ struct User: Identifiable, Codable, Equatable {
     var educationLevel: String?
     var fieldOfStudy: String?  // Computer Science, Business, Design, etc.
 
+    // Physical & Lifestyle (optional)
+    var height: Int?  // Height in cm
+    var relationshipGoal: String?
+    var smoking: String?
+    var drinking: String?
+    var religion: String?
+    var exercise: String?
+    var diet: String?
+    var pets: String?
+
     // Profile Prompts
     var prompts: [ProfilePrompt] = []
 
@@ -214,7 +226,9 @@ struct User: Identifiable, Codable, Equatable {
         try container.encode(email, forKey: .email)
         try container.encode(fullName, forKey: .fullName)
         try container.encode(age, forKey: .age)
+        try container.encode(gender, forKey: .gender)
         try container.encode(bio, forKey: .bio)
+        try container.encode(interests, forKey: .interests)
 
         // Professional Info
         try container.encode(professionalTitle, forKey: .professionalTitle)
@@ -287,6 +301,14 @@ struct User: Identifiable, Codable, Equatable {
         try container.encode(notificationsEnabled, forKey: .notificationsEnabled)
         try container.encodeIfPresent(educationLevel, forKey: .educationLevel)
         try container.encodeIfPresent(fieldOfStudy, forKey: .fieldOfStudy)
+        try container.encodeIfPresent(height, forKey: .height)
+        try container.encodeIfPresent(relationshipGoal, forKey: .relationshipGoal)
+        try container.encodeIfPresent(smoking, forKey: .smoking)
+        try container.encodeIfPresent(drinking, forKey: .drinking)
+        try container.encodeIfPresent(religion, forKey: .religion)
+        try container.encodeIfPresent(exercise, forKey: .exercise)
+        try container.encodeIfPresent(diet, forKey: .diet)
+        try container.encodeIfPresent(pets, forKey: .pets)
         try container.encode(prompts, forKey: .prompts)
         try container.encode(referralStats, forKey: .referralStats)
         try container.encodeIfPresent(referredByCode, forKey: .referredByCode)
@@ -299,7 +321,7 @@ struct User: Identifiable, Codable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case id
-        case email, fullName, age, bio
+        case email, fullName, age, gender, bio, interests
         case professionalTitle, yearsExperience, linkedInURL, portfolioURL, previousStartups
         case skills, industries
         case startupStage, roleSeekingTypes, timeCommitment, equityExpectation, lookingFor
@@ -317,6 +339,7 @@ struct User: Identifiable, Codable, Equatable {
         case connectionsInitiated, connectionsReceived, matchCount, profileViews
         case fcmToken, notificationsEnabled
         case educationLevel, fieldOfStudy
+        case height, relationshipGoal, smoking, drinking, religion, exercise, diet, pets
         case prompts
         case referralStats, referredByCode
         // Performance: Lowercase search fields
@@ -331,7 +354,9 @@ struct User: Identifiable, Codable, Equatable {
         self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? dictionary["name"] as? String ?? ""
         self.age = dictionary["age"] as? Int ?? 18
+        self.gender = dictionary["gender"] as? String ?? "Other"
         self.bio = dictionary["bio"] as? String ?? ""
+        self.interests = dictionary["interests"] as? [String] ?? []
 
         // Professional Info
         self.professionalTitle = dictionary["professionalTitle"] as? String ?? ""
@@ -443,6 +468,16 @@ struct User: Identifiable, Codable, Equatable {
         self.educationLevel = dictionary["educationLevel"] as? String
         self.fieldOfStudy = dictionary["fieldOfStudy"] as? String
 
+        // Physical & Lifestyle
+        self.height = dictionary["height"] as? Int
+        self.relationshipGoal = dictionary["relationshipGoal"] as? String
+        self.smoking = dictionary["smoking"] as? String
+        self.drinking = dictionary["drinking"] as? String
+        self.religion = dictionary["religion"] as? String
+        self.exercise = dictionary["exercise"] as? String
+        self.diet = dictionary["diet"] as? String
+        self.pets = dictionary["pets"] as? String
+
         // Profile Prompts
         if let promptsData = dictionary["prompts"] as? [[String: Any]] {
             self.prompts = promptsData.compactMap { promptDict in
@@ -477,9 +512,11 @@ struct User: Identifiable, Codable, Equatable {
         email: String,
         fullName: String,
         age: Int,
+        gender: String = "Other",
         professionalTitle: String = "",
         lookingFor: String = "Any Co-Founder",
         bio: String = "",
+        interests: [String] = [],
         location: String,
         country: String,
         latitude: Double? = nil,
@@ -507,9 +544,11 @@ struct User: Identifiable, Codable, Equatable {
         self.email = email
         self.fullName = fullName
         self.age = age
+        self.gender = gender
         self.professionalTitle = professionalTitle
         self.lookingFor = lookingFor
         self.bio = bio
+        self.interests = interests
         self.location = location
         self.country = country
         self.latitude = latitude
