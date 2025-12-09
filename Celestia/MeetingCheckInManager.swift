@@ -1,28 +1,28 @@
 //
-//  DateCheckInManager.swift
+//  MeetingCheckInManager.swift
 //  CoFoundry
 //
-//  Manages date check-in and safety features for in-person meetups
+//  Manages meeting check-in and safety features for in-person co-founder meetups
 //
 
 import Foundation
 import Combine
 import CoreLocation
 
-// MARK: - Date Check-In Manager
+// MARK: - Meeting Check-In Manager
 
 @MainActor
-class DateCheckInManager: ObservableObject {
+class MeetingCheckInManager: ObservableObject {
 
     // MARK: - Singleton
 
-    static let shared = DateCheckInManager()
+    static let shared = MeetingCheckInManager()
 
     // MARK: - Published Properties
 
-    @Published var activeCheckIns: [DateCheckIn] = []
-    @Published var scheduledCheckIns: [DateCheckIn] = []
-    @Published var pastCheckIns: [DateCheckIn] = []
+    @Published var activeCheckIns: [MeetingCheckIn] = []
+    @Published var scheduledCheckIns: [MeetingCheckIn] = []
+    @Published var pastCheckIns: [MeetingCheckIn] = []
     @Published var hasActiveCheckIn: Bool = false
 
     // MARK: - Properties
@@ -34,22 +34,22 @@ class DateCheckInManager: ObservableObject {
 
     private init() {
         loadCheckIns()
-        Logger.shared.info("DateCheckInManager initialized", category: .general)
+        Logger.shared.info("MeetingCheckInManager initialized", category: .general)
     }
 
     // MARK: - Check-In Management
 
-    /// Schedule a date check-in
+    /// Schedule a meeting check-in
     func scheduleCheckIn(
         matchId: String,
         matchName: String,
         location: String,
         scheduledTime: Date,
         checkInTime: Date,
-        emergencyContacts: [EmergencyContact]
-    ) async throws -> DateCheckIn {
+        trustedContacts: [EmergencyContact]
+    ) async throws -> MeetingCheckIn {
 
-        Logger.shared.info("Scheduling check-in for match: \(matchName)", category: .general)
+        Logger.shared.info("Scheduling check-in for meeting with: \(matchName)", category: .general)
 
         // Validate times
         guard scheduledTime > Date() else {
@@ -61,14 +61,14 @@ class DateCheckInManager: ObservableObject {
         }
 
         // Create check-in
-        let checkIn = DateCheckIn(
+        let checkIn = MeetingCheckIn(
             id: UUID().uuidString,
             matchId: matchId,
             matchName: matchName,
             location: location,
             scheduledTime: scheduledTime,
             checkInTime: checkInTime,
-            emergencyContacts: emergencyContacts,
+            trustedContacts: trustedContacts,
             status: .scheduled
         )
 
@@ -80,7 +80,7 @@ class DateCheckInManager: ObservableObject {
         try await scheduleCheckInNotifications(for: checkIn)
 
         // Track analytics
-        AnalyticsManager.shared.logEvent(.dateCheckInScheduled, parameters: [
+        AnalyticsManager.shared.logEvent(.meetingCheckInScheduled, parameters: [
             "match_id": matchId,
             "scheduled_time": scheduledTime.timeIntervalSince1970
         ])
@@ -107,11 +107,11 @@ class DateCheckInManager: ObservableObject {
         // Start monitoring
         startMonitoring(checkIn: checkIn)
 
-        // Notify emergency contacts
-        await notifyEmergencyContacts(checkIn: checkIn, message: "Check-in started for date with \(checkIn.matchName)")
+        // Notify trusted contacts
+        await notifyTrustedContacts(checkIn: checkIn, message: "Check-in started for meeting with \(checkIn.matchName)")
 
         // Track analytics
-        AnalyticsManager.shared.logEvent(.dateCheckInStarted, parameters: [
+        AnalyticsManager.shared.logEvent(.meetingCheckInStarted, parameters: [
             "check_in_id": checkInId
         ])
 
@@ -135,11 +135,11 @@ class DateCheckInManager: ObservableObject {
         // Stop monitoring
         stopMonitoring(checkInId: checkInId)
 
-        // Notify emergency contacts
-        await notifyEmergencyContacts(checkIn: checkIn, message: "Check-in completed successfully")
+        // Notify trusted contacts
+        await notifyTrustedContacts(checkIn: checkIn, message: "Check-in completed successfully")
 
         // Track analytics
-        AnalyticsManager.shared.logEvent(.dateCheckInCompleted, parameters: [
+        AnalyticsManager.shared.logEvent(.meetingCheckInCompleted, parameters: [
             "check_in_id": checkInId,
             "duration": checkIn.completedAt?.timeIntervalSince(checkIn.activatedAt ?? Date()) ?? 0
         ])
@@ -203,7 +203,7 @@ class DateCheckInManager: ObservableObject {
 
     // MARK: - Monitoring
 
-    private func startMonitoring(checkIn: DateCheckIn) {
+    private func startMonitoring(checkIn: MeetingCheckIn) {
         // Set up timer to check if user checks in on time
         let timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
             Task { @MainActor [weak self] in
@@ -219,7 +219,7 @@ class DateCheckInManager: ObservableObject {
         checkInTimers.removeValue(forKey: checkInId)
     }
 
-    private func checkCheckInStatus(checkIn: DateCheckIn) async {
+    private func checkCheckInStatus(checkIn: MeetingCheckIn) async {
         // Check if check-in time has passed
         guard Date() > checkIn.checkInTime else { return }
 
@@ -228,9 +228,9 @@ class DateCheckInManager: ObservableObject {
             Logger.shared.warning("Check-in overdue: \(checkIn.id)", category: .general)
 
             // Send warning notification
-            await notifyEmergencyContacts(
+            await notifyTrustedContacts(
                 checkIn: checkIn,
-                message: "⚠️ Check-in overdue for date with \(checkIn.matchName)"
+                message: "⚠️ Check-in overdue for meeting with \(checkIn.matchName)"
             )
 
             // Trigger emergency after grace period
@@ -243,25 +243,25 @@ class DateCheckInManager: ObservableObject {
 
     // MARK: - Notifications
 
-    private func scheduleCheckInNotifications(for checkIn: DateCheckIn) async throws {
-        // Schedule reminder before date
+    private func scheduleCheckInNotifications(for checkIn: MeetingCheckIn) async throws {
+        // Schedule reminder before meeting
         // Schedule check-in reminder
         // In production, use UNUserNotificationCenter
         Logger.shared.debug("Scheduled notifications for check-in: \(checkIn.id)", category: .general)
     }
 
-    private func notifyEmergencyContacts(checkIn: DateCheckIn, message: String) async {
-        for contact in checkIn.emergencyContacts {
-            // In production, send SMS or call emergency contacts
-            Logger.shared.info("Notifying emergency contact: \(contact.name)", category: .general)
+    private func notifyTrustedContacts(checkIn: MeetingCheckIn, message: String) async {
+        for contact in checkIn.trustedContacts {
+            // In production, send SMS or call trusted contacts
+            Logger.shared.info("Notifying trusted contact: \(contact.name)", category: .general)
         }
     }
 
-    private func sendEmergencyAlerts(checkIn: DateCheckIn) async {
+    private func sendEmergencyAlerts(checkIn: MeetingCheckIn) async {
         // Send emergency SMS/calls to all contacts
         // Include location, match info, and emergency details
-        for contact in checkIn.emergencyContacts {
-            Logger.shared.warning("EMERGENCY: Notifying \(contact.name) about \(checkIn.matchName)", category: .general)
+        for contact in checkIn.trustedContacts {
+            Logger.shared.warning("EMERGENCY: Notifying \(contact.name) about meeting with \(checkIn.matchName)", category: .general)
         }
 
         // In production, also:
@@ -292,16 +292,16 @@ class DateCheckInManager: ObservableObject {
     }
 }
 
-// MARK: - Date Check-In Model
+// MARK: - Meeting Check-In Model
 
-struct DateCheckIn: Identifiable, Codable {
+struct MeetingCheckIn: Identifiable, Codable {
     let id: String
     let matchId: String
     let matchName: String
     let location: String
     let scheduledTime: Date
     let checkInTime: Date
-    let emergencyContacts: [EmergencyContact]
+    let trustedContacts: [EmergencyContact]
     var status: CheckInStatus
     var activatedAt: Date?
     var completedAt: Date?
@@ -314,3 +314,8 @@ struct DateCheckIn: Identifiable, Codable {
         case emergency
     }
 }
+
+// MARK: - Legacy Alias for backward compatibility
+
+typealias DateCheckInManager = MeetingCheckInManager
+typealias DateCheckIn = MeetingCheckIn

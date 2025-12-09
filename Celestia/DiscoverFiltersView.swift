@@ -16,16 +16,16 @@ struct DiscoverFiltersView: View {
 
     enum FilterSection: String, CaseIterable {
         case basics = "Basics"
-        case interests = "Interests"
-        case background = "Background"
-        case lifestyle = "Lifestyle"
+        case interests = "Startup Interests"
+        case background = "Experience"
+        case lifestyle = "Work Preferences"
     }
 
     let commonInterests = [
-        "Travel", "Hiking", "Coffee", "Food", "Photography",
-        "Music", "Fitness", "Art", "Reading", "Cooking",
-        "Dancing", "Movies", "Gaming", "Yoga", "Sports",
-        "Wine", "Dogs", "Cats", "Beach", "Mountains"
+        "AI/ML", "SaaS", "Fintech", "Healthcare", "E-commerce",
+        "EdTech", "Climate Tech", "Web3", "Mobile Apps", "B2B",
+        "Consumer", "Deep Tech", "Marketplaces", "Developer Tools", "Data",
+        "Security", "Gaming", "Social", "Enterprise", "Hardware"
     ]
 
     let educationOptions = [
@@ -33,21 +33,16 @@ struct DiscoverFiltersView: View {
         "Master's", "Doctorate", "Trade School"
     ]
 
-    let religionOptions = [
-        "Agnostic", "Atheist", "Buddhist", "Catholic", "Christian",
-        "Hindu", "Jewish", "Muslim", "Spiritual", "Other", "Prefer not to say"
+    let partnershipGoalOptions = [
+        "Exploring Ideas", "Technical Co-founder", "Business Co-founder",
+        "Building a Startup", "Full Partnership", "Advisory Role"
     ]
 
-    let relationshipGoalOptions = [
-        "Casual Dating", "Long-term Relationship", "Marriage",
-        "Friendship", "Not Sure Yet"
-    ]
-
-    let smokingOptions = ["Never", "Socially", "Regularly", "Trying to Quit"]
-    let drinkingOptions = ["Never", "Socially", "Regularly", "Rarely"]
-    let petOptions = ["Dog", "Cat", "Both", "Other Pets", "No Pets", "Want Pets"]
-    let exerciseOptions = ["Daily", "Often", "Sometimes", "Rarely", "Never"]
-    let dietOptions = ["Vegan", "Vegetarian", "Pescatarian", "Kosher", "Halal", "No Restrictions"]
+    let experienceLevelOptions = ["First-time Founder", "Serial Entrepreneur", "Industry Expert", "Technical Lead", "Business/Sales Lead"]
+    let commitmentOptions = ["Full-time Ready", "Part-time Initially", "Evenings & Weekends", "Exploring Options"]
+    let fundingStageOptions = ["Pre-seed", "Bootstrapping", "Seed Ready", "Series A+", "Not Sure Yet"]
+    let workStyleOptions = ["Remote", "Hybrid", "In-Person", "Flexible"]
+    let skillsetOptions = ["Engineering", "Product", "Design", "Sales", "Marketing", "Operations", "Finance"]
 
     var body: some View {
         NavigationStack {
@@ -90,30 +85,26 @@ struct DiscoverFiltersView: View {
                                 VStack(spacing: 20) {
                                     educationSection
                                     Divider().padding(.horizontal)
-                                    heightSection
+                                    partnershipGoalsSection
                                     Divider().padding(.horizontal)
-                                    religionSection
-                                    Divider().padding(.horizontal)
-                                    relationshipGoalsSection
+                                    experienceLevelSection
                                 }
                             }
                         )
 
-                        // Lifestyle Section
+                        // Work Preferences Section
                         filterSection(
                             section: .lifestyle,
-                            icon: "leaf.circle.fill",
+                            icon: "briefcase.circle.fill",
                             content: {
                                 VStack(spacing: 20) {
-                                    lifestyleChipsSection("Smoking", icon: "smoke.fill", options: smokingOptions, selected: $filters.smokingPreferences)
+                                    workPreferencesChipsSection("Commitment Level", icon: "clock.fill", options: commitmentOptions, selected: $filters.smokingPreferences)
                                     Divider().padding(.horizontal)
-                                    lifestyleChipsSection("Drinking", icon: "wineglass.fill", options: drinkingOptions, selected: $filters.drinkingPreferences)
+                                    workPreferencesChipsSection("Funding Stage", icon: "dollarsign.circle.fill", options: fundingStageOptions, selected: $filters.drinkingPreferences)
                                     Divider().padding(.horizontal)
-                                    lifestyleChipsSection("Pets", icon: "pawprint.fill", options: petOptions, selected: $filters.petPreferences)
+                                    workPreferencesChipsSection("Work Style", icon: "building.2.fill", options: workStyleOptions, selected: $filters.petPreferences)
                                     Divider().padding(.horizontal)
-                                    lifestyleChipsSection("Exercise", icon: "figure.run", options: exerciseOptions, selected: $filters.exercisePreferences)
-                                    Divider().padding(.horizontal)
-                                    lifestyleChipsSection("Diet", icon: "leaf.fill", options: dietOptions, selected: $filters.dietPreferences)
+                                    workPreferencesChipsSection("Skills Sought", icon: "star.fill", options: skillsetOptions, selected: $filters.exercisePreferences)
                                 }
                             }
                         )
@@ -420,105 +411,12 @@ struct DiscoverFiltersView: View {
         }
     }
 
-    // MARK: - Height Section
+    // MARK: - Partnership Goals Section
 
-    private var heightSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Height Range")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-
-                Spacer()
-
-                if filters.minHeight != nil || filters.maxHeight != nil {
-                    Button("Clear") {
-                        HapticManager.shared.impact(.light)
-                        filters.minHeight = nil
-                        filters.maxHeight = nil
-                    }
-                    .font(.caption)
-                    .foregroundColor(.purple)
-                }
-            }
-
-            VStack(spacing: 12) {
-                // Min height
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Min: \(filters.minHeight ?? 140) cm (\(heightToFeetInches(filters.minHeight ?? 140)))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    Slider(value: Binding(
-                        get: { Double(filters.minHeight ?? 140) },
-                        set: { filters.minHeight = Int($0) }
-                    ), in: 140...220, step: 1)
-                    .tint(.purple)
-                }
-
-                // Max height
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Max: \(filters.maxHeight ?? 220) cm (\(heightToFeetInches(filters.maxHeight ?? 220)))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    Slider(value: Binding(
-                        get: { Double(filters.maxHeight ?? 220) },
-                        set: { filters.maxHeight = Int($0) }
-                    ), in: 140...220, step: 1)
-                    .tint(.pink)
-                }
-            }
-        }
-    }
-
-    private func heightToFeetInches(_ cm: Int) -> String {
-        let totalInches = Double(cm) / 2.54
-        let feet = Int(totalInches / 12)
-        let inches = Int(totalInches.truncatingRemainder(dividingBy: 12))
-        return "\(feet)'\(inches)\""
-    }
-
-    // MARK: - Religion Section
-
-    private var religionSection: some View {
+    private var partnershipGoalsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Religion/Spirituality")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-
-                Spacer()
-
-                if !filters.religions.isEmpty {
-                    Button("Clear") {
-                        HapticManager.shared.impact(.light)
-                        filters.religions.removeAll()
-                    }
-                    .font(.caption)
-                    .foregroundColor(.purple)
-                }
-            }
-
-            FlowLayout(spacing: 8) {
-                ForEach(religionOptions, id: \.self) { option in
-                    SelectableFilterChip(
-                        title: option,
-                        isSelected: filters.religions.contains(option)
-                    ) {
-                        toggleReligion(option)
-                    }
-                }
-            }
-        }
-    }
-
-    // MARK: - Relationship Goals Section
-
-    private var relationshipGoalsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Looking For")
+                Text("Partnership Type")
                     .font(.subheadline)
                     .fontWeight(.medium)
 
@@ -535,21 +433,55 @@ struct DiscoverFiltersView: View {
             }
 
             FlowLayout(spacing: 8) {
-                ForEach(relationshipGoalOptions, id: \.self) { option in
+                ForEach(partnershipGoalOptions, id: \.self) { option in
                     SelectableFilterChip(
                         title: option,
                         isSelected: filters.relationshipGoals.contains(option)
                     ) {
-                        toggleRelationshipGoal(option)
+                        togglePartnershipGoal(option)
                     }
                 }
             }
         }
     }
 
-    // MARK: - Lifestyle Chips Section
+    // MARK: - Experience Level Section
 
-    private func lifestyleChipsSection(_ title: String, icon: String, options: [String], selected: Binding<Set<String>>) -> some View {
+    private var experienceLevelSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Experience Level")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+
+                Spacer()
+
+                if !filters.religions.isEmpty {
+                    Button("Clear") {
+                        HapticManager.shared.impact(.light)
+                        filters.religions.removeAll()
+                    }
+                    .font(.caption)
+                    .foregroundColor(.purple)
+                }
+            }
+
+            FlowLayout(spacing: 8) {
+                ForEach(experienceLevelOptions, id: \.self) { option in
+                    SelectableFilterChip(
+                        title: option,
+                        isSelected: filters.religions.contains(option)
+                    ) {
+                        toggleExperienceLevel(option)
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - Work Preferences Chips Section
+
+    private func workPreferencesChipsSection(_ title: String, icon: String, options: [String], selected: Binding<Set<String>>) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: icon)
@@ -643,7 +575,6 @@ struct DiscoverFiltersView: View {
         switch section {
         case .basics:
             var count = 0
-            // Removed distance filter
             if filters.minAge > 18 || filters.maxAge < 65 { count += 1 }
             if filters.showVerifiedOnly { count += 1 }
             return count > 0 ? count : nil
@@ -652,16 +583,14 @@ struct DiscoverFiltersView: View {
         case .background:
             var count = 0
             count += filters.educationLevels.count
-            if filters.minHeight != nil || filters.maxHeight != nil { count += 1 }
-            count += filters.religions.count
-            count += filters.relationshipGoals.count
+            count += filters.religions.count  // Used for experience level
+            count += filters.relationshipGoals.count  // Used for partnership goals
             return count > 0 ? count : nil
-        case .lifestyle:
-            let count = filters.smokingPreferences.count +
-                       filters.drinkingPreferences.count +
-                       filters.petPreferences.count +
-                       filters.exercisePreferences.count +
-                       filters.dietPreferences.count
+        case .lifestyle:  // Work Preferences
+            let count = filters.smokingPreferences.count +    // Commitment level
+                       filters.drinkingPreferences.count +    // Funding stage
+                       filters.petPreferences.count +         // Work style
+                       filters.exercisePreferences.count      // Skills sought
             return count > 0 ? count : nil
         }
     }
@@ -684,21 +613,21 @@ struct DiscoverFiltersView: View {
         }
     }
 
-    private func toggleReligion(_ option: String) {
-        HapticManager.shared.impact(.light)
-        if filters.religions.contains(option) {
-            filters.religions.remove(option)
-        } else {
-            filters.religions.insert(option)
-        }
-    }
-
-    private func toggleRelationshipGoal(_ option: String) {
+    private func togglePartnershipGoal(_ option: String) {
         HapticManager.shared.impact(.light)
         if filters.relationshipGoals.contains(option) {
             filters.relationshipGoals.remove(option)
         } else {
             filters.relationshipGoals.insert(option)
+        }
+    }
+
+    private func toggleExperienceLevel(_ option: String) {
+        HapticManager.shared.impact(.light)
+        if filters.religions.contains(option) {
+            filters.religions.remove(option)
+        } else {
+            filters.religions.insert(option)
         }
     }
 }

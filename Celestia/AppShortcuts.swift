@@ -176,43 +176,43 @@ struct ViewPremiumIntent: AppIntent {
     }
 }
 
-// MARK: - Share Date Details Intent
+// MARK: - Share Meeting Details Intent
 
 @available(iOS 16.0, *)
-struct ShareDateDetailsIntent: AppIntent {
+struct ShareMeetingDetailsIntent: AppIntent {
     static var title: LocalizedStringResource = "Share Meeting Details"
-    static var description = IntentDescription("Share your meeting location and time with emergency contacts")
+    static var description = IntentDescription("Share your meeting location and time with trusted contacts")
     static var openAppWhenRun: Bool = true
 
-    @Parameter(title: "Match Name")
+    @Parameter(title: "Co-founder Name")
     var matchName: String?
 
     @Parameter(title: "Location")
     var location: String?
 
-    @Parameter(title: "Date Time")
-    var dateTime: Date?
+    @Parameter(title: "Meeting Time")
+    var meetingTime: Date?
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Share date with \(\.$matchName) at \(\.$location)")
+        Summary("Share meeting with \(\.$matchName) at \(\.$location)")
     }
 
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog {
         // Track analytics
         AnalyticsManager.shared.logEvent(.appShortcutUsed, parameters: [
-            "shortcut": "share_date_details"
+            "shortcut": "share_meeting_details"
         ])
 
         guard let currentUser = AuthService.shared.currentUser else {
             throw AppShortcutError.notAuthenticated
         }
 
-        // If parameters provided, create share date automatically
-        if let matchName = matchName, let location = location, let dateTime = dateTime {
-            // This would integrate with ShareDateView functionality
+        // If parameters provided, create share meeting automatically
+        if let matchName = matchName, let location = location, let meetingTime = meetingTime {
+            // This would integrate with ShareMeetingView functionality
             return .result(
-                dialog: IntentDialog("Date details shared with your emergency contacts")
+                dialog: IntentDialog("Meeting details shared with your trusted contacts")
             )
         } else {
             // Open app to share meeting screen
@@ -222,6 +222,9 @@ struct ShareDateDetailsIntent: AppIntent {
         }
     }
 }
+
+// Legacy alias for backward compatibility
+typealias ShareDateDetailsIntent = ShareMeetingDetailsIntent
 
 // MARK: - Add Emergency Contact Intent
 
@@ -289,11 +292,11 @@ struct CheckInIntent: AppIntent {
             throw AppShortcutError.notAuthenticated
         }
 
-        // This would integrate with DateCheckInManager
+        // This would integrate with MeetingCheckInManager
         let message = statusMessage ?? "I'm safe"
 
-        // Mark current date as checked in
-        // DateCheckInManager.shared.checkIn(message: message)
+        // Mark current meeting as checked in
+        // MeetingCheckInManager.shared.checkIn(message: message)
 
         return .result(
             dialog: IntentDialog("Check-in recorded. Your emergency contacts have been notified you're safe.")
@@ -362,8 +365,8 @@ class AppShortcutDeepLinkHandler {
         case discover
         case messages
         case premium
-        case shareDate
-        case emergencyContacts
+        case shareMeeting
+        case trustedContacts
         case checkIn
     }
 

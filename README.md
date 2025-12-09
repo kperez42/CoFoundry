@@ -1,6 +1,6 @@
-# Celestia
+# CoFoundry
 
-A modern iOS dating application built with SwiftUI and Firebase, featuring swipe-based matching, real-time messaging, and premium subscriptions.
+A modern iOS co-founder matching application built with SwiftUI and Firebase, featuring swipe-based matching, real-time messaging, and premium subscriptions to help entrepreneurs find their perfect business partner.
 
 ## Table of Contents
 
@@ -17,21 +17,21 @@ A modern iOS dating application built with SwiftUI and Firebase, featuring swipe
 
 ## Features
 
-### Core Dating Features
-- **User Discovery** - Swipe-based matching system with advanced filters (age, gender, location, distance)
-- **Profile System** - Multi-photo profiles with bio, interests, languages, and personality prompts
-- **Matching System** - Mutual likes create instant matches
-- **Real-time Messaging** - Live chat with match tracking, unread counts, and typing indicators
-- **Interests/Likes** - Send likes to users with optional messages
+### Core Co-Founder Matching Features
+- **Founder Discovery** - Swipe-based matching system with advanced filters (experience, skills, industry, funding stage)
+- **Profile System** - Professional profiles with bio, skills, startup experience, and partnership goals
+- **Matching System** - Mutual likes create instant connections
+- **Real-time Messaging** - Live chat with connection tracking, unread counts, and typing indicators
+- **Interests/Likes** - Send connection requests to potential co-founders with optional messages
 
 ### Advanced Features
 - **Photo Verification** - Face detection using Apple's Vision framework
 - **Referral System** - Users earn 7 days of premium for each successful referral
 - **Profile Insights** - Analytics on profile views, swipe stats, match rates, and photo performance
 - **Content Moderation** - Automatic profanity filtering, spam detection, and personal info blocking
-- **Safety Center** - Safety tips, reporting, blocking, and screenshot detection
-- **Profile Prompts** - 100+ personality questions for engaging profiles
-- **Conversation Starters** - Pre-built icebreaker messages
+- **Safety Center** - Safety tips for meeting co-founders, reporting, blocking, and screenshot detection
+- **Profile Prompts** - 100+ questions to showcase your startup vision and work style
+- **Conversation Starters** - Pre-built icebreaker messages for professional networking
 - **Email Verification** - Required for full app access
 
 ### Premium Features
@@ -57,8 +57,8 @@ A modern iOS dating application built with SwiftUI and Firebase, featuring swipe
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Celestia.git
-cd Celestia
+git clone https://github.com/yourusername/CoFoundry.git
+cd CoFoundry
 ```
 
 ### 2. Install Dependencies
@@ -67,11 +67,11 @@ If using CocoaPods:
 
 ```bash
 pod install
-open Celestia.xcworkspace
+open CoFoundry.xcworkspace
 ```
 
 If using Swift Package Manager (SPM):
-- Open `Celestia.xcodeproj` in Xcode
+- Open `CoFoundry.xcodeproj` in Xcode
 - Dependencies should auto-resolve
 
 ### 3. Configure Firebase
@@ -81,7 +81,7 @@ See [Firebase Configuration](#firebase-configuration) section below for detailed
 ### 4. Configure Signing
 
 - Open the project in Xcode
-- Select the Celestia target
+- Select the CoFoundry target
 - Go to "Signing & Capabilities"
 - Select your development team
 - Xcode will automatically create provisioning profiles
@@ -104,7 +104,7 @@ See [Firebase Configuration](#firebase-configuration) section below for detailed
 #### 1. Add Configuration File
 
 - Place `GoogleService-Info.plist` in the root of the Celestia Xcode project
-- Make sure it's added to the Celestia target
+- Make sure it's added to the CoFoundry target
 
 #### 2. Enable Firebase Services
 
@@ -136,7 +136,7 @@ The app uses these Firestore collections:
 ```
 users/
   - {userId}/
-    - email, fullName, age, gender, location, etc.
+    - email, fullName, skills, partnershipGoal, etc.
 
 matches/
   - {matchId}/
@@ -179,7 +179,7 @@ Email verification is required for all users. See the comprehensive guide: [FIRE
 
 ## Architecture
 
-Celestia follows the **MVVM (Model-View-ViewModel)** architecture pattern with a service layer for business logic.
+CoFoundry follows the **MVVM (Model-View-ViewModel)** architecture pattern with a service layer for business logic.
 
 ### Architecture Diagram
 
@@ -232,14 +232,14 @@ Celestia follows the **MVVM (Model-View-ViewModel)** architecture pattern with a
 - Input validation and sanitization
 
 **MatchService** (`MatchService.swift`)
-- Match creation and management
-- Real-time match listeners
+- Connection creation and management
+- Real-time connection listeners
 - Unread count tracking
-- Match deletion/unmatch
+- Connection deletion/disconnect
 
 **SwipeService** (`SwipeService.swift`)
 - Like/pass recording
-- Mutual match detection
+- Mutual connection detection
 - Super likes
 - Swipe history tracking
 
@@ -265,7 +265,7 @@ Celestia follows the **MVVM (Model-View-ViewModel)** architecture pattern with a
 **NotificationService** (`NotificationService.swift`)
 - Push notification management
 - FCM token handling
-- New match/message notifications
+- New connection/message notifications
 
 #### Models
 
@@ -275,7 +275,7 @@ Celestia follows the **MVVM (Model-View-ViewModel)** architecture pattern with a
 - Contains preferences, stats, and referral info
 
 **Match** (`Match.swift`)
-- Represents a match between two users
+- Represents a connection between two users
 - Tracks last message and unread counts
 
 **Message** (`Message.swift`)
@@ -311,7 +311,7 @@ Celestia follows the **MVVM (Model-View-ViewModel)** architecture pattern with a
 
 ## Testing
 
-Celestia includes comprehensive unit tests for core services.
+CoFoundry includes comprehensive unit tests for core services.
 
 ### Running Tests
 
@@ -320,7 +320,7 @@ Celestia includes comprehensive unit tests for core services.
 Command + U in Xcode
 
 # Or via command line
-xcodebuild test -workspace Celestia.xcworkspace -scheme Celestia -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -workspace CoFoundry.xcworkspace -scheme CoFoundry -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
 ### Test Coverage
@@ -328,7 +328,7 @@ xcodebuild test -workspace Celestia.xcworkspace -scheme Celestia -destination 'p
 The following services have comprehensive unit tests:
 
 - **AuthServiceTests** - Authentication flows, validation, error handling
-- **MatchServiceTests** - Match creation, sorting, unread counts
+- **MatchServiceTests** - Connection creation, sorting, unread counts
 - **ContentModeratorTests** - Profanity, spam, personal info detection
 - **SwipeServiceTests** - Like/pass logic, mutual matching
 - **ReferralManagerTests** - Code generation, rewards calculation
@@ -350,7 +350,7 @@ Use Swift Testing framework:
 
 ```swift
 import Testing
-@testable import Celestia
+@testable import CoFoundry
 
 @Suite("My Feature Tests")
 struct MyFeatureTests {
@@ -377,7 +377,7 @@ struct MyFeatureTests {
 
 ### StoreKit 2 Implementation
 
-Celestia uses StoreKit 2 for in-app purchases with:
+CoFoundry uses StoreKit 2 for in-app purchases with:
 
 - **Transaction Verification** - Automatic verification of purchases
 - **Subscription Status** - Real-time subscription state tracking
@@ -396,250 +396,39 @@ Celestia uses StoreKit 2 for in-app purchases with:
 ## Project Structure
 
 ```
-Celestia/
-├── CelestiaApp.swift                 # App entry point
-├── ContentView.swift                 # Root view with auth routing
-│
-├── Models/                          # Data models
-│   ├── User.swift                   # User profile model
-│   ├── Match.swift                  # Match model
-│   ├── Message.swift                # Message model
-│   ├── Referral.swift               # Referral system models
-│   └── ProfilePrompt.swift          # Profile prompts
-│
-├── Services/                        # Business logic layer
-│   ├── AuthService.swift            # Authentication
-│   ├── UserService.swift            # User management
-│   ├── MatchService.swift           # Match operations
-│   ├── MessageService.swift         # Messaging
-│   ├── SwipeService.swift           # Like/pass logic
-│   ├── ReferralManager.swift        # Referral system
-│   ├── StoreManager.swift           # In-app purchases
-│   ├── NotificationService.swift    # Push notifications
-│   ├── ContentModerator.swift       # Content filtering
-│   ├── ImageUploadService.swift     # Photo uploads
-│   ├── BlockReportService.swift     # Safety features
-│   └── ServiceProtocols.swift       # Service interfaces
-│
-├── Views/                           # SwiftUI views
-│   ├── Authentication/
-│   │   ├── SignInView.swift
-│   │   ├── SignUpView.swift
-│   │   └── EmailVerificationView.swift
+CoFoundry/
+├── Celestia/                         # Main iOS app source
+│   ├── CelestiaApp.swift             # App entry point
+│   ├── ContentView.swift             # Root view with auth routing
 │   │
-│   ├── Main/
-│   │   ├── MainTabView.swift
-│   │   ├── DiscoverView.swift
-│   │   ├── MatchesView.swift
-│   │   ├── MessagesView.swift
-│   │   └── ProfileView.swift
+│   ├── Models/                       # Data models
+│   │   ├── User.swift                # User profile model
+│   │   ├── Match.swift               # Connection model
+│   │   ├── Message.swift             # Message model
+│   │   └── ProfilePrompt.swift       # Profile prompts
 │   │
-│   ├── Premium/
-│   │   └── PremiumUpgradeView.swift
+│   ├── Services/                     # Business logic layer
+│   │   ├── AuthService.swift         # Authentication
+│   │   ├── UserService.swift         # User management
+│   │   ├── MatchService.swift        # Connection operations
+│   │   ├── MessageService.swift      # Messaging
+│   │   ├── SwipeService.swift        # Like/pass logic
+│   │   └── ...
 │   │
-│   └── Components/
-│       ├── UserCardView.swift
-│       ├── MessageRowView.swift
-│       └── LoadingView.swift
+│   ├── Views/                        # SwiftUI views
+│   └── Utilities/                    # Helper classes
 │
-├── Utilities/                       # Helper classes
-│   ├── Constants.swift              # App constants
-│   ├── ErrorHandling.swift          # Error management
-│   ├── HapticManager.swift          # Haptic feedback
-│   ├── AnalyticsManager.swift       # Analytics
-│   ├── RateLimiter.swift            # Rate limiting
-│   ├── RetryManager.swift           # Network retry logic
-│   └── ImageCache.swift             # Image caching
-│
-├── Resources/                       # Assets and config
-│   ├── Assets.xcassets
-│   ├── GoogleService-Info.plist
-│   └── Info.plist
-│
-├── CelestiaTests/                   # Unit tests
-│   ├── AuthServiceTests.swift
-│   ├── MatchServiceTests.swift
-│   ├── ContentModeratorTests.swift
-│   ├── SwipeServiceTests.swift
-│   └── ReferralManagerTests.swift
-│
-└── Documentation/                   # Documentation
-    ├── README.md                    # This file
-    └── FIREBASE_EMAIL_SETUP.md      # Email verification guide
+├── CelestiaTests/                    # Unit tests
+├── Admin/                            # Admin web dashboard
+├── CloudFunctions/                   # Firebase cloud functions
+└── Documentation/                    # Guides and docs
 ```
-
-## Key Files Reference
-
-| File | Purpose | Lines |
-|------|---------|-------|
-| `AuthService.swift` | User authentication and validation | 526 |
-| `User.swift` | User profile model | 220 |
-| `Constants.swift` | Centralized configuration | 233 |
-| `ErrorHandling.swift` | Error types and handling | 436 |
-| `StoreManager.swift` | In-app purchase management | 350+ |
-| `ContentModerator.swift` | Content filtering | 238 |
-
-## Code Style Guidelines
-
-### Swift Conventions
-
-- Use 4 spaces for indentation
-- Maximum line length: 120 characters
-- Use explicit `self` only when required
-- Prefer `let` over `var` when possible
-- Use meaningful variable names
-
-### Comments
-
-- Use `// MARK: -` to organize code sections
-- Document complex logic with inline comments
-- Keep comments up-to-date with code changes
-
-### Error Handling
-
-```swift
-// Good
-do {
-    try await someOperation()
-} catch {
-    print("❌ Operation failed: \(error.localizedDescription)")
-    throw CelestiaError.from(error)
-}
-
-// Bad
-try! riskyOperation()  // Avoid force try
-```
-
-### Logging
-
-```swift
-// Use consistent logging format
-print("✅ Success message")  // Green check for success
-print("❌ Error message")    // Red X for errors
-print("⚠️ Warning message")  // Warning symbol
-print("🔵 Info message")     // Blue circle for info
-print("ℹ️ Debug message")    // Info symbol for debug
-```
-
-## Environment Variables
-
-### Debug Mode
-
-Debug features are controlled in `Constants.swift`:
-
-```swift
-enum Debug {
-    #if DEBUG
-    static let loggingEnabled = true
-    static let showDebugInfo = true
-    #else
-    static let loggingEnabled = false
-    static let showDebugInfo = false
-    #endif
-}
-```
-
-### Feature Flags
-
-Enable/disable features in `Constants.swift`:
-
-```swift
-enum Features {
-    static let voiceMessagesEnabled = false
-    static let videoCallsEnabled = false
-    static let storiesEnabled = false
-    static let groupChatsEnabled = false
-}
-```
-
-## Troubleshooting
-
-### Common Issues
-
-**1. Email Verification Not Working**
-- See [FIREBASE_EMAIL_SETUP.md](./FIREBASE_EMAIL_SETUP.md)
-- Check Firebase Console > Authentication > Templates
-- Verify authorized domains include your app domain
-
-**2. Firestore Permission Denied**
-- Check security rules in Firebase Console
-- Ensure user is authenticated
-- Verify rules allow the operation
-
-**3. Photos Not Uploading**
-- Check Firebase Storage rules
-- Verify image size is under limits
-- Check network connection
-
-**4. Matches Not Appearing**
-- Verify Firestore OR queries are supported (requires Firebase iOS SDK 10.0+)
-- Check user filters and preferences
-- Ensure both users meet each other's criteria
-
-**5. In-App Purchases Not Working**
-- Test with Sandbox account
-- Verify product IDs match App Store Connect
-- Check StoreKit configuration file
-- Ensure device can make payments
-
-### Debug Logging
-
-Enable verbose logging:
-
-```swift
-// In AppDelegate or App init
-Constants.log("App started", category: "Lifecycle")
-```
-
-### Reset User Data (Development)
-
-```swift
-// Sign out and clear local data
-AuthService.shared.signOut()
-
-// Delete Firestore user document (careful!)
-// Only do this in development
-```
-
-## Contributing
-
-We welcome contributions! Please follow these guidelines:
-
-### Pull Request Process
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Commit Messages
-
-Use conventional commit format:
-
-```
-feat: Add voice message support
-fix: Resolve crash on profile save
-docs: Update Firebase setup guide
-test: Add tests for SwipeService
-refactor: Extract StoreManager to separate file
-```
-
-### Code Review Checklist
-
-- [ ] Code follows Swift style guidelines
-- [ ] All tests pass
-- [ ] New features have unit tests
-- [ ] Documentation is updated
-- [ ] No hardcoded credentials or secrets
-- [ ] Print statements use consistent logging format
-- [ ] Error handling is comprehensive
 
 ## Security
 
 ### Reporting Security Issues
 
-Please email security concerns to: support@celestia.app
+Please email security concerns to: support@cofoundry.app
 
 **Do not** open public issues for security vulnerabilities.
 
@@ -652,39 +441,17 @@ Please email security concerns to: support@celestia.app
 - Use HTTPS for all network requests
 - Implement rate limiting for API calls
 
-## Performance
-
-### Optimization Tips
-
-- Use `ImageCache` for profile photos
-- Implement pagination for large lists
-- Use Firestore listeners carefully (remember to detach)
-- Lazy load images in scrollable views
-- Profile with Instruments regularly
-
-### Monitoring
-
-- Firebase Analytics for user behavior
-- Firebase Crashlytics for crash reporting
-- Custom events for funnel tracking
-
 ## Roadmap
 
 ### Planned Features
 
 - [ ] Voice messages in chat
-- [ ] Video calling with matches
-- [ ] Stories feature
-- [ ] Group chats
+- [ ] Video calling with connections
+- [ ] Founder stories feature
+- [ ] Group chats for teams
 - [ ] Advanced AI matching algorithm
 - [ ] Video profile support
-- [ ] In-app date planning tools
-
-### Known Issues
-
-- Voice messages feature flag disabled (in development)
-- Video calls not yet implemented
-- Stories feature planned for future release
+- [ ] In-app meeting planning tools
 
 ## Support
 
@@ -696,13 +463,12 @@ Please email security concerns to: support@celestia.app
 
 ### Contact
 
-- **Email**: support@celestia.app
-- **Website**: https://celestia.app
-- **Twitter**: @celestiaapp
+- **Email**: support@cofoundry.app
+- **Website**: https://cofoundry.app
 
 ## License
 
-Copyright © 2025 Celestia. All rights reserved.
+Copyright © 2025 CoFoundry. All rights reserved.
 
 ## Acknowledgments
 
@@ -714,4 +480,6 @@ Copyright © 2025 Celestia. All rights reserved.
 
 **Built with ❤️ using SwiftUI and Firebase**
 
-*Last Updated: January 2025*
+*Find your co-founder, build your vision*
+
+*Last Updated: December 2025*
