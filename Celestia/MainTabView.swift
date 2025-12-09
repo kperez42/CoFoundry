@@ -209,13 +209,13 @@ struct MainTabView: View {
                     selectedTab = 0
                 }
 
-                // Likes
+                // Interests
                 TabBarButton(
-                    icon: "heart.fill",
-                    title: "Likes",
+                    icon: "hand.thumbsup.fill",
+                    title: "Interests",
                     isSelected: selectedTab == 1,
                     badgeCount: newMatchesCount,
-                    color: .pink
+                    color: .green
                 ) {
                     selectedTab = 1
                 }
@@ -368,9 +368,9 @@ struct TabBarButton: View {
     private var accessibilityHint: String {
         switch title {
         case "Discover":
-            return "Browse potential matches"
-        case "Matches":
-            return "View your matches"
+            return "Browse potential co-founders"
+        case "Interests":
+            return "View who's interested in you"
         case "Messages":
             return "Read and send messages"
         case "Saved":

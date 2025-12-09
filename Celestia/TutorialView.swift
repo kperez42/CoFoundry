@@ -3,7 +3,7 @@
 //  CoFoundry
 //
 //  Interactive tutorials for core features
-//  Guides new users through swiping, matching, and messaging
+//  Guides new users through discovering, connecting, and messaging co-founders
 //
 
 import SwiftUI
@@ -299,26 +299,26 @@ class TutorialManager: ObservableObject {
         return [
             Tutorial(
                 id: "welcome",
-                title: "Welcome to CoFoundry! 🌟",
-                description: "Your journey to meaningful connections starts here. Let's show you around!",
+                title: "Welcome to CoFoundry! 🚀",
+                description: "Your journey to finding the perfect co-founder starts here. Let's show you around!",
                 icon: "star.fill",
                 accentColor: .purple,
                 tips: [
-                    "Be authentic and genuine",
-                    "Add photos that show your personality",
-                    "Write a bio that sparks conversation"
+                    "Be authentic about your skills and goals",
+                    "Add professional photos",
+                    "Write a bio that highlights your startup vision"
                 ]
             ),
 
             Tutorial(
                 id: "scrolling",
-                title: "Discover & Scroll",
-                description: "Scroll through profiles one by one. Tap the heart to like or tap the profile card for more details!",
+                title: "Discover & Browse",
+                description: "Browse through founder profiles one by one. Tap to express interest or tap the profile card for more details!",
                 icon: "arrow.up.arrow.down",
                 accentColor: .pink,
                 tips: [
-                    "Scroll up and down to browse profiles",
-                    "Tap the heart button to like someone",
+                    "Scroll to browse potential co-founders",
+                    "Tap the thumbs up to express interest",
                     "Tap the star to save profiles for later"
                 ],
                 interactiveDemo: AnyView(ScrollBrowseDemo())
@@ -326,27 +326,27 @@ class TutorialManager: ObservableObject {
 
             Tutorial(
                 id: "matching",
-                title: "Make Matches",
-                description: "When someone you liked also likes you back, you'll both be notified and can start chatting!",
-                icon: "heart.fill",
-                accentColor: .red,
+                title: "Make Connections",
+                description: "When someone you're interested in is also interested in you, you'll both be notified and can start chatting!",
+                icon: "person.2.fill",
+                accentColor: .green,
                 tips: [
-                    "Matches appear in your Matches tab",
-                    "Send the first message to break the ice",
-                    "Be respectful and genuine"
+                    "Connections appear in your Connections tab",
+                    "Send the first message to start the conversation",
+                    "Be professional and genuine"
                 ]
             ),
 
             Tutorial(
                 id: "messaging",
                 title: "Start Conversations",
-                description: "Once matched, send a message to start getting to know each other better.",
+                description: "Once connected, send a message to start discussing potential collaboration.",
                 icon: "message.fill",
                 accentColor: .blue,
                 tips: [
-                    "Ask about their interests",
+                    "Ask about their startup experience",
                     "Reference something from their profile",
-                    "Be yourself and have fun!"
+                    "Share your vision and goals"
                 ],
                 interactiveDemo: AnyView(MessageDemo())
             ),
@@ -354,25 +354,25 @@ class TutorialManager: ObservableObject {
             Tutorial(
                 id: "profile_quality",
                 title: "Complete Your Profile",
-                description: "High-quality profiles get 5x more matches. Add photos, write a bio, and share your interests!",
+                description: "High-quality profiles get 5x more connections. Add photos, write a bio, and share your expertise!",
                 icon: "person.crop.circle.fill.badge.checkmark",
                 accentColor: .green,
                 tips: [
-                    "Add 4-6 clear photos",
-                    "Write a bio that shows your personality",
-                    "Select at least 5 interests"
+                    "Add professional photos",
+                    "Write a bio that shows your startup vision",
+                    "Highlight your skills and industry expertise"
                 ]
             ),
 
             Tutorial(
                 id: "safety",
-                title: "Stay Safe",
-                description: "Your safety is our priority. Report inappropriate behavior and never share personal info too soon.",
+                title: "Stay Professional",
+                description: "Build trust by being professional. Report inappropriate behavior and verify credentials before committing.",
                 icon: "shield.checkered",
                 accentColor: .orange,
                 tips: [
-                    "Meet in public places first",
-                    "Tell a friend about your plans",
+                    "Meet in professional settings first",
+                    "Verify their professional background",
                     "Trust your instincts",
                     "Report and block suspicious accounts"
                 ]
@@ -385,14 +385,14 @@ class TutorialManager: ObservableObject {
         case "super_like":
             return Tutorial(
                 id: "super_like",
-                title: "Super Like ⭐",
-                description: "Stand out from the crowd! Super Likes show you're really interested.",
+                title: "Priority Interest ⭐",
+                description: "Stand out from the crowd! Priority interests show you're really interested in connecting.",
                 icon: "star.circle.fill",
                 accentColor: .blue,
                 tips: [
-                    "You get 1 free Super Like per day",
+                    "You get 1 free priority interest per day",
                     "Premium users get 5 per day",
-                    "Use them on profiles you really like!"
+                    "Use them on co-founders you really want to work with!"
                 ]
             )
 
@@ -400,7 +400,7 @@ class TutorialManager: ObservableObject {
             return Tutorial(
                 id: "boost",
                 title: "Profile Boost 🚀",
-                description: "Get 10x more profile views for 30 minutes. Perfect for busy times!",
+                description: "Get 10x more profile views for 30 minutes. Perfect for reaching more potential co-founders!",
                 icon: "flame.fill",
                 accentColor: .orange,
                 tips: [
@@ -463,16 +463,16 @@ struct ScrollBrowseDemo: View {
 
                             Spacer()
 
-                            // Like button
+                            // Interest button
                             Button {
                                 HapticManager.shared.impact(.light)
                                 withAnimation(.spring(response: 0.3)) {
                                     isLiked[index].toggle()
                                 }
                             } label: {
-                                Image(systemName: isLiked[index] ? "heart.fill" : "heart")
+                                Image(systemName: isLiked[index] ? "hand.thumbsup.fill" : "hand.thumbsup")
                                     .font(.title3)
-                                    .foregroundColor(isLiked[index] ? .pink : .gray)
+                                    .foregroundColor(isLiked[index] ? .green : .gray)
                                     .scaleEffect(isLiked[index] ? 1.2 : 1.0)
                             }
                         }
@@ -597,7 +597,7 @@ struct MessageDemo: View {
                 // Sample message bubble
                 HStack {
                     Spacer()
-                    Text("Hey! Nice to match with you 👋")
+                    Text("Hey! Great to connect with you 👋")
                         .padding(12)
                         .background(Color.purple.opacity(0.2))
                         .cornerRadius(16)
