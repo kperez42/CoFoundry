@@ -1,20 +1,20 @@
 //
-//  ShareDateView.swift
+//  ShareMeetingView.swift
 //  CoFoundry
 //
-//  Share date details with trusted contacts for safety
+//  Share meeting details with trusted contacts for professional safety
 //
 
 import SwiftUI
 import FirebaseFirestore
 import MapKit
 
-struct ShareDateView: View {
+struct ShareMeetingView: View {
     @EnvironmentObject var authService: AuthService
-    @StateObject private var viewModel = ShareDateViewModel()
+    @StateObject private var viewModel = ShareMeetingViewModel()
     @Environment(\.dismiss) var dismiss
     @State private var selectedMatch: User?
-    @State private var dateTime = Date()
+    @State private var meetingTime = Date()
     @State private var location = ""
     @State private var additionalNotes = ""
     @State private var selectedContacts: Set<EmergencyContact> = []
@@ -26,10 +26,10 @@ struct ShareDateView: View {
                 // Header
                 headerSection
 
-                // Date Details
-                dateDetailsSection
+                // Meeting Details
+                meetingDetailsSection
 
-                // Emergency Contacts
+                // Trusted Contacts
                 contactsSection
 
                 // Share Button
@@ -38,13 +38,13 @@ struct ShareDateView: View {
             .padding()
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Share Your Date")
+        .navigationTitle("Share Meeting Details")
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await viewModel.loadEmergencyContacts()
+            await viewModel.loadTrustedContacts()
         }
         .sheet(item: $viewModel.shareConfirmation) { confirmation in
-            DateSharedConfirmationView(confirmation: confirmation)
+            MeetingSharedConfirmationView(confirmation: confirmation)
         }
         .sheet(isPresented: $showMatchPicker) {
             MatchPickerView(selectedMatch: $selectedMatch)
@@ -59,10 +59,10 @@ struct ShareDateView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.blue)
 
-            Text("Stay Safe on Your Date")
+            Text("Stay Safe During Meetings")
                 .font(.title2.bold())
 
-            Text("Share your date plans with trusted contacts. They'll receive your details and can check in on you.")
+            Text("Share your meeting plans with trusted contacts. They'll receive your details and can check in on you.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -73,11 +73,11 @@ struct ShareDateView: View {
         .cornerRadius(16)
     }
 
-    // MARK: - Date Details Section
+    // MARK: - Meeting Details Section
 
-    private var dateDetailsSection: some View {
+    private var meetingDetailsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Date Details")
+            Text("Meeting Details")
                 .font(.headline)
 
             VStack(spacing: 16) {
@@ -95,7 +95,7 @@ struct ShareDateView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
 
-                            Text(selectedMatch?.fullName ?? "Select match")
+                            Text(selectedMatch?.fullName ?? "Select co-founder")
                                 .font(.body)
                                 .foregroundColor(.primary)
                         }
@@ -111,13 +111,13 @@ struct ShareDateView: View {
                     .cornerRadius(12)
                 }
 
-                // Date & Time
+                // Meeting Date & Time
                 VStack(alignment: .leading, spacing: 8) {
                     Label("Date & Time", systemImage: "calendar.clock")
                         .font(.caption)
                         .foregroundColor(.secondary)
 
-                    DatePicker("", selection: $dateTime, in: Date()...)
+                    DatePicker("", selection: $meetingTime, in: Date()...)
                         .datePickerStyle(.graphical)
                         .padding()
                         .background(Color.white)
@@ -130,7 +130,7 @@ struct ShareDateView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
 
-                    TextField("Restaurant name or address", text: $location)
+                    TextField("Coffee shop, coworking space, or address", text: $location)
                         .textFieldStyle(.plain)
                         .padding()
                         .background(Color.white)
@@ -168,7 +168,7 @@ struct ShareDateView: View {
                 Spacer()
 
                 NavigationLink {
-                    EmergencyContactsView()
+                    TrustedContactsView()
                 } label: {
                     Text("Manage")
                         .font(.subheadline)
@@ -176,24 +176,24 @@ struct ShareDateView: View {
                 }
             }
 
-            if viewModel.emergencyContacts.isEmpty {
+            if viewModel.trustedContacts.isEmpty {
                 // Empty state
                 VStack(spacing: 16) {
                     Image(systemName: "person.crop.circle.badge.plus")
                         .font(.system(size: 40))
                         .foregroundColor(.gray.opacity(0.5))
 
-                    Text("No Emergency Contacts")
+                    Text("No Trusted Contacts")
                         .font(.headline)
                         .foregroundColor(.secondary)
 
-                    Text("Add trusted contacts who can check on you during your date.")
+                    Text("Add trusted contacts who can check on you during your meetings.")
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
 
                     NavigationLink {
-                        EmergencyContactsView()
+                        TrustedContactsView()
                     } label: {
                         Text("Add Contacts")
                             .font(.subheadline.bold())
@@ -211,7 +211,7 @@ struct ShareDateView: View {
             } else {
                 // Contacts list
                 VStack(spacing: 8) {
-                    ForEach(viewModel.emergencyContacts) { contact in
+                    ForEach(viewModel.trustedContacts) { contact in
                         ContactSelectionRow(
                             contact: contact,
                             isSelected: selectedContacts.contains(contact)
@@ -233,9 +233,9 @@ struct ShareDateView: View {
     private var shareButton: some View {
         Button {
             Task {
-                await viewModel.shareDateDetails(
+                await viewModel.shareMeetingDetails(
                     match: selectedMatch,
-                    dateTime: dateTime,
+                    meetingTime: meetingTime,
                     location: location,
                     notes: additionalNotes,
                     contacts: Array(selectedContacts)
@@ -244,7 +244,7 @@ struct ShareDateView: View {
         } label: {
             HStack {
                 Image(systemName: "paperplane.fill")
-                Text("Share Date Details")
+                Text("Share Meeting Details")
             }
             .font(.headline)
             .foregroundColor(.white)
@@ -273,56 +273,10 @@ struct ShareDateView: View {
     }
 }
 
-// MARK: - Contact Selection Row
+// MARK: - Meeting Shared Confirmation View
 
-struct ContactSelectionRow: View {
-    let contact: EmergencyContact
-    let isSelected: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 12) {
-                // Profile image
-                Circle()
-                    .fill(Color.blue.opacity(0.1))
-                    .frame(width: 40, height: 40)
-                    .overlay(
-                        Text(contact.name.prefix(1))
-                            .font(.headline)
-                            .foregroundColor(.blue)
-                    )
-
-                // Info
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(contact.name)
-                        .font(.body)
-                        .foregroundColor(.primary)
-
-                    Text(contact.phoneNumber)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-
-                Spacer()
-
-                // Checkmark
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundColor(isSelected ? .blue : .gray.opacity(0.3))
-            }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(12)
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - Date Shared Confirmation View
-
-struct DateSharedConfirmationView: View {
-    let confirmation: DateShareConfirmation
+struct MeetingSharedConfirmationView: View {
+    let confirmation: MeetingShareConfirmation
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -343,7 +297,7 @@ struct DateSharedConfirmationView: View {
 
                 // Message
                 VStack(spacing: 12) {
-                    Text("Date Details Shared!")
+                    Text("Meeting Details Shared!")
                         .font(.title.bold())
 
                     Text("Your trusted contacts have been notified and will receive updates.")
@@ -397,22 +351,22 @@ struct DateSharedConfirmationView: View {
 
 // MARK: - Models
 
-struct DateShareConfirmation: Identifiable {
+struct MeetingShareConfirmation: Identifiable {
     let id = UUID()
     let sharedWith: [String]
-    let dateTime: Date
+    let meetingTime: Date
 }
 
 // MARK: - View Model
 
 @MainActor
-class ShareDateViewModel: ObservableObject {
-    @Published var emergencyContacts: [EmergencyContact] = []
-    @Published var shareConfirmation: DateShareConfirmation?
+class ShareMeetingViewModel: ObservableObject {
+    @Published var trustedContacts: [EmergencyContact] = []
+    @Published var shareConfirmation: MeetingShareConfirmation?
 
     private let db = Firestore.firestore()
 
-    func loadEmergencyContacts() async {
+    func loadTrustedContacts() async {
         guard let userId = AuthService.shared.currentUser?.id else { return }
 
         do {
@@ -420,15 +374,15 @@ class ShareDateViewModel: ObservableObject {
                 .whereField("userId", isEqualTo: userId)
                 .getDocuments()
 
-            emergencyContacts = snapshot.documents.compactMap { doc in
+            trustedContacts = snapshot.documents.compactMap { doc in
                 let contact = try? doc.data(as: EmergencyContact.self)
-                // Filter for contacts that have date alerts enabled
+                // Filter for contacts that have meeting alerts enabled
                 return contact?.notificationPreferences.receiveScheduledDateAlerts == true ? contact : nil
             }
 
-            Logger.shared.info("Loaded \(emergencyContacts.count) emergency contacts", category: .general)
+            Logger.shared.info("Loaded \(trustedContacts.count) trusted contacts", category: .general)
         } catch {
-            Logger.shared.error("Error loading emergency contacts", category: .general, error: error)
+            Logger.shared.error("Error loading trusted contacts", category: .general, error: error)
         }
     }
 
@@ -436,9 +390,9 @@ class ShareDateViewModel: ObservableObject {
         match != nil && !location.isEmpty && !contacts.isEmpty
     }
 
-    func shareDateDetails(
+    func shareMeetingDetails(
         match: User?,
-        dateTime: Date,
+        meetingTime: Date,
         location: String,
         notes: String,
         contacts: [EmergencyContact]
@@ -446,11 +400,11 @@ class ShareDateViewModel: ObservableObject {
         guard let match = match, let userId = AuthService.shared.currentUser?.id else { return }
 
         do {
-            let dateShare: [String: Any] = [
+            let meetingShare: [String: Any] = [
                 "userId": userId,
                 "matchId": match.id as Any,
                 "matchName": match.fullName,
-                "dateTime": Timestamp(date: dateTime),
+                "meetingTime": Timestamp(date: meetingTime),
                 "location": location,
                 "notes": notes,
                 "sharedWith": contacts.map { $0.id },
@@ -458,36 +412,36 @@ class ShareDateViewModel: ObservableObject {
                 "status": "active"
             ]
 
-            try await db.collection("shared_dates").addDocument(data: dateShare)
+            try await db.collection("shared_meetings").addDocument(data: meetingShare)
 
             // Send notifications to contacts
             for contact in contacts {
-                try await sendDateNotification(to: contact, match: match, dateTime: dateTime, location: location)
+                try await sendMeetingNotification(to: contact, match: match, meetingTime: meetingTime, location: location)
             }
 
-            shareConfirmation = DateShareConfirmation(
+            shareConfirmation = MeetingShareConfirmation(
                 sharedWith: contacts.map { $0.name },
-                dateTime: dateTime
+                meetingTime: meetingTime
             )
 
             AnalyticsServiceEnhanced.shared.trackEvent(
                 .featureUsed,
                 properties: [
-                    "feature": "share_date",
+                    "feature": "share_meeting",
                     "contactsCount": contacts.count
                 ]
             )
 
-            Logger.shared.info("Date details shared with \(contacts.count) contacts", category: .general)
+            Logger.shared.info("Meeting details shared with \(contacts.count) contacts", category: .general)
         } catch {
-            Logger.shared.error("Error sharing date details", category: .general, error: error)
+            Logger.shared.error("Error sharing meeting details", category: .general, error: error)
         }
     }
 
-    private func sendDateNotification(
+    private func sendMeetingNotification(
         to contact: EmergencyContact,
         match: User,
-        dateTime: Date,
+        meetingTime: Date,
         location: String
     ) async throws {
         guard let userId = AuthService.shared.currentUser?.id else { return }
@@ -503,39 +457,25 @@ class ShareDateViewModel: ObservableObject {
             "contactPhone": contact.phoneNumber,
             "userId": userId,
             "matchName": match.fullName,
-            "dateTime": Timestamp(date: dateTime),
+            "meetingTime": Timestamp(date: meetingTime),
             "location": location,
-            "formattedDateTime": dateFormatter.string(from: dateTime),
+            "formattedDateTime": dateFormatter.string(from: meetingTime),
             "sentAt": Timestamp(date: Date()),
-            "type": "safety_date_alert"
+            "type": "safety_meeting_alert"
         ]
 
         // Save notification to Firestore for tracking
         try await db.collection("safety_notifications").addDocument(data: notificationData)
 
-        // PRODUCTION NOTE: Actual SMS/Email sending would be handled by a backend service
-        // This would typically integrate with services like:
-        // - Twilio for SMS
-        // - SendGrid for Email
-        // - Firebase Cloud Functions to trigger these services
-        //
-        // Example backend flow:
-        // 1. Cloud Function watches 'safety_notifications' collection
-        // 2. When new document added, function triggers
-        // 3. Function calls Twilio/SendGrid to send SMS/Email to contact
-        // 4. Updates notification document with delivery status
-        //
-        // For development/testing, notification is logged and saved to database
-
         let message = """
         Safety Alert from CoFoundry:
-        \(AuthService.shared.currentUser?.fullName ?? "A user") has shared their date details with you.
+        \(AuthService.shared.currentUser?.fullName ?? "A user") has shared their meeting details with you.
 
-        Date: \(dateFormatter.string(from: dateTime))
-        Meeting: \(match.fullName)
+        Meeting Time: \(dateFormatter.string(from: meetingTime))
+        Meeting With: \(match.fullName)
         Location: \(location)
 
-        This is an automated safety notification.
+        This is an automated safety notification for a co-founder meeting.
         """
 
         Logger.shared.info("""
@@ -547,221 +487,17 @@ class ShareDateViewModel: ObservableObject {
     }
 }
 
-// MARK: - Match Picker View
+// MARK: - Trusted Contacts View (Alias for EmergencyContactsView with better naming)
 
-struct MatchPickerView: View {
-    @Binding var selectedMatch: User?
-    @Environment(\.dismiss) var dismiss
-    @StateObject private var matchService = MatchService.shared
-    @State private var isLoading = false
-    @State private var matches: [Match] = []
-    @State private var matchUsers: [String: User] = [:] // Map of match ID to User
-
+struct TrustedContactsView: View {
     var body: some View {
-        NavigationStack {
-            Group {
-                if isLoading {
-                    ProgressView("Loading matches...")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else if matches.isEmpty {
-                    emptyStateView
-                } else {
-                    matchList
-                }
-            }
-            .navigationTitle("Select Match")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
-            .task {
-                await loadMatches()
-            }
-        }
-    }
-
-    // MARK: - Empty State
-
-    private var emptyStateView: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "person.2.slash")
-                .font(.system(size: 60))
-                .foregroundColor(.gray.opacity(0.5))
-
-            VStack(spacing: 12) {
-                Text("No Matches Yet")
-                    .font(.title2.bold())
-
-                Text("You don't have any matches to share your date with yet. Start swiping to find matches!")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    // MARK: - Match List
-
-    private var matchList: some View {
-        List {
-            ForEach(Array(matches.enumerated()), id: \.0) { index, match in
-                if let otherUser = getOtherUser(from: match) {
-                    MatchPickerRow(user: otherUser) {
-                        selectedMatch = otherUser
-                        dismiss()
-
-                        // Track analytics
-                        AnalyticsManager.shared.logEvent(.matchSelected, parameters: [
-                            "match_id": match.id ?? "",
-                            "source": "share_date"
-                        ])
-                    }
-                }
-            }
-        }
-        .listStyle(.insetGrouped)
-    }
-
-    // MARK: - Helper Methods
-
-    // PERFORMANCE FIX: Use batch queries instead of N+1 queries
-    private func loadMatches() async {
-        guard let currentUserId = AuthService.shared.currentUser?.id else { return }
-
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            // Fetch matches
-            try await matchService.fetchMatches(userId: currentUserId)
-            matches = matchService.matches
-
-            // Collect all other user IDs
-            let otherUserIds = matches.map { match in
-                match.user1Id == currentUserId ? match.user2Id : match.user1Id
-            }
-
-            guard !otherUserIds.isEmpty else { return }
-
-            // Batch fetch users in groups of 10 (Firestore 'in' query limit)
-            let db = Firestore.firestore()
-            let uniqueUserIds = Array(Set(otherUserIds))
-
-            for i in stride(from: 0, to: uniqueUserIds.count, by: 10) {
-                let batchEnd = min(i + 10, uniqueUserIds.count)
-                let batchIds = Array(uniqueUserIds[i..<batchEnd])
-
-                guard !batchIds.isEmpty else { continue }
-
-                let batchSnapshot = try await db.collection("users")
-                    .whereField(FieldPath.documentID(), in: batchIds)
-                    .getDocuments()
-
-                let batchUsers = batchSnapshot.documents.compactMap { try? $0.data(as: User.self) }
-
-                // Map users to their match IDs
-                for user in batchUsers {
-                    guard let userId = user.id else { continue }
-                    // Find match that includes this user
-                    if let match = matches.first(where: {
-                        ($0.user1Id == userId || $0.user2Id == userId) && $0.user1Id != userId || $0.user2Id != userId
-                    }), let matchId = match.id {
-                        matchUsers[matchId] = user
-                    }
-                    // Also store by user ID for easier lookup
-                    for match in matches {
-                        let otherUserId = match.user1Id == currentUserId ? match.user2Id : match.user1Id
-                        if otherUserId == userId, let matchId = match.id {
-                            matchUsers[matchId] = user
-                        }
-                    }
-                }
-            }
-
-            Logger.shared.info("Loaded \(matches.count) matches for date sharing using batch queries", category: .general)
-        } catch {
-            Logger.shared.error("Error loading matches for picker", category: .general, error: error)
-        }
-    }
-
-    private func getOtherUser(from match: Match) -> User? {
-        guard let currentUserId = AuthService.shared.currentUser?.id else { return nil }
-        return matchUsers[match.id ?? ""]
-    }
-}
-
-// MARK: - Match Picker Row
-
-struct MatchPickerRow: View {
-    let user: User
-    let onSelect: () -> Void
-
-    var body: some View {
-        Button(action: onSelect) {
-            HStack(spacing: 16) {
-                // Profile Image - PERFORMANCE: Use CachedAsyncImage
-                if let photoURL = user.photos.first, let url = URL(string: photoURL) {
-                    CachedAsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                    } placeholder: {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                    }
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle())
-                } else {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [.blue, .purple],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Text(user.name.prefix(1))
-                                .font(.title2.bold())
-                                .foregroundColor(.white)
-                        )
-                }
-
-                // User Info
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(user.name)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-
-                    if user.age > 0 {
-                        Text("\(user.age) years old")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                }
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            .padding(.vertical, 8)
-        }
-        .buttonStyle(.plain)
+        EmergencyContactsView()
     }
 }
 
 #Preview {
     NavigationStack {
-        ShareDateView()
+        ShareMeetingView()
             .environmentObject(AuthService.shared)
     }
 }

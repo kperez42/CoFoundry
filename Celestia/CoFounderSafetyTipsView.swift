@@ -1,5 +1,5 @@
 //
-//  NetworkingSafetyTipsView.swift
+//  CoFounderSafetyTipsView.swift
 //  CoFoundry
 //
 //  Safety tips and resources for professional co-founder networking
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SafeDatingTipsView: View {
+struct CoFounderSafetyTipsView: View {
     @State private var selectedCategory: TipCategory = .beforeMeeting
 
     var body: some View {
@@ -464,6 +464,6 @@ struct SafetyTip: Identifiable {
 
 #Preview {
     NavigationStack {
-        SafeDatingTipsView()
+        CoFounderSafetyTipsView()
     }
 }
